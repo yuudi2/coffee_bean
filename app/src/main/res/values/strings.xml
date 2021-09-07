@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">project1</string>
+
+    <string name="underlined_dynamic_text"><u>%s</u></string>
+</resources>
