@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:clipToPadding="false"
-    android:background="#4A2A7C"
+    android:background="#4f2e72"
     tools:context=".MainActivity">
 
 
@@ -144,7 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_weight="1"
-        android:background="#222222"
+        android:background="#333333"
         android:textColor="@color/white"
         android:theme="@style/btnripple"
         android:textSize="13dp"

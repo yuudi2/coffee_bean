@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sv_root"
     android:layout_width="match_parent"
     android:fillViewport="true"
     android:layout_height="match_parent">
 
 <LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -17,7 +17,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4A2A7C"
+        android:background="#4f2e72"
         android:orientation="horizontal">
 
         <ImageButton
@@ -56,7 +56,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/nanum_eb"
             android:text="아이디"
-            android:textColor="#4A2A7C"
+            android:textColor="#4f2e72"
             android:textSize="16dp" />
 
         <LinearLayout
@@ -84,7 +84,7 @@
                 android:background="@drawable/btn_color3"
                 android:fontFamily="@font/nanum_eb"
                 android:text="중복확인"
-                android:textColor="#4A2A7C"
+                android:textColor="#4f2e72"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/nanum_eb"
                 android:text="비밀번호"
-                android:textColor="#4A2A7C"
+                android:textColor="#4f2e72"
                 android:textSize="16dp" />
 
             <TextView
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_eb"
                 android:text="이름"
-                android:textColor="#4A2A7C"
+                android:textColor="#4f2e72"
                 android:textSize="16dp" />
 
             <EditText
@@ -165,7 +165,7 @@
                 android:layout_marginTop="35dp"
                 android:fontFamily="@font/nanum_eb"
                 android:text="연락처"
-                android:textColor="#4A2A7C"
+                android:textColor="#4f2e72"
                 android:textSize="16dp" />
 
             <EditText
@@ -184,7 +184,7 @@
                 android:layout_marginTop="35dp"
                 android:fontFamily="@font/nanum_eb"
                 android:text="이메일"
-                android:textColor="#4A2A7C"
+                android:textColor="#4f2e72"
                 android:textSize="16dp" />
 
             <LinearLayout
@@ -219,12 +219,12 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_gravity="center"
-        android:background="#4A2A7C"
+        android:background="#4f2e72"
         android:fontFamily="@font/nanum_b"
         android:text="회원가입"
         android:textColor="@color/white"
         android:textSize="16dp" />
 
 
- </LinearLayout>
+</LinearLayout>
 </ScrollView>

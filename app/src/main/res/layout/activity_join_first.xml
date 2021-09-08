@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#4A2A7C"
+        android:background="#4f2e72"
         android:orientation="horizontal">
 
         <ImageButton
@@ -38,7 +38,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#4A2A7C"
+        android:background="#4f2e72"
         android:orientation="vertical">
 
         <TextView
@@ -333,7 +333,7 @@
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:layout_gravity="center"
-            android:background="#4A2A7C"
+            android:background="#4f2e72"
             android:fontFamily="@font/nanum_b"
             android:text="동의하고 인증하기"
             android:textColor="@color/white"
