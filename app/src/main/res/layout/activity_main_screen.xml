@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:id="@+id/drawerLayout"
+    android:background="#2f2f2f"
     android:orientation="vertical"
     tools:context=".main_screen">
 
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -15,13 +20,13 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/menu_button"
             android:layout_width="27dp"
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_icon_before_01" />
+            app:srcCompat="@drawable/ic_icon_menu" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,172 +37,366 @@
             android:textColor="@color/white"
             android:textSize="18.2dp" />
     </FrameLayout>
+    </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/base_cardview"
-        style="@style/Base.CardView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="#333333"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_border"
-            app:layout_constraintBottom_toBottomOf="@+id/base_cardview"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.511"
-            tools:layout_editor_absoluteX="-55dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fixed_layout"
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_eacb"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.365"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.346" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_b"
-                    android:text="커피빈카드"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.221"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.879" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_eacb"
-                    android:text="PINK CLUB"
-                    android:textColor="#FFC0CB"
-                    android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.105"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.216" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_b"
-                    android:text="다 잘 될 거에요.                     님"
-                    android:textColor="@color/white"
-                    android:textSize="13dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.14"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.364" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_r"
-                    android:text="카드등록이 필요합니다."
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
-                    app:layout_constraintHorizontal_bias="0.76"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout"
-                    app:layout_constraintVertical_bias="0.866" />
-
-                <ImageButton
-                    android:id="@+id/arrow_button"
-                    android:layout_width="50dp"
-                    android:layout_height="38dp"
-                    android:layout_marginBottom="28dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_icon_down"
-                    app:layout_constraintBottom_toBottomOf="@id/fixed_layout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.955"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="300dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="400dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/hidden_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_icon_phone">
+
+                </ImageButton>
+
+                <Button
+                    android:id="@+id/order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="퍼플오더    >"
+                    android:textColor="#cc98ff"
+                    android:textSize="17dp">
+
+                </Button>
+            </LinearLayout>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1.5dp"
+                android:layout_gravity="center"
+                android:background="#444444" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_icon_star">
+
+                </ImageButton>
+
+                <Button
+                    android:id="@+id/my_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="나만의 메뉴    >"
+                    android:textColor="#cc98ff"
+                    android:textSize="17dp">
+
+                </Button>
+            </LinearLayout>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1.5dp"
+                android:layout_gravity="center"
+                android:background="#444444" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_icon_gift">
+
+                </ImageButton>
+
+                <Button
+                    android:id="@+id/gift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="90dp"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="선물하기    >"
+                    android:textColor="#cc98ff"
+                    android:textSize="17dp">
+
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/base_cardview2"
+            style="@style/Base.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:elevation="10dp"
+            app:cardBackgroundColor="#333333"
+            app:cardCornerRadius="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fixed_layout">
+                android:background="@drawable/round_border2"
+                app:layout_constraintBottom_toBottomOf="@+id/base_cardview2"
+                app:layout_constraintTop_toTopOf="@id/base_cardview2"
+                app:layout_constraintVertical_bias="0.511"
+                tools:layout_editor_absoluteX="-55dp">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fixed_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp"
+                    android:background="@drawable/round_border2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <ImageButton
+                        android:id="@+id/arrow_button2"
+                        android:layout_width="50dp"
+                        android:layout_height="38dp"
+                        android:layout_marginBottom="28dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_icon_down"
+                        app:layout_constraintBottom_toBottomOf="@id/fixed_layout2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.955"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
+                    android:id="@+id/hidden_view2"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fixed_layout2">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="235dp"
-                        android:layout_margin="20dp"
-                        android:background="@drawable/round_border2"
+                        android:layout_height="350dp"
+                        android:orientation="horizontal">
 
-                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="235dp"
+                            android:layout_margin="20dp"
+                            android:background="@drawable/round_border4"
+                            android:orientation="vertical"></LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="269dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="30dp"
-                            android:fontFamily="@font/nanum_r"
-                            android:text="커피빈카드는 보다 편리하게 커피빈 멤버스 앱을
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/base_cardview"
+            style="@style/Base.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            app:cardBackgroundColor="#333333"
+            app:cardCornerRadius="20dip"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.021">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_border"
+                app:layout_constraintBottom_toBottomOf="@+id/base_cardview"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.511"
+                tools:layout_editor_absoluteX="-55dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fixed_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_eacb"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                        app:layout_constraintHorizontal_bias="0.365"
+                        app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                        app:layout_constraintTop_toTopOf="@+id/fixed_layout"
+                        app:layout_constraintVertical_bias="0.346" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_b"
+                        android:text="커피빈카드"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                        app:layout_constraintHorizontal_bias="0.221"
+                        app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                        app:layout_constraintTop_toTopOf="@+id/fixed_layout"
+                        app:layout_constraintVertical_bias="0.879" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_eacb"
+                        android:text="PINK CLUB"
+                        android:textColor="#FFC0CB"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                        app:layout_constraintHorizontal_bias="0.105"
+                        app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                        app:layout_constraintTop_toTopOf="@+id/fixed_layout"
+                        app:layout_constraintVertical_bias="0.216" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_b"
+                        android:text="다 잘 될 거에요.                     님"
+                        android:textColor="@color/white"
+                        android:textSize="13dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                        app:layout_constraintHorizontal_bias="0.14"
+                        app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                        app:layout_constraintTop_toTopOf="@+id/fixed_layout"
+                        app:layout_constraintVertical_bias="0.364" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_r"
+                        android:text="카드등록이 필요합니다."
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                        app:layout_constraintHorizontal_bias="0.76"
+                        app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                        app:layout_constraintTop_toTopOf="@+id/fixed_layout"
+                        app:layout_constraintVertical_bias="0.866" />
+
+                    <ImageButton
+                        android:id="@+id/arrow_button"
+                        android:layout_width="50dp"
+                        android:layout_height="38dp"
+                        android:layout_marginBottom="28dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_icon_down"
+                        app:layout_constraintBottom_toBottomOf="@id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.955"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/hidden_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fixed_layout">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="235dp"
+                            android:layout_margin="20dp"
+                            android:background="@drawable/round_border3"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="269dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="30dp"
+                                android:fontFamily="@font/nanum_r"
+                                android:text="커피빈카드는 보다 편리하게 커피빈 멤버스 앱을
                             이용하실 수 있는 선불식 충전카드입니다."
-                            android:textColor="#4f2e72"
-                            android:textSize="13dp" />
+                                android:textColor="#4f2e72"
+                                android:textSize="13dp" />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:src="@drawable/ic_icon_before_01" />
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:src="@drawable/ic_icon_before_01" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="20dp"
+                                android:text="Database Management"
+                                android:textColor="#000000"
+                                android:textSize="20dp" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -209,82 +408,26 @@
                             android:textSize="20dp" />
 
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="20dp"
-                        android:text="Database Management"
-                        android:textColor="#000000"
-                        android:textSize="20dp" />
-
                 </LinearLayout>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/base_cardview2"
-        style="@style/Base.CardView"
-        app:cardBackgroundColor="#333333"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-160dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_border"
-            app:layout_constraintBottom_toBottomOf="@+id/base_cardview2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.511"
-            tools:layout_editor_absoluteX="-55dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/fixed_layout2"
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:background="@drawable/round_border2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/user_name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nanum_eacb"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fixed_layout2"
-                    app:layout_constraintEnd_toEndOf="@+id/fixed_layout2"
-                    app:layout_constraintHorizontal_bias="0.365"
-                    app:layout_constraintStart_toStartOf="@+id/fixed_layout2"
-                    app:layout_constraintTop_toTopOf="@+id/fixed_layout2"
-                    app:layout_constraintVertical_bias="0.346" />
-
-                <ImageButton
-                    android:id="@+id/arrow_button2"
-                    android:layout_width="50dp"
-                    android:layout_height="38dp"
-                    android:layout_marginBottom="28dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_icon_down"
-                    app:layout_constraintBottom_toBottomOf="@id/fixed_layout2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.955"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+    </RelativeLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/menu"
+        android:layout_gravity="start"/>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
