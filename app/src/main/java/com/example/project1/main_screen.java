@@ -1,10 +1,11 @@
 package com.example.project1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,7 +20,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class main_screen extends AppCompatActivity {
 
-    ImageButton arrow, arrow2, menu;
+    ImageButton arrow, arrow2, menu, order2;
+    Button order;
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
@@ -39,6 +41,8 @@ public class main_screen extends AppCompatActivity {
         layout1 = findViewById(R.id.layout1);
 
         menu = findViewById(R.id.menu_button);
+        order = findViewById(R.id.order);
+        order2 = findViewById(R.id.order2);
 
 
         arrow.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +79,25 @@ public class main_screen extends AppCompatActivity {
             }
         });
 
+
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),purple_order1.class);
+                startActivity(intent);
+            }
+        });
+
+        order2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),purple_order1.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //회원 이름 불러오기
         String username = getIntent().getStringExtra("user_name");
 
         final TextView user_name = (TextView) findViewById(R.id.user_name);
@@ -82,16 +105,16 @@ public class main_screen extends AppCompatActivity {
 
 
         //navigation header 회원 이름
-        LinearLayout ll_navigation_container = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.navigation_header, null);
 
-        final TextView tv_username = new TextView(this);
-        tv_username.setTextColor(getResources().getColor(R.color.white));
-        tv_username.setTextSize(22);
+        //LinearLayout ll_navigation_container = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.navigation_header, null);
 
-        tv_username.setText(username + "님.");
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
 
-        ll_navigation_container.addView(tv_username);
+        //View nav_header_view = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        View nav_header_view = navigationView.getHeaderView(0);
 
+        TextView nav_header_id_text = (TextView) nav_header_view.findViewById(R.id.user_name2);
+        nav_header_id_text.setText(username + "님.");
 
 
 
@@ -107,8 +130,6 @@ public class main_screen extends AppCompatActivity {
         });
 
 
-        NavigationView navigationView = findViewById(R.id.navigationView);
-        navigationView.addHeaderView(ll_navigation_container);
         navigationView.setItemIconTintList(null);
 
     }

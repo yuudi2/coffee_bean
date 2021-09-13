@@ -12,10 +12,14 @@
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/btn_color3.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/btn_color4.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/checkbox_color1.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_cafe.xml" value="0.3296875" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_down.xml" value="0.3138888888888889" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_findstore.xml" value="0.275" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_gift.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_membership.xml" value="0.275" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_menu.xml" value="0.31384615384615383" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_phone.xml" value="0.30416666666666664" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_shopping.xml" value="0.275" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_star.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_up.xml" value="0.3138888888888889" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/round_border.xml" value="0.328125" />
@@ -28,6 +32,9 @@
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_main_screen.xml" value="0.22" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_mainscreen.xml" value="0.3125" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_menu_choice.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_purple_order1.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/item_list.xml" value="0.31354166666666666" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/navigation_header.xml" value="0.3026041666666667" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/menu/menu.xml" value="0.3026041666666667" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/xml/network_security_config.xml" value="0.21979166666666666" />
@@ -43,7 +50,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.22" />
+        <option name="scale" value="0.3026041666666667" />
       </ProjectState>
     </option>
   </component>
