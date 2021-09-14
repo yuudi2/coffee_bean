@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,13 +22,11 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
     public interface ItemClickListener { void onItemClick(int position);}
     ItemClickListener itemClickListener;
     public void  setItemClickListener(ItemClickListener itemClickListener){ this.itemClickListener = itemClickListener; }
-    private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img_item;
         TextView tv_name;
         TextView tv_price;
-
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -37,23 +36,21 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
             tv_name = (TextView) itemView.findViewById(R.id.coffee_name);
             tv_price = (TextView) itemView.findViewById(R.id.coffee_price);
 
-
         }
-
-
     }
+
 
     private ArrayList<CoffeeData> coffeelist = null;
 
-    public CoffeeViewAdapter(ArrayList<CoffeeData> mList2) {
-        this.coffeelist = mList2;
+    public CoffeeViewAdapter(ArrayList<CoffeeData> coffeelist) {
+        this.coffeelist = coffeelist;
     }
 
 
-
-    public void setmList2(ArrayList<CoffeeData> mList2) {
-        this.coffeelist = mList2;
+    public void setmList2(ArrayList<CoffeeData> coffeelist) {
+        this.coffeelist = coffeelist;
     }
+
 
     // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴
     @NonNull
@@ -68,6 +65,13 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
     }
 
 
+    //재사용 막음(중복x)
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    
     // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시
     @Override
     public void onBindViewHolder(@NonNull CoffeeViewAdapter.ViewHolder holder, int position) {
@@ -75,14 +79,14 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
 
         holder.img_item.setImageResource(item.getImg());
         holder.tv_name.setText(item.getName());
-        holder.tv_price.setText(item.getprice());
+        holder.tv_price.setText(Integer.toString(item.getprice())+"원");
 
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(v.getContext(), position+"", Toast.LENGTH_SHORT).show();
-//
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), position+"", Toast.LENGTH_SHORT).show();
+
 //                Intent intent = new Intent(v.getContext(), Change_Item_Activity.class);
 //
 //
@@ -102,8 +106,8 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
 //
 //                    }
 //                }
-//            }
-//        });
+            }
+        });
     }
 
     @Override
