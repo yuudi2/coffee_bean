@@ -2,6 +2,7 @@ package Adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
-
+import com.example.project1.select_menu;
 import java.util.ArrayList;
 
 import Data.CoffeeData;
@@ -71,7 +72,7 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
         return position;
     }
 
-    
+
     // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시
     @Override
     public void onBindViewHolder(@NonNull CoffeeViewAdapter.ViewHolder holder, int position) {
@@ -87,25 +88,24 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), position+"", Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(v.getContext(), Change_Item_Activity.class);
-//
-//
-//                intent.putExtra("image", coffeelist.get(position).getImage());
-//                intent.putExtra("brand", coffeelist.get(position).getMainText());
-//                intent.putExtra("item", coffeelist.get(position).getSubText());
-//                intent.putExtra("point", coffeelist.get(position).getPoint());
-//
-//                v.getContext().startActivity(intent);
-//
-//                if(position != RecyclerView.NO_POSITION){
-//                    if(itemClickListener != null){
-//                        itemClickListener.onItemClick(position);
-//
-//                        //intent로 activty에 데이터를 넘겨줌
-//
-//
-//                    }
-//                }
+                Intent intent = new Intent(v.getContext(), select_menu.class);
+
+
+                intent.putExtra("img", coffeelist.get(position).getImg());
+                intent.putExtra("name", coffeelist.get(position).getName());
+                intent.putExtra("price", coffeelist.get(position).getprice());
+
+                v.getContext().startActivity(intent);
+
+                if(position != RecyclerView.NO_POSITION){
+                    if(itemClickListener != null){
+                        itemClickListener.onItemClick(position);
+
+                        //intent로 activty에 데이터를 넘겨줌
+
+
+                    }
+                }
             }
         });
     }

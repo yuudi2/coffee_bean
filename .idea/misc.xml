@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/btn_color5.xml" value="0.3194871794871795" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/btn_color6.xml" value="0.31197916666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/ic_icon_before_01.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/ic_icon_star2.xml" value="0.3071794871794872" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.32760416666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/round_border3.xml" value="0.31384615384615383" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/round_border4.xml" value="0.31384615384615383" />
@@ -34,6 +37,7 @@
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_mainscreen.xml" value="0.3125" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_menu_choice.xml" value="0.25" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_purple_order1.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_select_menu.xml" value="0.22" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/fragment_cake.xml" value="0.25885416666666666" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/fragment_drink.xml" value="0.2734375" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/fragment_food.xml" value="0.2734375" />
@@ -49,5 +53,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>

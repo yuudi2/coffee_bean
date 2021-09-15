@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".select_menu">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#4f2e72"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:onClick="go_back"
+            android:id="@+id/imageButton"
+            android:layout_width="27dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_icon_before_01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nanum_eb"
+            android:text="메뉴상세"
+            android:textColor="@color/white"
+            android:textSize="18.2dp" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/coffe_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="25dp"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/coffee_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_eb"
+                android:text="헤이즐넛아메리카노IB"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="16.5dp" />
+
+            <TextView
+                android:id="@+id/coffee_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/nanum_eb"
+                android:text="6000원"
+                android:layout_weight="1"
+                android:textColor="#754fa0"
+                android:textSize="16.5dp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/mymenu"
+            android:layout_width="42dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/ic_icon_star2" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1.5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="#cccccc" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="수량"
+                    android:textColor="#754fa0"
+                    android:textSize="15.3dp" />
+
+                <ImageButton
+                    android:id="@+id/minus"
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="180dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_icon_minus" />
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="29dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <ImageButton
+                    android:id="@+id/plus"
+                    android:layout_width="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_icon_plus" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="35dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="사이즈"
+                    android:textColor="#754fa0"
+                    android:textSize="15.3dp" />
+
+                <Button
+                    android:id="@+id/size_small"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color3"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="Small"
+                    android:textSize="15dp"
+                    android:textColor="#754fa0" />
+
+                <Button
+                    android:id="@+id/size_regular"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color5"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="Regular"
+                    android:textSize="15dp"
+                    android:textColor="#aaaaaa" />
+
+                <Button
+                    android:id="@+id/size_large"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color5"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="Large"
+                    android:textSize="15dp"
+                    android:textColor="#aaaaaa" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="35dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="51dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="컵 선택"
+                    android:textColor="#754fa0"
+                    android:textSize="15.3dp" />
+
+                <Button
+                    android:id="@+id/mugcup"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="125dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color5"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="머그컵"
+                    android:textSize="15dp"
+                    android:textColor="#aaaaaa" />
+
+                <Button
+                    android:id="@+id/oneusecup"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color5"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="일회용컵"
+                    android:textSize="15dp"
+                    android:textColor="#aaaaaa" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="35dp"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="67dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="휘핑크림"
+                    android:textColor="#754fa0"
+                    android:textSize="15.3dp" />
+
+                <Button
+                    android:id="@+id/cream_no"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="115dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color5"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="제외"
+                    android:textSize="15dp"
+                    android:textColor="#aaaaaa" />
+
+                <Button
+                    android:id="@+id/cream_yes"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_color5"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="포함"
+                    android:textSize="15dp"
+                    android:textColor="#aaaaaa" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="345dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="1"
+                android:text="\n\n\n\n\n\n"
+                android:textSize="13dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1.5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:background="#cccccc" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="15dp"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="210dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="주문금액"
+                    android:textColor="@color/black"
+                    android:textSize="15dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/order_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:text="6000원"
+                    android:textColor="#754fa0"
+                    android:textSize="19dp">
+
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/shoppingbag"
+                android:layout_width="160dp"
+                android:layout_height="58dp"
+                android:background="@drawable/btn_color3"
+                android:fontFamily="@font/nanum_eb"
+                android:text="장바구니"
+                android:textColor="#754fa0"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/order_now"
+                android:layout_width="160dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_color6"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/nanum_eb"
+                android:text="바로주문"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

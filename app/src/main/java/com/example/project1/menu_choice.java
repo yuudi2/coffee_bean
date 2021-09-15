@@ -1,6 +1,8 @@
 package com.example.project1;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -34,6 +36,11 @@ public class menu_choice extends AppCompatActivity {
         tabLayout.getTabAt(1).setText("푸드");
         tabLayout.getTabAt(2).setText("홀케익");
 
+    }
+
+    public void go_back(View view) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 }
