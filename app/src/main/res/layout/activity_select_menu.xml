@@ -379,7 +379,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/shoppingbag"
+                android:id="@+id/shopping_cart"
                 android:layout_width="160dp"
                 android:layout_height="58dp"
                 android:background="@drawable/btn_color3"

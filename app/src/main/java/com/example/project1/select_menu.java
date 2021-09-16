@@ -22,8 +22,9 @@ public class select_menu extends AppCompatActivity {
     TextView coffee_name, coffee_price;
     TextView t_count, order_price;
     ImageButton minus, plus;
-    private int count = 1;
-    Button small, regular, large, mugcup, oneusecup, cream_yes, cream_no, order_now;
+    int count = 1;
+    int total_count = count;
+    Button small, regular, large, mugcup, oneusecup, cream_yes, cream_no, shopping_cart, order_now;
 
     String size = "";
     String cup = "";
@@ -75,6 +76,7 @@ public class select_menu extends AppCompatActivity {
                 count++;
                 t_count.setText(count+"");
                 order_price.setText(String.valueOf(change_price * count)+"원");
+                total_count = count;
             }
         });
 
@@ -85,6 +87,7 @@ public class select_menu extends AppCompatActivity {
                     count--;
                     t_count.setText(count+"");
                     order_price.setText(String.valueOf(change_price * count)+"원");
+                    total_count = count;
                 }
             }
         });
@@ -234,20 +237,49 @@ public class select_menu extends AppCompatActivity {
         });
 
 
+
+        //장바구니
+        shopping_cart = findViewById(R.id.shopping_cart);
+
+        shopping_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), shopping_cart.class);
+
+                intent.putExtra("img", c_img);
+                intent.putExtra("name", coffee_name.getText());
+                intent.putExtra("price", change_price);
+                intent.putExtra("size", size);
+                intent.putExtra("cup", cup);
+                intent.putExtra("cream", cream);
+                intent.putExtra("count", total_count);
+                intent.putExtra("totalprice", count * change_price );
+
+                view.getContext().startActivity(intent);
+
+            }
+        });
+
+
+
         //주문하기 버튼
         order_now = findViewById(R.id.order_now);
 
         order_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), count + "," + size  + "," + cup  + "," + cream, Toast.LENGTH_SHORT ).show();
+                Toast.makeText(view.getContext(), change_price + count + "," + size  + "," + cup  + "," + cream, Toast.LENGTH_SHORT ).show();
+
+
             }
         });
 
     }
 
+
     public void go_back(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), menu_choice.class);
         startActivity(intent);
     }
 }
