@@ -31,6 +31,16 @@
             android:text="CoffeeBean"
             android:textColor="@color/white"
             android:textSize="18.2dp"/>
+
+        <ImageButton
+            android:onClick="go_shopping_cart"
+            android:id="@+id/shopping_bag"
+            android:layout_marginLeft="360dp"
+            android:layout_width="27dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_icon_shoppingbag" />
     </FrameLayout>
 
     <com.google.android.material.tabs.TabLayout

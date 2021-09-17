@@ -36,6 +36,8 @@ public class select_menu extends AppCompatActivity {
 
     int change_price;
 
+    //PreferenceManager pref;
+
     ArrayList<CoffeeData> itemlist = new ArrayList<CoffeeData>();
 
 
@@ -240,10 +242,28 @@ public class select_menu extends AppCompatActivity {
 
         //장바구니
         shopping_cart = findViewById(R.id.shopping_cart);
+        //pref = new PreferenceManager();
 
         shopping_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+//                // String 값을 JSONObject로 변환하여 사용할 수 있도록 메모의 제목과 타이틀을 JSON 형식로 저장
+//                String cart_save_form = "{\"img\":\""+c_img+"\",\"name\":\""+coffee_name.getText()+"\",\"price\":\""+change_price+
+//                        "\",\"size\":\""+size+"\",\"cup\":\""+cup+
+//                        "\",\"count\":\""+total_count+"\",\"totalprice\":\""+count * change_price+"\"}";
+//
+//                // key값이 겹치지 않도록 현재 시간으로 부여
+//                long now = System.currentTimeMillis();
+//                Date mDate = new Date(now);
+//                SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//                String getTime = simpleDate.format(mDate).toString();
+//
+//                //Log.d("select_menu","제목 : "+edit_title+", 내용 : "+edit_content+", 현재시간 : "+getTime);
+//                //PreferenceManager 클래스에서 저장에 관한 메소드를 관리
+//                pref.setString(getApplication(),getTime,cart_save_form);
+//
 
                 Intent intent = new Intent(view.getContext(), shopping_cart.class);
 
@@ -254,7 +274,7 @@ public class select_menu extends AppCompatActivity {
                 intent.putExtra("cup", cup);
                 intent.putExtra("cream", cream);
                 intent.putExtra("count", total_count);
-                intent.putExtra("totalprice", count * change_price );
+                intent.putExtra("total_price", count * change_price );
 
                 view.getContext().startActivity(intent);
 

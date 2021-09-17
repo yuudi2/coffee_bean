@@ -14,7 +14,6 @@ import Adapter.ViewpagerAdapter;
 public class menu_choice extends AppCompatActivity {
 
 
-
     ViewPager viewPager;
 
 
@@ -40,6 +39,11 @@ public class menu_choice extends AppCompatActivity {
 
     public void go_back(View view) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void go_shopping_cart(View view) {
+        Intent intent = new Intent(getApplicationContext(), shopping_cart.class);
         startActivity(intent);
     }
 

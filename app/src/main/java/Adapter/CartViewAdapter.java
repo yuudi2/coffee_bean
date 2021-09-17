@@ -21,6 +21,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 
     int change_count ;
     int its_price;
+    private int position;
 
     public interface ItemClickListener {
         void onItemClick(int position);
@@ -63,15 +64,17 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         }
     }
 
-    private ArrayList<CartData> cartlist = null;
+    private ArrayList<CartData> cartlist;
 
     public CartViewAdapter(ArrayList<CartData> cartlist) {
         this.cartlist = cartlist;
     }
 
-    public void setmList2(ArrayList<CartData> cartlist) {
+    public void setListData(ArrayList<CartData> cartlist) {
         this.cartlist = cartlist;
     }
+
+    public ArrayList<CartData> getListData() { return cartlist; }
 
     @NonNull
     @Override
@@ -163,6 +166,32 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 //            }
 //        });
     }
+
+
+    //아이템 추가 메소드
+    public void addItem(CartData c_data){
+        cartlist.add(c_data);
+    }
+
+    public int getPosition(){
+        return position;
+    }
+
+    public void setPosition(int position){
+        this.position = position;
+    }
+
+
+    //아이템 삭제 메소드
+    public  void removeItem(int position){
+        cartlist.remove(position);
+        notifyItemRemoved(position);
+        //갱신처리
+        notifyDataSetChanged();
+    }
+
+
+
 
     @Override
     public int getItemCount() {
