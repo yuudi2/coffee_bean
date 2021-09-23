@@ -62,9 +62,11 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 
 
         }
+
     }
 
     private ArrayList<CartData> cartlist;
+
 
     public CartViewAdapter(ArrayList<CartData> cartlist) {
         this.cartlist = cartlist;
@@ -109,7 +111,6 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         holder.cart_cup.setText(item.getcup());
         holder.cart_count.setText(Integer.toString(item.getCount()));
         holder.cart_total_price.setText(Integer.toString(item.getTotal_price()) + "원");
-
 
 
         //장바구니에서 수량조절
