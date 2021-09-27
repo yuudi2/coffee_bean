@@ -27,8 +27,17 @@ public class PreferenceManager {
         SharedPreferences prefs = getPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
-        editor.apply();
+        editor.commit();
     }
+
+    public static void setInt(Context context, String key, int value) {
+        SharedPreferences prefs = getPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt(key, value);
+        editor.commit();
+    }
+
+
 
 
      /* String 값 로드
@@ -37,9 +46,16 @@ public class PreferenceManager {
        return
      */
 
+
     public static String getString(Context context, String key){
         SharedPreferences prefs = getPreferences(context);
         String value = prefs.getString(key, DEFAULT_VALUE_STRING);
+        return value;
+    }
+
+    public static int getInt(Context context, String key) {
+        SharedPreferences prefs = getPreferences(context);
+        int value = prefs.getInt(key, DEFAULT_VALUE_INT);
         return value;
     }
 

@@ -1,24 +1,19 @@
 package com.example.project1;
 
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import Adapter.CartViewAdapter;
-import Data.CartData;
+import Data.CartlistContract;
+import Data.CartlistDBHelper;
 
 public class shopping_cart extends AppCompatActivity {
 
@@ -31,13 +26,14 @@ public class shopping_cart extends AppCompatActivity {
     int cart_count;
     int cart_total_price;
 
-
+    private SQLiteDatabase mDb;
     private RecyclerView recyclerView;
     private CartViewAdapter adapter;
+    PreferenceManager pref;
 
     //private ArrayList<CartData> cartlist;
 
-    ArrayList<CartData> cartlist = new ArrayList<>();
+    //ArrayList<CartData> cartlist = new ArrayList<>();
 
 
     @Override
@@ -45,106 +41,85 @@ public class shopping_cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-
-        //장바구니에 담은 커피 정보
-//        cart_img = getIntent().getExtras().getInt("img");
-//        cart_name = getIntent().getExtras().getString("name");
-//        cart_price = getIntent().getExtras().getInt("price");
-//        cart_size = getIntent().getExtras().getString("size");
-//        cart_cup = getIntent().getExtras().getString("cup");
-//        cart_cream = getIntent().getExtras().getString("cream");
-//        cart_count = getIntent().getExtras().getInt("count");
-//        cart_total_price = getIntent().getExtras().getInt("total_price");
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        // 데이터를 DB에 채우기 위함
+        mDb = dbHelper.getWritableDatabase();
+        // 자동적으로 다섯명의 손님을 DB에 추가
+        //TestUtil.insertFakeData(mDb);
+        //커서에 결과를 저장
+        Cursor cursor = getAllGuests();
 
         recyclerView = findViewById(R.id.recyclerView_cart);
+
+        // 데이터를 표시할 커서를 위한 어댑터 생성
+        adapter = new CartViewAdapter(this, cursor);
+        // 리사이클러뷰에 어댑터를 연결
+        recyclerView.setAdapter(adapter);
+
+
+        //장바구니에 담은 커피 정보
+        cart_img = getIntent().getExtras().getInt("img");
+        cart_name = getIntent().getExtras().getString("name");
+        cart_price = getIntent().getExtras().getInt("price");
+        cart_size = getIntent().getExtras().getString("size");
+        cart_cup = getIntent().getExtras().getString("cup");
+        cart_cream = getIntent().getExtras().getString("cream");
+        cart_count = getIntent().getExtras().getInt("count");
+        cart_total_price = getIntent().getExtras().getInt("total_price");
+
+
         //cartlist = new ArrayList<>();
 
 
-        //cartlist.add (new CartData(cart_img,cart_name,cart_price, cart_size,cart_cup, cart_count, cart_total_price));
+        //cartlist.add(new CartData(cart_img, cart_name, cart_price, cart_size, cart_cup, cart_count, cart_total_price));
 
-        adapter = new CartViewAdapter(cartlist);
+        //adapter = new CartViewAdapter(cartlist);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-//        //쉐어드 모든 키 벨류 가져오기
-        SharedPreferences prefb = getSharedPreferences("cart_contain", MODE_PRIVATE);
-//        int img = (int) prefb.getInt("img",0);
-//        String name = (String) prefb.getString("name", "");
-//        int price = (int) prefb.getInt("price",0);
-//        String size = (String) prefb.getString("size","");
-//        String cup = (String) prefb.getString("cup","");
-//        int count = (int) prefb.getInt("count",0);
-//        int total_price = (int) prefb.getInt("total_price",0);
-//        cartlist.add (new CartData(img,name,price, size,cup, count, total_price));
-//
-//
-        Collection<?> col_val =  prefb.getAll().values();
-        Iterator<?> it_val = col_val.iterator();
-        Collection<?> col_key = prefb.getAll().keySet();
-        Iterator<?> it_key = col_key.iterator();
+        addNewCart(cart_img, cart_name, cart_price, cart_size,cart_cup,cart_count,cart_total_price);
 
-        while(it_val.hasNext()) {
-
-            String key = (String) it_key.next();
-            String value = (String) it_val.next();
-
-            // value 값은 다음과 같이 저장되어있다
-            // "{\"title\":\"hi title\",\"content\":\"hi content\"}"
-            try {
-                // String으로 된 value를 JSONObject로 변환하여 key-value로 데이터 추출
-                JSONObject jsonObject = new JSONObject(value);
-                int img = (int) jsonObject.getInt("img");
-                String name = (String) jsonObject.getString("name");
-                int price = (int) jsonObject.getInt("price");
-                String size = (String) jsonObject.getString("size");
-                String cup = (String) jsonObject.getString("cup");
-                int count = (int) jsonObject.getInt("count");
-                int total_price = (int) jsonObject.getInt("total_price");
-
-                // 리사이클러뷰 어뎁터 addItem으로 목록 추가
-                adapter.addItem(new CartData(img, name, price, size, cup, count, total_price));
-            } catch (JSONException e) {
-
-            }
-
-            // 목록 갱신하여 뷰에 띄어줌
-            adapter.notifyDataSetChanged();
-        }
-
-
-            //adapter.notifyDataSetChanged();
-
-
-
-//        adapter.addItem(new CartData(cart_img, cart_name, cart_price, cart_size, cart_cup, cart_count, cart_total_price));
-//        adapter.notifyDataSetChanged();
+        // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
+        adapter.swapCursor(getAllGuests());
 
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-            if (resultCode == RESULT_OK) {
-                // 전달 받은 값
-                Intent intent = getIntent();
-                int get_img = data.getExtras().getInt("img");
-                String get_name = data.getExtras().getString("name");
-                int get_price = data.getExtras().getInt("price");
-                String get_size = data.getExtras().getString("size");
-                String get_cup = data.getExtras().getString("cup");
-                int get_count = data.getExtras().getInt("count");
-                int get_total_price = data.getExtras().getInt("total_price");
-                // 리사이클러뷰 목록에 추가
-                adapter.addItem(new CartData(get_img,get_name,get_price,get_size,get_cup,get_count,get_total_price));
-                // 목록 갱신
-                adapter.notifyDataSetChanged();
-
-            }
-
-
+    private Cursor getAllGuests() {
+        // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
+        // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
+        return mDb.query(
+                CartlistContract.CartlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                CartlistContract.CartlistEntry.COLUMN_TIMESTAMP
+        );
     }
+
+    private long addNewCart(int img, String name, int pirce, String size, String cup, int count, int total_price) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+        /*
+         * 열의 이름을 키로 해서 해당 값을 가리킨다.
+         * 값들을 put 메서드를 사용해 입력한다.
+         * 첫번째 파라미터는 열의 이름으로, Contract 로부터 가져올 수 있다.
+         * 두번째 파라미터는 값이다.
+         */
+
+        cv.put(CartlistContract.CartlistEntry.COLUMN_IMG, img);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_PRICE, pirce);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_SIZE, size);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_CUP, cup);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_COUNT, count);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE, total_price);
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        return mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
+    }
+
 
 
 
