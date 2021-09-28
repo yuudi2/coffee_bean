@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project1.R;
 import com.example.project1.shopping_cart;
 
+import java.util.ArrayList;
+
+import Data.CartData;
 import Data.CartlistContract;
 import Data.CartlistDBHelper;
 
@@ -30,6 +34,13 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
     private shopping_cart cart;
     private SQLiteDatabase mDb;
     CartlistDBHelper dbHelper;
+    private CartViewAdapter adapter;
+
+    public ArrayList<CartData> item_list;
+
+    public CartViewAdapter(ArrayList<CartData> arrayList) {
+        item_list = arrayList;
+    }
 
     public CartViewAdapter(Context context, Cursor cursor) {
         this.mContext = context;
@@ -78,6 +89,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 
         int img_i = byte2Int(img);
 
+        holder.itemView.setTag(id);
 
         holder.cart_img.setImageResource(img_i);
         holder.cart_name.setText(name);
@@ -86,6 +98,9 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         holder.cart_cup.setText(cup);
         holder.cart_count.setText(Integer.toString(count));
         holder.cart_total_price.setText(Integer.toString(total_price) + "원");
+
+
+
 
 
         //장바구니에서 수량조절
@@ -121,8 +136,19 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
             }
         });
 
+        holder.menu_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete(id);
+                //adapter.notifyDataSetChanged();
+            }
+        });
 
-        //holder.tv_name.setText(item.getName());
+    }
+
+
+
+    //holder.tv_name.setText(item.getName());
 
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +176,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 //                }
 //            }
 //        });
-    }
+
 
     public void swapCursor(Cursor newCursor) {
         // 항상 이전 커서를 닫는다.
@@ -170,12 +196,34 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         mDb.execSQL("UPDATE cartlist SET count = " + count + ", total_price = '" + total_price + "'" + " WHERE id = '" + id + "'");
         mDb.close();
     }
-//
-//        ContentValues values = new ContentValues();
-//        values.put("count", count);
-//        values.put("total_price", total_price);
-//        return mDb.update("cartlist2", values, "id=?" + id,null);
 
+    public void delete(int id) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(mContext);
+        mDb = dbHelper.getWritableDatabase();
+        mDb.execSQL("DELETE FROM cartlist WHERE id = '" + id + "';");
+        mDb.close();
+    }
+
+//    private void deletePlace(int position){
+//        CartlistDBHelper dbHelper = new CartlistDBHelper(mContext);
+//        dbHelper.removePlace(placeArraylist.get(position).getPlaceId());
+//        placeArraylist.remove(position);
+//        ad.notifyDataSetChanged();
+//    }
+
+    private Cursor getAllGuests() {
+        // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
+        // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
+        return mDb.query(
+                CartlistContract.CartlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                CartlistContract.CartlistEntry.COLUMN_TIMESTAMP
+        );
+    }
 
 
     public static int byte2Int(byte[] src) {
@@ -210,6 +258,8 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         TextView cart_total_price;
         ImageButton cart_minus;
         ImageButton cart_plus;
+        ImageButton menu_delete;
+        CheckBox check_menu;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -225,6 +275,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
             cart_total_price = (TextView) itemView.findViewById(R.id.coffee_cart_pricetotal);
             cart_minus = (ImageButton) itemView.findViewById(R.id.cart_minus);
             cart_plus = (ImageButton) itemView.findViewById(R.id.cart_plus);
+            menu_delete = (ImageButton) itemView.findViewById(R.id.delete_menu);
 
         }
 

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ public class shopping_cart extends AppCompatActivity {
 
     private SQLiteDatabase mDb;
     private RecyclerView recyclerView;
+    CartViewAdapter.ViewHolder viewHolder;
     private CartViewAdapter adapter;
     PreferenceManager pref;
 
@@ -35,11 +37,16 @@ public class shopping_cart extends AppCompatActivity {
 
     //ArrayList<CartData> cartlist = new ArrayList<>();
 
+    ImageButton delete_cart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
+
+        delete_cart = findViewById(R.id.delete_cart);
+
 
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         // 데이터를 DB에 채우기 위함
@@ -84,8 +91,9 @@ public class shopping_cart extends AppCompatActivity {
 
         // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
         adapter.swapCursor(getAllGuests());
-
     }
+
+
     private Cursor getAllGuests() {
         // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
         // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
@@ -121,9 +129,6 @@ public class shopping_cart extends AppCompatActivity {
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         return mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
     }
-
-
-
 
 
     //이미지 저장을 위해 형 변환

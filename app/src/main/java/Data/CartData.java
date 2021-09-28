@@ -10,6 +10,7 @@ public class CartData {
     //String cream;
     int count;
     int total_price;
+    boolean isSelected;
 
     public CartData(int id, int img, String name, int price, String size, String cup, int count, int total_price){
         this.id = id;
@@ -81,4 +82,14 @@ public class CartData {
 //    public void setCream(String cream) {
 //        this.cream = cream;
 //    }
+
+    public boolean getSelected()
+    {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected)
+    {
+        isSelected = selected;
+    }
 }
