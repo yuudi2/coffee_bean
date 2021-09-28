@@ -1,7 +1,6 @@
 package Adapter;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.shopping_cart;
 
 import Data.CartlistContract;
 import Data.CartlistDBHelper;
@@ -27,6 +27,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
     int change_count;
     int its_price;
 
+    private shopping_cart cart;
     private SQLiteDatabase mDb;
     CartlistDBHelper dbHelper;
 
@@ -34,7 +35,6 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         this.mContext = context;
         mCursor = cursor;
     }
-
 
 
     @Override
@@ -64,11 +64,11 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
     public void onBindViewHolder(@NonNull CartViewAdapter.ViewHolder holder, int position) {
         // 해당 포지션으로 이동한다.
         // false 가 리턴되면 데이터가 없거나 혹은 범위를 초과했다는 뜻이다.
-        if(!mCursor.moveToPosition(position))
+        if (!mCursor.moveToPosition(position))
             return;
         // 열의 이름으로 열의 번호를 넘겨줌
         @SuppressLint("Range") int id = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry._ID));
-        @SuppressLint("Range") int img = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_NAME));
+        @SuppressLint("Range") byte[] img = mCursor.getBlob(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_IMG));
         @SuppressLint("Range") String name = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_NAME));
         @SuppressLint("Range") int price = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_PRICE));
         @SuppressLint("Range") String size = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_SIZE));
@@ -76,15 +76,16 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         @SuppressLint("Range") int count = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_COUNT));
         @SuppressLint("Range") int total_price = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE));
 
+        int img_i = byte2Int(img);
 
-        holder.cart_img.setImageResource(img);
+
+        holder.cart_img.setImageResource(img_i);
         holder.cart_name.setText(name);
         holder.cart_price.setText(Integer.toString(price) + "원");
         holder.cart_size.setText(size);
         holder.cart_cup.setText(cup);
         holder.cart_count.setText(Integer.toString(count));
         holder.cart_total_price.setText(Integer.toString(total_price) + "원");
-
 
 
         //장바구니에서 수량조절
@@ -96,9 +97,9 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
                 change_count++;
                 holder.cart_count.setText(change_count + "");
                 holder.cart_total_price.setText(change_count * its_price + "원");
-//                int f_count = change_count;
-//                int f_price = change_count * its_price;
-//                update(id,f_count,f_price);
+                int f_count = change_count;
+                int f_price = change_count * its_price;
+                update(id, f_count, f_price);
 
             }
         });
@@ -106,15 +107,16 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         holder.cart_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                change_count = (Integer.parseInt(holder.cart_count.getText().toString()));
                 if (change_count > 1) {
                     change_count = (Integer.parseInt(holder.cart_count.getText().toString()));
                     its_price = price;
                     change_count--;
                     holder.cart_count.setText(change_count + "");
                     holder.cart_total_price.setText(change_count * its_price + "원");
-//                    int f_count = change_count;
-//                    int f_price = change_count * its_price;
-//                    update(id,f_count,f_price);
+                    int f_count = change_count;
+                    int f_price = change_count * its_price;
+                    update(id, f_count, f_price);
                 }
             }
         });
@@ -149,6 +151,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 //            }
 //        });
     }
+
     public void swapCursor(Cursor newCursor) {
         // 항상 이전 커서를 닫는다.
         if (mCursor != null)
@@ -161,18 +164,42 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         }
     }
 
-
-    public long update(int id, int count, int total_price){
+    public void update(int id, int count, int total_price) {
         CartlistDBHelper dbHelper = new CartlistDBHelper(mContext);
         mDb = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("count", count);
-        values.put("total_price", total_price);
-        return mDb.update("cart_list", values, "id=?" + id,null);
+        mDb.execSQL("UPDATE cartlist SET count = " + count + ", total_price = '" + total_price + "'" + " WHERE id = '" + id + "'");
+        mDb.close();
+    }
+//
+//        ContentValues values = new ContentValues();
+//        values.put("count", count);
+//        values.put("total_price", total_price);
+//        return mDb.update("cartlist2", values, "id=?" + id,null);
+
+
+
+    public static int byte2Int(byte[] src) {
+        int s1 = src[0] & 0xFF;
+        int s2 = src[1] & 0xFF;
+        int s3 = src[2] & 0xFF;
+        int s4 = src[3] & 0xFF;
+
+        return ((s1 << 24) + (s2 << 16) + (s3 << 8) + (s4 << 0));
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+//
+//    public long update(int id, int count, int total_price){
+//        CartlistDBHelper dbHelper = new CartlistDBHelper(mContext);
+//        mDb = dbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("count", count);
+//        values.put("total_price", total_price);
+//        return mDb.update("cart_list", values, "id=?" + id,null);
+//    }
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cart_img;
         TextView cart_name;
         TextView cart_price;

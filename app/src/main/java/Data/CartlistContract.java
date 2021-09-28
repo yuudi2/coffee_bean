@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 public class CartlistContract {
     public static final class CartlistEntry implements BaseColumns {
-        public static final String TABLE_NAME = "cart_list";
+        public static final String TABLE_NAME = "cartlist";
         public static final String _ID = "id";
         public static final String COLUMN_IMG = "img";
         public static final String COLUMN_NAME = "name";

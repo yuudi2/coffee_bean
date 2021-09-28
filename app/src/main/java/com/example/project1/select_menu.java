@@ -64,6 +64,7 @@ public class select_menu extends AppCompatActivity {
 
         //주문금액
         order_price = findViewById(R.id.order_price);
+        order_price.setText(String.valueOf(c_price)+"원");
 
 
         //수량 선택

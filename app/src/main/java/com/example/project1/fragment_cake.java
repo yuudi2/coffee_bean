@@ -6,58 +6,64 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_cake#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import Adapter.CakeViewAdapter;
+import Data.CakeData;
+
+
 public class fragment_cake extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView = null;
+    private CakeViewAdapter adapter = null;
 
-    public fragment_cake() {
-        // Required empty public constructor
-    }
+    ArrayList<CakeData> cakelist = new ArrayList<>();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_cake.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment_cake newInstance(String param1, String param2) {
-        fragment_cake fragment = new fragment_cake();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    int [] cake_img = {R.drawable.cake1, R.drawable.cake2, R.drawable.cake3,
+            R.drawable.cake4, R.drawable.cake5, R.drawable.cake6, R.drawable.cake7, R.drawable.cake8};
+    String [] cake_name = {"바닐라슈크림케익","소보로얼그레이커스터드롤","크런치헤이즐넛다크초코롤","리얼듬뿍피칸파이","레드벨벳케익",
+            "초콜릿무스케익","생크림카스테라","블루베리 치즈케익"};
+    int [] cake_price = {6200,4500,4800,8700,5300,5700,5300,6200};
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cake, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_cake, container, false);
+
+        cakelist.clear();
+
+        //recyclerview 어댑터 set
+        recyclerView = v.findViewById(R.id.recyclerView);
+        adapter = new CakeViewAdapter(cakelist);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+
+        for (int i=0;i<8;i++){
+            cakelist.add (new CakeData(cake_img[i], cake_name[i], cake_price[i]));
+        }
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        return v;
     }
+
+    public void additem(int img, String name, int price){
+        CakeData item = new CakeData(img,name,price);
+
+        item.setImg(img);
+        item.setName(name);
+        item.setprice(price);
+
+        cakelist.add(item);
+    }
+
 }

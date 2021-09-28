@@ -38,6 +38,8 @@ public class fragment_drink extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_drink, container, false);
 
+        coffeeList.clear();
+
         //recyclerview 어댑터 set
         recyclerView = v.findViewById(R.id.recyclerView);
         adapter = new CoffeeViewAdapter(coffeeList);

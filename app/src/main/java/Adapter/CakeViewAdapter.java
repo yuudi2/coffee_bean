@@ -14,12 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
-import com.example.project1.select_menu;
+import com.example.project1.select_menu_cake;
+
 import java.util.ArrayList;
 
-import Data.CoffeeData;
+import Data.CakeData;
 
-public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.ViewHolder> {
+public class CakeViewAdapter extends RecyclerView.Adapter<CakeViewAdapter.ViewHolder>{
     public interface ItemClickListener { void onItemClick(int position);}
     ItemClickListener itemClickListener;
     public void  setItemClickListener(ItemClickListener itemClickListener){ this.itemClickListener = itemClickListener; }
@@ -41,19 +42,18 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
     }
 
 
-    private ArrayList<CoffeeData> coffeelist;
+    private ArrayList<CakeData> cakelist;
 
-    public CoffeeViewAdapter(ArrayList<CoffeeData> coffeelist) {
-        this.coffeelist = coffeelist;
+    public CakeViewAdapter(ArrayList<CakeData> cakelist) {
+        this.cakelist = cakelist;
     }
 
 
-    public void setmList2(ArrayList<CoffeeData> coffeelist) {
-        this.coffeelist = coffeelist;
+    public void setmList2(ArrayList<CakeData> cakelist) {
+        this.cakelist = cakelist;
     }
 
 
-    // 아이템 뷰를 위한 뷰홀더 객체를 생성하여 리턴
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,35 +61,13 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_list, parent, false);
-        CoffeeViewAdapter.ViewHolder vh = new CoffeeViewAdapter.ViewHolder(view);
+        CakeViewAdapter.ViewHolder vh = new CakeViewAdapter.ViewHolder(view);
         return vh;
     }
 
-
-    //재사용 막음(중복x)
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    //재사용 막음
-    public int getItemViewType(int position) {
-        return position;
-    }
-
-    @Override
-    public void setHasStableIds(boolean hasStableIds) {
-        super.setHasStableIds(hasStableIds);
-    }
-
-    public int getViewType(int position) {
-        return position;
-    }
-
-    // position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시
-    @Override
-    public void onBindViewHolder(@NonNull CoffeeViewAdapter.ViewHolder holder, int position) {
-        CoffeeData item = coffeelist.get(position);
+    public void onBindViewHolder(@NonNull CakeViewAdapter.ViewHolder holder, int position) {
+        CakeData item = cakelist.get(position);
 
 
         holder.img_item.setImageResource(item.getImg());
@@ -102,12 +80,12 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), position+"", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(v.getContext(), select_menu.class);
+                Intent intent = new Intent(v.getContext(), select_menu_cake.class);
 
 
-                intent.putExtra("img", coffeelist.get(position).getImg());
-                intent.putExtra("name", coffeelist.get(position).getName());
-                intent.putExtra("price", coffeelist.get(position).getprice());
+                intent.putExtra("img", cakelist.get(position).getImg());
+                intent.putExtra("name", cakelist.get(position).getName());
+                intent.putExtra("price", cakelist.get(position).getprice());
 
                 v.getContext().startActivity(intent);
 
@@ -125,8 +103,23 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    //재사용 막음
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(hasStableIds);
+    }
+
+    @Override
     public int getItemCount() {
-        return coffeelist.size();
+        return cakelist.size();
     }
 
 }

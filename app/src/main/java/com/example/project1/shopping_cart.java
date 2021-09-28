@@ -78,7 +78,9 @@ public class shopping_cart extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        addNewCart(cart_img, cart_name, cart_price, cart_size,cart_cup,cart_count,cart_total_price);
+        byte[] img_b = intToByte(cart_img);
+
+        addNewCart(img_b, cart_name, cart_price, cart_size,cart_cup,cart_count,cart_total_price);
 
         // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
         adapter.swapCursor(getAllGuests());
@@ -98,7 +100,7 @@ public class shopping_cart extends AppCompatActivity {
         );
     }
 
-    private long addNewCart(int img, String name, int pirce, String size, String cup, int count, int total_price) {
+    private long addNewCart(byte[] img, String name, int pirce, String size, String cup, int count, int total_price) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
         /*
@@ -120,6 +122,20 @@ public class shopping_cart extends AppCompatActivity {
         return mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
     }
 
+
+
+
+
+    //이미지 저장을 위해 형 변환
+    public static byte[] intToByte(int a) {
+        byte[] intToByte = new byte[4];
+        intToByte[0] |= (byte)((a&0xFF000000)>>24);
+        intToByte[1] |= (byte)((a&0xFF0000)>>16);
+        intToByte[2] |= (byte)((a&0xFF00)>>8);
+        intToByte[3] |= (byte)(a&0xFF);
+        return intToByte;
+
+    }
 
 
 
