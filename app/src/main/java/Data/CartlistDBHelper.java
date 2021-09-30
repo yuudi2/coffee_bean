@@ -40,5 +40,10 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    public void removePlace(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CartlistEntry.TABLE_NAME, CartlistEntry._ID + "=\"" + id+"\"", null) ;
+    }
+
 
 }

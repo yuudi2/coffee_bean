@@ -12,8 +12,8 @@ public class CartData {
     int total_price;
     boolean isSelected;
 
-    public CartData(int id, int img, String name, int price, String size, String cup, int count, int total_price){
-        this.id = id;
+    public CartData( int img, String name, int price, String size, String cup, int count, int total_price){
+       // this.id = id;
         this.img = img;
         this.name = name;
         this.price = price;
@@ -24,12 +24,12 @@ public class CartData {
         this.total_price = total_price;
     }
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public int getImg() {
         return img;

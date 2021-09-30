@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -12,7 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 import Adapter.CartViewAdapter;
+import Data.CartData;
 import Data.CartlistContract;
 import Data.CartlistDBHelper;
 
@@ -35,9 +39,9 @@ public class shopping_cart extends AppCompatActivity {
 
     //private ArrayList<CartData> cartlist;
 
-    //ArrayList<CartData> cartlist = new ArrayList<>();
+    ArrayList<CartData> cartlist = new ArrayList<>();
 
-    ImageButton delete_cart;
+    ImageButton delete_menu, delete_cart;
 
 
     @Override
@@ -45,18 +49,18 @@ public class shopping_cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
+        delete_menu = findViewById(R.id.delete_menu);
         delete_cart = findViewById(R.id.delete_cart);
+
+        recyclerView = findViewById(R.id.recyclerView_cart);
 
 
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         // 데이터를 DB에 채우기 위함
         mDb = dbHelper.getWritableDatabase();
-        // 자동적으로 다섯명의 손님을 DB에 추가
-        //TestUtil.insertFakeData(mDb);
         //커서에 결과를 저장
         Cursor cursor = getAllGuests();
 
-        recyclerView = findViewById(R.id.recyclerView_cart);
 
         // 데이터를 표시할 커서를 위한 어댑터 생성
         adapter = new CartViewAdapter(this, cursor);
@@ -64,37 +68,58 @@ public class shopping_cart extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        //장바구니에 담은 커피 정보
-        cart_img = getIntent().getExtras().getInt("img");
-        cart_name = getIntent().getExtras().getString("name");
-        cart_price = getIntent().getExtras().getInt("price");
-        cart_size = getIntent().getExtras().getString("size");
-        cart_cup = getIntent().getExtras().getString("cup");
-        cart_cream = getIntent().getExtras().getString("cream");
-        cart_count = getIntent().getExtras().getInt("count");
-        cart_total_price = getIntent().getExtras().getInt("total_price");
+        Intent intent = getIntent();
+
+        //장바구니에 담지않고 바로 장바구니화면으로 intent 했을때 null값 확인
+        if(!TextUtils.isEmpty(intent.getStringExtra("name"))){
+
+            //장바구니에 담은 커피 정보
+            cart_img = getIntent().getExtras().getInt("img");
+            cart_name = getIntent().getExtras().getString("name");
+            cart_price = getIntent().getExtras().getInt("price");
+            cart_size = getIntent().getExtras().getString("size");
+            cart_cup = getIntent().getExtras().getString("cup");
+            cart_cream = getIntent().getExtras().getString("cream");
+            cart_count = getIntent().getExtras().getInt("count");
+            cart_total_price = getIntent().getExtras().getInt("total_price");
 
 
-        //cartlist = new ArrayList<>();
+            //cartlist = new ArrayList<>();
+            //cartlist.add(new CartData(cart_img, cart_name, cart_price, cart_size, cart_cup, cart_count, cart_total_price));
+            //adapter = new CartViewAdapter(cartlist);
 
 
-        //cartlist.add(new CartData(cart_img, cart_name, cart_price, cart_size, cart_cup, cart_count, cart_total_price));
-
-        //adapter = new CartViewAdapter(cartlist);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        byte[] img_b = intToByte(cart_img);
+            byte[] img_b = intToByte(cart_img);
 
-        addNewCart(img_b, cart_name, cart_price, cart_size,cart_cup,cart_count,cart_total_price);
+            addNewCart(img_b, cart_name, cart_price, cart_size, cart_cup, cart_count, cart_total_price);
 
-        // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
-        adapter.swapCursor(getAllGuests());
+            // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
+            adapter.swapCursor(getAllGuests());
+
+
+        } else {
+
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+
+        //전체삭제
+        delete_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAll(mDb);
+                adapter.swapCursor(getAllGuests());
+            }
+        });
     }
 
 
-    private Cursor getAllGuests() {
+    public Cursor getAllGuests() {
         // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
         // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
         return mDb.query(
@@ -108,7 +133,7 @@ public class shopping_cart extends AppCompatActivity {
         );
     }
 
-    private long addNewCart(byte[] img, String name, int pirce, String size, String cup, int count, int total_price) {
+    public void addNewCart(byte[] img, String name, int pirce, String size, String cup, int count, int total_price) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
         /*
@@ -127,7 +152,7 @@ public class shopping_cart extends AppCompatActivity {
         cv.put(CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE, total_price);
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
-        return mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
+        mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
     }
 
 
@@ -142,7 +167,9 @@ public class shopping_cart extends AppCompatActivity {
 
     }
 
-
+    public void deleteAll(SQLiteDatabase database) {
+        database.execSQL("DELETE FROM cartlist");
+    }
 
 
     public void go_back(View view) {
