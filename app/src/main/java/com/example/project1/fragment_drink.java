@@ -25,7 +25,7 @@ public class fragment_drink extends Fragment {
 
     int [] coffee_img = {R.drawable.coffee1, R.drawable.coffee2, R.drawable.coffee3,
             R.drawable.coffee4, R.drawable.coffee5, R.drawable.coffee6};
-    String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼(R)","블랙다이몬 카페수아(R)"};
+    String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼","블랙다이몬 카페수아"};
     int [] coffee_price = {6000,6900,6800,5800,6300,7000};
 
 

@@ -43,7 +43,6 @@ public class fragment_cake extends Fragment {
         recyclerView = v.findViewById(R.id.recyclerView);
         adapter = new CakeViewAdapter(cakelist);
         recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
 
         for (int i=0;i<8;i++){
             cakelist.add (new CakeData(cake_img[i], cake_name[i], cake_price[i]));

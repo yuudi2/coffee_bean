@@ -11,6 +11,7 @@ public class CartlistContract {
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_SIZE = "partySize";
         public static final String COLUMN_CUP = "cup";
+        public static final String COLUMN_CREAM = "cream";
         public static final String COLUMN_COUNT = "count";
         public static final String COLUMN_TOTAL_PRICE = "total_price";
         public static final String COLUMN_TIMESTAMP = "timestamp";

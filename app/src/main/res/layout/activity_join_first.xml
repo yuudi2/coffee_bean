@@ -243,17 +243,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_color4"
                     android:fontFamily="@font/nanum_b"
-                    android:text="선택    마케팅 활용/광고성 정보 수신동의  >"
+                    android:text="선택    마케팅 활용/광고성 정보 수신동의  "
                     android:textAlignment="viewStart"
                     android:textSize="15dp" />
 
-                <CheckBox
-                    android:id="@+id/ad_check"
-                    android:layout_marginTop="15dp"
-                    android:layout_width="15dp"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/MyCheckBox"
-                    android:layout_weight="1" />
+
 
             </LinearLayout>
 

@@ -1,7 +1,5 @@
 package com.example.project1;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +8,12 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class join_first extends AppCompatActivity {
 
     ImageButton back;
-    CheckBox every_check, service_check, card_check, locate_check, ad_check, inform_check, mms_check, email_check, push_check;
+    CheckBox every_check, service_check, card_check, locate_check, inform_check, mms_check, email_check, push_check;
     Button agree;
 
 
@@ -29,7 +29,6 @@ public class join_first extends AppCompatActivity {
         service_check = (CheckBox) findViewById(R.id.service_check);
         card_check = (CheckBox) findViewById(R.id.card_check);
         locate_check = (CheckBox) findViewById(R.id.locate_check);
-        ad_check = (CheckBox) findViewById(R.id.ad_check);
         inform_check = (CheckBox) findViewById(R.id.inform_check);
         mms_check = (CheckBox) findViewById(R.id.mms_check);
         email_check = (CheckBox) findViewById(R.id.email_check);
@@ -42,7 +41,6 @@ public class join_first extends AppCompatActivity {
                 if(every_check.isChecked()){
                     service_check.setChecked((true));
                     locate_check.setChecked((true));
-                    ad_check.setChecked((true));
                     inform_check.setChecked((true));
                     card_check.setChecked((true));
                     mms_check.setChecked((true));
@@ -51,7 +49,6 @@ public class join_first extends AppCompatActivity {
                 } else {
                     service_check.setChecked((false));
                     locate_check.setChecked((false));
-                    ad_check.setChecked((false));
                     inform_check.setChecked((false));
                     card_check.setChecked((false));
                     mms_check.setChecked((false));
@@ -60,6 +57,7 @@ public class join_first extends AppCompatActivity {
                 }
             }
         });
+
 
         agree.setOnClickListener(new View.OnClickListener() {
             @Override

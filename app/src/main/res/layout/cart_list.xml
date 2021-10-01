@@ -65,23 +65,30 @@
 
                 <TextView
                     android:id="@+id/coffee_cart_size"
-                    android:layout_width="156dp"
+                    android:layout_width="165dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="regular" />
 
                 <TextView
                     android:id="@+id/coffee_cart_cup"
-                    android:layout_width="169dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="일회용컵" />
 
                 <TextView
+                    android:id="@+id/coffee_cart_cream"
+                    android:layout_width="169dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="휘핑" />
+
+                <TextView
                     android:id="@+id/coffee_cart_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/nanum_eb"
                     android:text="6,000"

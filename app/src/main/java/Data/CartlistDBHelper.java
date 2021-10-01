@@ -8,7 +8,7 @@ import Data.CartlistContract.CartlistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cartlist4.db";
+        private static final String DATABASE_NAME = "cartlist5.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -25,6 +25,7 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
                 CartlistContract.CartlistEntry.COLUMN_PRICE + " INTEGER NOT NULL, " +
                 CartlistContract.CartlistEntry.COLUMN_SIZE +" TEXT, " +
                 CartlistContract.CartlistEntry.COLUMN_CUP + " TEXT, " +
+                CartlistContract.CartlistEntry.COLUMN_CREAM + " TEXT, " +
                 CartlistContract.CartlistEntry.COLUMN_COUNT +" INTEGER NOT NULL, " +
                 CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE + " INTEGER NOT NULL, " +
                 CartlistContract.CartlistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +

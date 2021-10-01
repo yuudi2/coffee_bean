@@ -1,13 +1,18 @@
 package com.example.project1;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +26,8 @@ import Data.CartlistContract;
 import Data.CartlistDBHelper;
 
 public class shopping_cart extends AppCompatActivity {
+
+    public static Context context;
 
     int cart_img;
     String cart_name = "";
@@ -36,21 +43,32 @@ public class shopping_cart extends AppCompatActivity {
     CartViewAdapter.ViewHolder viewHolder;
     private CartViewAdapter adapter;
     PreferenceManager pref;
+    Cursor cur;
 
     //private ArrayList<CartData> cartlist;
 
     ArrayList<CartData> cartlist = new ArrayList<>();
 
     ImageButton delete_menu, delete_cart;
+    TextView final_order_price;
+    Button add_menu, final_order;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = this;
+
+
         setContentView(R.layout.activity_shopping_cart);
 
         delete_menu = findViewById(R.id.delete_menu);
         delete_cart = findViewById(R.id.delete_cart);
+
+        add_menu = findViewById(R.id.add_menu);
+        final_order = findViewById(R.id.final_order);
+        final_order_price = findViewById(R.id.final_order_price);
 
         recyclerView = findViewById(R.id.recyclerView_cart);
 
@@ -66,6 +84,7 @@ public class shopping_cart extends AppCompatActivity {
         adapter = new CartViewAdapter(this, cursor);
         // 리사이클러뷰에 어댑터를 연결
         recyclerView.setAdapter(adapter);
+
 
 
         Intent intent = getIntent();
@@ -95,7 +114,7 @@ public class shopping_cart extends AppCompatActivity {
 
             byte[] img_b = intToByte(cart_img);
 
-            addNewCart(img_b, cart_name, cart_price, cart_size, cart_cup, cart_count, cart_total_price);
+            addNewCart(img_b, cart_name, cart_price, cart_size, cart_cup, cart_cream, cart_count, cart_total_price);
 
             // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
             adapter.swapCursor(getAllGuests());
@@ -112,10 +131,46 @@ public class shopping_cart extends AppCompatActivity {
         delete_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteAll(mDb);
-                adapter.swapCursor(getAllGuests());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(shopping_cart.this);
+                builder.setTitle("상품삭제");
+                builder.setMessage("전체 상품을 삭제하시겠습니까?");
+
+
+                //  setPositiveButton -> "OK"버튼
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteAll(mDb);
+                        adapter.swapCursor(getAllGuests());
+
+                        //전체 금액
+                        final_order_price.setText("0원");
+                    }
+                });
+
+                //  setNegativeButton -> "Cancel" 버튼  //
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    }
+                });
+
+                builder.show();
+
             }
         });
+
+
+        //전체 금액
+        String totalsum = "SELECT SUM(total_price) FROM cartlist";
+        cur = mDb.rawQuery(totalsum, null);
+        cur.moveToNext();
+        String sum = String.valueOf(cur.getInt(0));
+        final_order_price.setText(sum + " 원");
+
     }
 
 
@@ -133,7 +188,7 @@ public class shopping_cart extends AppCompatActivity {
         );
     }
 
-    public void addNewCart(byte[] img, String name, int pirce, String size, String cup, int count, int total_price) {
+    public void addNewCart(byte[] img, String name, int pirce, String size, String cup, String cream, int count, int total_price) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
         /*
@@ -148,11 +203,21 @@ public class shopping_cart extends AppCompatActivity {
         cv.put(CartlistContract.CartlistEntry.COLUMN_PRICE, pirce);
         cv.put(CartlistContract.CartlistEntry.COLUMN_SIZE, size);
         cv.put(CartlistContract.CartlistEntry.COLUMN_CUP, cup);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_CREAM, cream);
         cv.put(CartlistContract.CartlistEntry.COLUMN_COUNT, count);
         cv.put(CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE, total_price);
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
+    }
+
+    public void price_update(){
+        //전체 금액
+        String totalsum = "SELECT SUM(total_price) FROM cartlist";
+        cur = mDb.rawQuery(totalsum, null);
+        cur.moveToNext();
+        String sum = String.valueOf(cur.getInt(0));
+        final_order_price.setText(sum + " 원");
     }
 
 

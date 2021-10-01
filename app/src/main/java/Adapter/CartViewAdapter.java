@@ -1,7 +1,10 @@
 package Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -19,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.select_menu;
+import com.example.project1.select_menu_cake;
 import com.example.project1.shopping_cart;
 
 import java.util.ArrayList;
@@ -35,6 +40,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
     int its_price;
 
 
+    Cursor cur;
     private shopping_cart cart;
     private SQLiteDatabase mDb;
     CartlistDBHelper dbHelper;
@@ -47,9 +53,15 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         cartlist = arrayList;
     }
 
-    public interface ItemClickListener { void onItemClick(int position);}
+    public interface ItemClickListener {
+        void onItemClick(int position);
+    }
+
     CartViewAdapter.ItemClickListener itemClickListener;
-    public void  setItemClickListener(CartViewAdapter.ItemClickListener itemClickListener){ this.itemClickListener = itemClickListener; }
+
+    public void setItemClickListener(CartViewAdapter.ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
 
     public CartViewAdapter(Context context, Cursor cursor) {
         this.mContext = context;
@@ -79,6 +91,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         ImageButton menu_delete;
         CheckBox check_menu;
         RecyclerView recyclerView;
+        TextView final_order_price;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -89,18 +102,17 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
             cart_price = (TextView) itemView.findViewById(R.id.coffee_cart_price);
             cart_size = (TextView) itemView.findViewById(R.id.coffee_cart_size);
             cart_cup = (TextView) itemView.findViewById(R.id.coffee_cart_cup);
-            //cart_cream = (TextView) itemView.findViewById(R.id.coffee_cart_cr);
+            cart_cream = (TextView) itemView.findViewById(R.id.coffee_cart_cream);
             cart_count = (TextView) itemView.findViewById(R.id.coffee_count);
             cart_total_price = (TextView) itemView.findViewById(R.id.coffee_cart_pricetotal);
             cart_minus = (ImageButton) itemView.findViewById(R.id.cart_minus);
             cart_plus = (ImageButton) itemView.findViewById(R.id.cart_plus);
             menu_delete = (ImageButton) itemView.findViewById(R.id.delete_menu);
-            recyclerView = (RecyclerView)itemView.findViewById(R.id.recyclerView_cart);
+            recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView_cart);
+            final_order_price = (TextView) itemView.findViewById(R.id.final_order_price);
         }
 
     }
-
-
 
 
     @NonNull
@@ -131,8 +143,11 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         @SuppressLint("Range") int price = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_PRICE));
         @SuppressLint("Range") String size = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_SIZE));
         @SuppressLint("Range") String cup = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_CUP));
+        @SuppressLint("Range") String cream = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_CREAM));
         @SuppressLint("Range") int count = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_COUNT));
         @SuppressLint("Range") int total_price = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE));
+
+
 
         int img_i = byte2Int(img);
 
@@ -141,6 +156,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         holder.cart_price.setText(Integer.toString(price) + "원");
         holder.cart_size.setText(size);
         holder.cart_cup.setText(cup);
+        holder.cart_cream.setText(cream);
         holder.cart_count.setText(Integer.toString(count));
         holder.cart_total_price.setText(Integer.toString(total_price) + "원");
 
@@ -161,6 +177,7 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
                 int f_count = change_count;
                 int f_price = change_count * its_price;
                 update(id, f_count, f_price);
+                ((shopping_cart)shopping_cart.context).price_update();
 
             }
         });
@@ -178,21 +195,44 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
                     int f_count = change_count;
                     int f_price = change_count * its_price;
                     update(id, f_count, f_price);
+                    ((shopping_cart)shopping_cart.context).price_update();
+
                 }
             }
         });
 
-//        holder.menu_delete.setTag(holder.getAdapterPosition());
+        //장바구니 삭제
         holder.menu_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delete(id);
-                swapCursor(getAllGuests());
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("상품삭제");
+                builder.setMessage("해당 상품을 삭제하시겠습니까?");
+
+
+                //  setPositiveButton -> "OK"버튼
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        delete(id);
+                        ((shopping_cart)shopping_cart.context).price_update();
+                        swapCursor(getAllGuests());
+                    }
+                });
+
+                //  setNegativeButton -> "Cancel" 버튼  //
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    }
+                });
+
+                builder.show();
+
             }
         });
-
-
-        //holder.tv_name.setText(item.getName());
 
 
 
@@ -201,26 +241,9 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), position + "", Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(v.getContext(), select_menu.class);
-//
-//
-//                intent.putExtra("img", cartlist.get(position).getImg());
-//                intent.putExtra("name", cartlist.get(position).getName());
-//                intent.putExtra("price", cartlist.get(position).getprice());
-//
-//                v.getContext().startActivity(intent);
-
-//                if (position != RecyclerView.NO_POSITION) {
-//                    if (itemClickListener != null) {
-//                        itemClickListener.onItemClick(position);
-//
-//                        //intent로 activty에 데이터를 넘겨줌
-//
-//
-//                    }
-//                }
             }
         });
+
     }
 
 
@@ -241,6 +264,8 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         mDb = dbHelper.getWritableDatabase();
         mDb.execSQL("UPDATE cartlist SET count = " + count + ", total_price = '" + total_price + "'" + " WHERE id = '" + id + "'");
         mDb.close();
+
+
     }
 
     public void delete(int id) {
@@ -249,7 +274,6 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
         mDb.execSQL("DELETE FROM cartlist WHERE id = '" + id + "'");
         //mDb.close();
     }
-
 
 
     private Cursor getAllGuests() {
@@ -275,18 +299,5 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
 
         return ((s1 << 24) + (s2 << 16) + (s3 << 8) + (s4 << 0));
     }
-
-
-//
-//    public long update(int id, int count, int total_price){
-//        CartlistDBHelper dbHelper = new CartlistDBHelper(mContext);
-//        mDb = dbHelper.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("count", count);
-//        values.put("total_price", total_price);
-//        return mDb.update("cart_list", values, "id=?" + id,null);
-//    }
-
-
 
 }

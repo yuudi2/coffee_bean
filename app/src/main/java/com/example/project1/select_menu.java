@@ -1,6 +1,10 @@
 package com.example.project1;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import Data.CartlistContract;
+import Data.CartlistDBHelper;
 import Data.CoffeeData;
 
 public class select_menu extends AppCompatActivity {
@@ -40,11 +46,17 @@ public class select_menu extends AppCompatActivity {
 
     ArrayList<CoffeeData> itemlist = new ArrayList<CoffeeData>();
 
+    private SQLiteDatabase mDb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_menu);
+
+
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        mDb = dbHelper.getWritableDatabase();
 
         //coffee 정보 불러오기
         coffee_img = findViewById(R.id.coffe_img);
@@ -57,28 +69,28 @@ public class select_menu extends AppCompatActivity {
 
         coffee_img.setImageResource(c_img);
         coffee_name.setText(c_name + "(S)");
-        coffee_price.setText(String.valueOf(c_price)+"원");
+        coffee_price.setText(String.valueOf(c_price) + "원");
 
         change_price = c_price;
 
 
         //주문금액
         order_price = findViewById(R.id.order_price);
-        order_price.setText(String.valueOf(c_price)+"원");
+        order_price.setText(String.valueOf(c_price) + "원");
 
 
         //수량 선택
         minus = findViewById(R.id.minus);
         plus = findViewById(R.id.plus);
         t_count = findViewById(R.id.count);
-        t_count.setText(count+"");
+        t_count.setText(count + "");
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 count++;
-                t_count.setText(count+"");
-                order_price.setText(String.valueOf(change_price * count)+"원");
+                t_count.setText(count + "");
+                order_price.setText(String.valueOf(change_price * count) + "원");
                 total_count = count;
             }
         });
@@ -86,10 +98,10 @@ public class select_menu extends AppCompatActivity {
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(count>1){
+                if (count > 1) {
                     count--;
-                    t_count.setText(count+"");
-                    order_price.setText(String.valueOf(change_price * count)+"원");
+                    t_count.setText(count + "");
+                    order_price.setText(String.valueOf(change_price * count) + "원");
                     total_count = count;
                 }
             }
@@ -101,6 +113,9 @@ public class select_menu extends AppCompatActivity {
         regular = findViewById(R.id.size_regular);
         large = findViewById(R.id.size_large);
 
+        //사이즈 디폴트값
+        small.setSelected(true);
+        size = small.getText().toString();
 
         small.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,8 +133,8 @@ public class select_menu extends AppCompatActivity {
                 coffee_name.setText(c_name + "(S)");
 
                 change_price = c_price;
-                order_price.setText(String.valueOf(change_price * count)+"원");
-                coffee_price.setText(String.valueOf(change_price)+"원");
+                order_price.setText(String.valueOf(change_price * count) + "원");
+                coffee_price.setText(String.valueOf(change_price) + "원");
 
                 size = small.getText().toString();
 
@@ -142,8 +157,8 @@ public class select_menu extends AppCompatActivity {
                 coffee_name.setText(c_name + "(R)");
 
                 change_price = c_price + 500;
-                order_price.setText(String.valueOf(change_price * count)+"원");
-                coffee_price.setText(String.valueOf(change_price)+"원");
+                order_price.setText(String.valueOf(change_price * count) + "원");
+                coffee_price.setText(String.valueOf(change_price) + "원");
 
                 size = regular.getText().toString();
             }
@@ -165,8 +180,8 @@ public class select_menu extends AppCompatActivity {
                 coffee_name.setText(c_name + "(L)");
 
                 change_price = c_price + 1000;
-                order_price.setText(String.valueOf(change_price * count)+"원");
-                coffee_price.setText(String.valueOf(change_price)+"원");
+                order_price.setText(String.valueOf(change_price * count) + "원");
+                coffee_price.setText(String.valueOf(change_price) + "원");
 
                 size = large.getText().toString();
             }
@@ -185,6 +200,7 @@ public class select_menu extends AppCompatActivity {
                 oneusecup.setTextColor(Color.parseColor("#aaaaaa"));
 
                 oneusecup.setSelected(false);
+                mugcup.setSelected(true);
 
                 cup = mugcup.getText().toString();
             }
@@ -199,12 +215,11 @@ public class select_menu extends AppCompatActivity {
                 mugcup.setTextColor(Color.parseColor("#aaaaaa"));
 
                 mugcup.setSelected(false);
+                oneusecup.setSelected(true);
 
                 cup = oneusecup.getText().toString();
             }
         });
-
-
 
 
         //휘핑크림 선택
@@ -220,8 +235,9 @@ public class select_menu extends AppCompatActivity {
                 cream_yes.setTextColor(Color.parseColor("#aaaaaa"));
 
                 cream_yes.setSelected(false);
+                cream_no.setSelected(true);
                 cream_no.getText();
-                cream = cream_no.getText().toString();
+                cream = null;
             }
         });
 
@@ -234,11 +250,11 @@ public class select_menu extends AppCompatActivity {
                 cream_no.setTextColor(Color.parseColor("#aaaaaa"));
 
                 cream_no.setSelected(false);
+                cream_yes.setSelected(true);
 
-                cream = cream_yes.getText().toString();
+                cream = "휘핑";
             }
         });
-
 
 
         //장바구니
@@ -249,23 +265,83 @@ public class select_menu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(view.getContext(), shopping_cart.class);
 
-                intent.putExtra("img", c_img);
-                intent.putExtra("name", coffee_name.getText());
-                intent.putExtra("price", change_price);
-                intent.putExtra("size", size);
-                intent.putExtra("cup", cup);
-                intent.putExtra("cream", cream);
-                intent.putExtra("count", total_count);
-                intent.putExtra("total_price", count * change_price );
-                setResult(RESULT_OK, intent);
-                finish();
-                view.getContext().startActivity(intent);
+                if (cream_no.isSelected() == true || cream_yes.isSelected() == true) {
+                    if (oneusecup.isSelected() == true || mugcup.isSelected() == true) {
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(select_menu.this);
+                        builder.setTitle("장바구니로 이동");
+                        builder.setMessage("장바구니로 이동하시겠습니까?");
+
+
+                        //  setPositiveButton -> "OK"버튼
+                        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                Intent intent = new Intent(view.getContext(), shopping_cart.class);
+
+                                intent.putExtra("img", c_img);
+                                intent.putExtra("name", coffee_name.getText());
+                                intent.putExtra("price", change_price);
+                                intent.putExtra("size", size);
+                                intent.putExtra("cup", cup);
+                                intent.putExtra("cream", cream);
+                                intent.putExtra("count", total_count);
+                                intent.putExtra("total_price", count * change_price);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                                view.getContext().startActivity(intent);
+
+                            }
+                        });
+
+                        //  setNegativeButton -> "Cancel" 버튼  //
+                        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                byte[] img_b = intToByte(c_img);
+                                addNewCart(img_b, coffee_name.getText().toString(), change_price, size, cup, cream, total_count, count * change_price);
+
+                            }
+                        });
+
+                        builder.show();      //대화상자(dialog)화면 출력
+
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(select_menu.this);
+                        builder.setTitle("선택 필요");
+                        builder.setMessage("선택되지 않은 항목이 있습니다.");
+
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        builder.show();
+                    }
+
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(select_menu.this);
+                    builder.setTitle("선택 필요");
+                    builder.setMessage("선택되지 않은 항목이 있습니다.");
+
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    builder.show();
+                }
+
 
             }
         });
-
 
 
         //주문하기 버튼
@@ -274,12 +350,47 @@ public class select_menu extends AppCompatActivity {
         order_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), change_price + count + "," + size  + "," + cup  + "," + cream, Toast.LENGTH_SHORT ).show();
+                Toast.makeText(view.getContext(), change_price + count + "," + size + "," + cup + "," + cream, Toast.LENGTH_SHORT).show();
 
 
             }
         });
 
+    }
+
+    //이미지 저장을 위해 형 변환
+    public static byte[] intToByte(int a) {
+        byte[] intToByte = new byte[4];
+        intToByte[0] |= (byte) ((a & 0xFF000000) >> 24);
+        intToByte[1] |= (byte) ((a & 0xFF0000) >> 16);
+        intToByte[2] |= (byte) ((a & 0xFF00) >> 8);
+        intToByte[3] |= (byte) (a & 0xFF);
+        return intToByte;
+
+    }
+
+
+    public void addNewCart(byte[] img, String name, int pirce, String size, String cup, String cream, int count, int total_price) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+        /*
+         * 열의 이름을 키로 해서 해당 값을 가리킨다.
+         * 값들을 put 메서드를 사용해 입력한다.
+         * 첫번째 파라미터는 열의 이름으로, Contract 로부터 가져올 수 있다.
+         * 두번째 파라미터는 값이다.
+         */
+
+        cv.put(CartlistContract.CartlistEntry.COLUMN_IMG, img);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_PRICE, pirce);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_SIZE, size);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_CUP, cup);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_CREAM, cream);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_COUNT, count);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_TOTAL_PRICE, total_price);
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
     }
 
 
