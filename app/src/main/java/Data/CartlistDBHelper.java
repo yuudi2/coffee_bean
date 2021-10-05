@@ -5,10 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import Data.CartlistContract.CartlistEntry;
+import Data.CartlistContract.StorelistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cartlist5.db";
+        private static final String DATABASE_NAME = "cart.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -33,12 +34,35 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
 
         // 쿼리 실행
         sqLiteDatabase.execSQL(SQL_CREATE_CARTLIST_TABLE);
+
+
+        final String SQL_CREATE_STORELIST_TABLE = "CREATE TABLE " + CartlistContract.StorelistEntry.TABLE_NAME + " (" +
+                CartlistContract.StorelistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CartlistContract.StorelistEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_TEL + " TEXT NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_ADDRESS +" TEXT NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_OPEN + " TEXT NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_LAT + " REAL NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_LNG +" REAL NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                    "); ";
+
+        // 쿼리 실행
+        sqLiteDatabase.execSQL(SQL_CREATE_STORELIST_TABLE);
+
+
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CartlistEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + StorelistEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
     }
 
     public void removePlace(int id){

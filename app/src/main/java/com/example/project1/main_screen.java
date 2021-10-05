@@ -105,17 +105,26 @@ public class main_screen extends AppCompatActivity {
 
 
         //navigation header 회원 이름
-
-        //LinearLayout ll_navigation_container = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.navigation_header, null);
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
 
-        //View nav_header_view = navigationView.inflateHeaderView(R.layout.nav_header_main);
         View nav_header_view = navigationView.getHeaderView(0);
 
         TextView nav_header_id_text = (TextView) nav_header_view.findViewById(R.id.user_name2);
         nav_header_id_text.setText(username + "님.");
 
+
+
+        //매장찾기 버튼
+        ImageButton nav_header_find_store = (ImageButton) nav_header_view.findViewById(R.id.find_store);
+        nav_header_find_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),find_store.class);
+                startActivity(intent);
+                DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
 
 
 

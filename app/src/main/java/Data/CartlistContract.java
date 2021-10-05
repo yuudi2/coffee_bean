@@ -3,6 +3,8 @@ package Data;
 import android.provider.BaseColumns;
 
 public class CartlistContract {
+
+    //장바구니 db
     public static final class CartlistEntry implements BaseColumns {
         public static final String TABLE_NAME = "cartlist";
         public static final String _ID = "id";
@@ -14,6 +16,20 @@ public class CartlistContract {
         public static final String COLUMN_CREAM = "cream";
         public static final String COLUMN_COUNT = "count";
         public static final String COLUMN_TOTAL_PRICE = "total_price";
+        public static final String COLUMN_TIMESTAMP = "timestamp";
+    }
+
+    //매장리스트 db
+    public static final class StorelistEntry implements BaseColumns {
+        public static final String TABLE_NAME = "storelist";
+        public static final String _ID = "id";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_TEL = "tel";
+        public static final String COLUMN_ADDRESS = "address";
+        public static final String COLUMN_OPEN = "open";
+        public static final String COLUMN_LAT = "lat";
+        public static final String COLUMN_LNG = "lng";
+        public static final String COLUMN_IMG = "img";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 }

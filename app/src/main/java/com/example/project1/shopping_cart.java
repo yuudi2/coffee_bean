@@ -60,8 +60,8 @@ public class shopping_cart extends AppCompatActivity {
 
         context = this;
 
-
         setContentView(R.layout.activity_shopping_cart);
+
 
         delete_menu = findViewById(R.id.delete_menu);
         delete_cart = findViewById(R.id.delete_cart);

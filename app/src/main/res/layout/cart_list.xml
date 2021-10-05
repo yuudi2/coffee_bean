@@ -13,7 +13,6 @@
         android:orientation="horizontal">
 
 
-
         <ImageView
             android:id="@+id/coffe_cart_img"
             android:layout_width="120dp"
