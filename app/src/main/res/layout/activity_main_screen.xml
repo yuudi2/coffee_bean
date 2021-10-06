@@ -318,6 +318,22 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/nanum_b"
+                        android:id="@+id/logout"
+                        android:text="로그아웃"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/fixed_layout"
+                        app:layout_constraintHorizontal_bias="0.8"
+                        app:layout_constraintStart_toStartOf="@+id/fixed_layout"
+                        app:layout_constraintTop_toTopOf="@+id/fixed_layout"
+                        app:layout_constraintVertical_bias="0.564" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/nanum_r"
                         android:text="카드등록이 필요합니다."
                         android:textColor="@color/white"

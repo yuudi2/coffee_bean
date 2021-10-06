@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/nanum_eb"
-                android:textColor="#4f2e72"
+                android:textColor="#56307A"
                 android:textSize="15dp"
                 android:text="주소" />
 
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="20dp"
-                android:textColor="#4f2e72"
+                android:textColor="#56307A"
                 android:fontFamily="@font/nanum_eb"
                 android:textSize="15dp"
                 android:text="전화" />
@@ -125,7 +125,7 @@
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#4f2e72"
+                android:textColor="#56307A"
                 android:layout_marginLeft="20dp"
                 android:fontFamily="@font/nanum_eb"
                 android:textSize="15dp"

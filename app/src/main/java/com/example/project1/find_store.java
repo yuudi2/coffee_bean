@@ -1,9 +1,11 @@
 package com.example.project1;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
@@ -21,11 +23,17 @@ public class find_store extends AppCompatActivity {
     private RecyclerView recyclerView;
     private StoreViewAdapter adapter;
 
+    double latitude = 0;
+    double longitude = 0;
+
+    public static Context context2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_store);
 
+        context2 = this;
 
         recyclerView = findViewById(R.id.recyclerView_store);
 
@@ -60,6 +68,9 @@ public class find_store extends AppCompatActivity {
 
         // 어댑터에서 커서를 업데이트하여 UI를 트리거하여 새 목록을 표시한다.
         adapter.swapCursor(getAllGuests());
+
+
+
     }
 
     public Cursor getAllGuests() {
@@ -114,6 +125,29 @@ public class find_store extends AppCompatActivity {
         return intToByte;
 
     }
+
+
+    //현재 좌표 구하기
+    public void onLocationChanged(Location location){
+//        String provider = location.getProvider();
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+//        altitude = location.getAltitude();
+
+    }
+
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+    public void onProviderEnabled(String provider) {
+
+    }
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+
 
 
     public void go_back(View view) {

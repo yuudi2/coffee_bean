@@ -74,6 +74,17 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum_eb"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="170dp"
+                android:text="300m"
+                android:textColor="#444444"
+                android:textSize="16dp" />
 
         </LinearLayout>
 

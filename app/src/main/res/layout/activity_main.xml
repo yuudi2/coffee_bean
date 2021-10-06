@@ -81,7 +81,7 @@
             android:textStyle="bold" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/auto_login"
             android:layout_width="105dp"
             android:layout_height="25dp"
             android:layout_gravity="center"

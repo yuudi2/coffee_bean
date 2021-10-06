@@ -1,6 +1,8 @@
 package com.example.project1;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -15,6 +17,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,8 +37,12 @@ import java.security.NoSuchAlgorithmException;
 public class MainActivity extends AppCompatActivity {
     //public static RequestQueue queue;
     Button find_id, find_passwd, join, login;
-    EditText ed_id, ed_passwd;
+    static EditText ed_id, ed_passwd;
+    static CheckBox auto_login;
     View.OnClickListener cl;
+    String user_id = "";
+    String user_passwd = "";
+    static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
         ed_id = findViewById(R.id.user_id);
         ed_passwd = findViewById(R.id.user_passwd);
 
-        find_id = (Button)findViewById(R.id.find_id);
-        find_passwd = (Button)findViewById(R.id.find_passwd);
-        join = (Button)findViewById(R.id.join);
-        login = (Button)findViewById(R.id.login);
+        find_id = (Button) findViewById(R.id.find_id);
+        find_passwd = (Button) findViewById(R.id.find_passwd);
+        join = (Button) findViewById(R.id.join);
+        login = (Button) findViewById(R.id.login);
         Button btn = findViewById(R.id.join);
 
 
@@ -75,26 +83,69 @@ public class MainActivity extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),join_first.class);
+                Intent intent = new Intent(getApplicationContext(), join_first.class);
                 startActivity(intent);
             }
         });
 
+
+
+        //로그인 & 자동로그인
+
+        SharedPreferences autologin = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        editor = autologin.edit();
+
+        auto_login = findViewById(R.id.auto_login);
+
+
+        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+
+                    String ID = ed_id.getText().toString();
+                    String PW = ed_passwd.getText().toString();
+
+                    editor.putString("ID", ID);
+                    editor.putString("PW", PW);
+                    editor.putBoolean("Auto_Login_enabled", true);
+                    editor.commit();
+
+                } else {
+
+                    editor.clear();
+                    editor.commit();
+
+                }
+            }
+        });
+
+        if (autologin.getBoolean("Auto_Login_enabled", false)) {
+            ed_id.setText(autologin.getString("ID", ""));
+            ed_passwd.setText(autologin.getString("PW", ""));
+            auto_login.setChecked(true);
+
+            this.AutoLoginCheck();
+        }
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String user_id = ed_id.getText().toString();
                 String user_passwd = ed_passwd.getText().toString();
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonObject = new JSONObject( response );
-                            boolean success = jsonObject.getBoolean( "success" );
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
 
-                            if(success){
+                            if (success) {
 
                                 String user_id = jsonObject.getString("user_id");
                                 String user_passwd = jsonObject.getString("user_passwd");
@@ -113,18 +164,18 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
 
                             } else {
-                                Toast.makeText( getApplicationContext(), "아이디나 비밀번호를 잘못입력하셨습니다.", Toast.LENGTH_SHORT ).show();
+                                Toast.makeText(getApplicationContext(), "아이디나 비밀번호를 잘못입력하셨습니다.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
-                        } catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                 };
-                LoginRequest loginRequest = new LoginRequest( user_id, user_passwd, responseListener );
-                RequestQueue queue = Volley.newRequestQueue( MainActivity.this );
-                queue.add( loginRequest );
+                LoginRequest loginRequest = new LoginRequest(user_id, user_passwd, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(loginRequest);
 
             }
         });
@@ -132,7 +183,69 @@ public class MainActivity extends AppCompatActivity {
         getHashKey();
     }
 
-    private void getHashKey(){
+
+
+
+    //자동로그인을 위한 함수
+    public void AutoLoginCheck() {
+
+        String user_id = ed_id.getText().toString();
+        String user_passwd = ed_passwd.getText().toString();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+
+                    if (success) {
+
+                        String user_id = jsonObject.getString("user_id");
+                        String user_passwd = jsonObject.getString("user_passwd");
+                        String user_name = jsonObject.getString("user_name");
+                        String user_phonenum = jsonObject.getString("user_phonenum");
+                        String user_email = jsonObject.getString("user_email");
+
+                        Intent intent = new Intent(getApplicationContext(), main_screen.class);
+
+                        intent.putExtra("user_id", user_id);
+                        intent.putExtra("user_passwd", user_passwd);
+                        intent.putExtra("user_name", user_name);
+                        intent.putExtra("user_phonenum", user_phonenum);
+                        intent.putExtra("user_email", user_email);
+
+                        startActivity(intent);
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "아이디나 비밀번호를 잘못입력하셨습니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        LoginRequest loginRequest = new LoginRequest(user_id, user_passwd, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(loginRequest);
+
+
+    }
+
+
+
+    //로그아웃시 체크박스 해제, 비밀번호 없애기
+    public static void uncheck(){
+        auto_login.setChecked(false);
+        ed_passwd.setText("");
+    }
+
+
+
+    //카카오 api hashkey
+    private void getHashKey() {
         PackageInfo packageInfo = null;
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
