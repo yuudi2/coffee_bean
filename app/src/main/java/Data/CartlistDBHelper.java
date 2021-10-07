@@ -9,7 +9,7 @@ import Data.CartlistContract.StorelistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart.db";
+        private static final String DATABASE_NAME = "cart3.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -45,6 +45,7 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
                 CartlistContract.StorelistEntry.COLUMN_LAT + " REAL NOT NULL, " +
                 CartlistContract.StorelistEntry.COLUMN_LNG +" REAL NOT NULL, " +
                 CartlistContract.StorelistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
+                CartlistContract.StorelistEntry.COLUMN_DISTANCE +" REAL NOT NULL, " +
                 CartlistContract.StorelistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     "); ";
 

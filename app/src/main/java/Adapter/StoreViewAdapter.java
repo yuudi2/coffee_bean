@@ -89,6 +89,7 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
         @SuppressLint("Range") String open = mCursor.getString(mCursor.getColumnIndex(CartlistContract.StorelistEntry.COLUMN_OPEN));
 
 
+
         //현재 내 좌표(위도, 경도) 구하기
         locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 

@@ -7,7 +7,6 @@
         android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="147dp"
-        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
 
@@ -90,4 +89,10 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F5F3F4"/>
 </LinearLayout>
