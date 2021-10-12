@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,6 +52,7 @@ public class shopping_cart extends AppCompatActivity {
 
     ImageButton delete_menu, delete_cart;
     TextView final_order_price;
+    RelativeLayout emptyView;
     Button add_menu, final_order;
 
 
@@ -71,6 +73,7 @@ public class shopping_cart extends AppCompatActivity {
         final_order_price = findViewById(R.id.final_order_price);
 
         recyclerView = findViewById(R.id.recyclerView_cart);
+        emptyView = findViewById(R.id.empty_view);
 
 
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
@@ -84,6 +87,8 @@ public class shopping_cart extends AppCompatActivity {
         adapter = new CartViewAdapter(this, cursor);
         // 리사이클러뷰에 어댑터를 연결
         recyclerView.setAdapter(adapter);
+
+        adapter.notifyDataSetChanged();
 
 
 
@@ -120,10 +125,24 @@ public class shopping_cart extends AppCompatActivity {
             adapter.swapCursor(getAllGuests());
 
 
-        } else {
 
+        } else {
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+
+
+        //장바구니 비었는지 확인
+        if(adapter.getItemCount()!=0){
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter.swapCursor(getAllGuests());
+        } else{
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
         }
 
 
@@ -146,6 +165,10 @@ public class shopping_cart extends AppCompatActivity {
 
                         //전체 금액
                         final_order_price.setText("0원");
+
+                        //장바구니 비었음
+                        recyclerView.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -218,6 +241,13 @@ public class shopping_cart extends AppCompatActivity {
         cur.moveToNext();
         String sum = String.valueOf(cur.getInt(0));
         final_order_price.setText(sum + " 원");
+    }
+
+
+    //장바구니 비었는지 확인
+    public void emptycheck(){
+        recyclerView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.VISIBLE);
     }
 
 

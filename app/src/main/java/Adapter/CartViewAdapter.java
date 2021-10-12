@@ -4,13 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,12 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
-import com.example.project1.select_menu;
-import com.example.project1.select_menu_cake;
 import com.example.project1.shopping_cart;
 
 import java.util.ArrayList;
@@ -196,7 +191,6 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
                     int f_price = change_count * its_price;
                     update(id, f_count, f_price);
                     ((shopping_cart)shopping_cart.context).price_update();
-
                 }
             }
         });
@@ -217,6 +211,14 @@ public class CartViewAdapter extends RecyclerView.Adapter<CartViewAdapter.ViewHo
                         delete(id);
                         ((shopping_cart)shopping_cart.context).price_update();
                         swapCursor(getAllGuests());
+
+
+                        //데이터가 없으면 장바구니 비었다는 화면
+                        notifyDataSetChanged();
+
+                        if(getItemCount()==0){
+                            ((shopping_cart)shopping_cart.context).emptycheck();
+                        }
                     }
                 });
 
