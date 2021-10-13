@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/btn_color5.xml" value="0.3194871794871795" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/btn_color6.xml" value="0.31197916666666664" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/btn_color7.xml" value="0.325" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/ic_icon_before_01.xml" value="0.38229166666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/ic_icon_star2.xml" value="0.3071794871794872" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.32760416666666664" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_gift.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_membership.xml" value="0.275" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_menu.xml" value="0.31384615384615383" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_menu2.xml" value="0.3416666666666667" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_phone.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_shopping.xml" value="0.275" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/drawable/ic_icon_shoppingbag2.xml" value="0.3177083333333333" />
@@ -40,6 +42,7 @@
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_main_screen.xml" value="0.22" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_mainscreen.xml" value="0.3125" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_menu_choice.xml" value="0.25" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_myfav_menu.xml" value="0.18811881188118812" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_purple_order1.xml" value="0.31354166666666666" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_select_menu.xml" value="0.22" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/activity_select_menu_cake.xml" value="0.3375" />
@@ -50,6 +53,7 @@
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/fragment_drink.xml" value="0.2734375" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/fragment_food.xml" value="0.2734375" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/item_list.xml" value="0.31354166666666666" />
+        <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/myfav_list.xml" value="0.3413173652694611" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/navigation_header.xml" value="0.3026041666666667" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/layout/store_list.xml" value="0.3125" />
         <entry key="..\:/Users/yuri/AndroidStudioProjects/project1/app/src/main/res/menu/menu.xml" value="0.3026041666666667" />
@@ -66,7 +70,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.33958333333333335" />
+        <option name="scale" value="0.3494791666666667" />
       </ProjectState>
     </option>
   </component>

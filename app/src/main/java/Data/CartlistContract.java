@@ -33,4 +33,13 @@ public class CartlistContract {
         public static final String COLUMN_DISTANCE = "distance";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
+
+    //찜 목록 db
+    public static final class MyfavlistEntry implements BaseColumns {
+        public static final String TABLE_NAME = "myfavlist";
+        public static final String _ID = "id";
+        public static final String COLUMN_IMG = "img";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_TIMESTAMP = "timestamp";
+    }
 }

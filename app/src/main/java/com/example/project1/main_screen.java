@@ -24,8 +24,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class main_screen extends AppCompatActivity {
 
-    ImageButton arrow, arrow2, menu, order2;
-    Button order;
+    ImageButton arrow, arrow2, menu, order2, mymenu2;
+    Button order, mymenu;
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
@@ -47,6 +47,8 @@ public class main_screen extends AppCompatActivity {
         menu = findViewById(R.id.menu_button);
         order = findViewById(R.id.order);
         order2 = findViewById(R.id.order2);
+        mymenu = findViewById(R.id.my_menu);
+        mymenu2 = findViewById(R.id.my_menu2);
 
 
         arrow.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +98,22 @@ public class main_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),purple_order1.class);
+                startActivity(intent);
+            }
+        });
+
+        mymenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),myfav_menu.class);
+                startActivity(intent);
+            }
+        });
+
+        mymenu2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),myfav_menu.class);
                 startActivity(intent);
             }
         });

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".myfav_menu">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#4f2e72"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="27dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:background="@android:color/transparent"
+            android:onClick="go_back"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_icon_before_01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nanum_eb"
+            android:text="나만의 메뉴"
+            android:textColor="@color/white"
+            android:textSize="18.2dp" />
+
+        <ImageButton
+            android:id="@+id/shopping_bag"
+            android:layout_marginLeft="360dp"
+            android:layout_width="27dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_icon_shoppingbag" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="30dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_icon_plus" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/nanum_b"
+            android:text="전체삭제"
+            android:textSize="15dp" />
+
+        <ImageButton
+            android:id="@+id/delete_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_icon_trash" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="590dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_cart"
+            android:layout_width="match_parent"
+            android:layout_height="590dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <RelativeLayout
+            android:id="@+id/empty_view"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="220dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/nanum_eb"
+                android:text="등록된 메뉴가 없습니다."
+                android:textColor="#653990"
+                android:textSize="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="280dp"
+                android:fontFamily="@font/nanum_r"
+                android:text="자주 드시는 음료를 나만의 메뉴에 등록하시면\n
+보다 간편하게 주문하실 수 있습니다."
+                android:textAlignment="center"
+                android:textColor="#464646"
+                android:textSize="13dp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/empty_view2"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/menu_regis"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/btn_color7"
+            android:fontFamily="@font/nanum_eb"
+            android:text="나만의 메뉴 등록하기"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+</LinearLayout>

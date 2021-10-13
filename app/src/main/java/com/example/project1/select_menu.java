@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,10 +28,12 @@ public class select_menu extends AppCompatActivity {
     ImageView coffee_img;
     TextView coffee_name, coffee_price;
     TextView t_count, order_price;
-    ImageButton minus, plus;
+    ImageButton minus, plus, mymenu;
     int count = 1;
     int total_count = count;
     Button small, regular, large, mugcup, oneusecup, cream_yes, cream_no, shopping_cart, order_now;
+
+    private Boolean mymenu_change;
 
     String size = "";
     String cup = "";
@@ -47,6 +50,7 @@ public class select_menu extends AppCompatActivity {
     ArrayList<CoffeeData> itemlist = new ArrayList<CoffeeData>();
 
     private SQLiteDatabase mDb;
+    private SQLiteDatabase mDb3;
 
 
     @Override
@@ -57,6 +61,7 @@ public class select_menu extends AppCompatActivity {
 
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
+        mDb3 = dbHelper.getWritableDatabase();
 
         //coffee 정보 불러오기
         coffee_img = findViewById(R.id.coffe_img);
@@ -356,6 +361,32 @@ public class select_menu extends AppCompatActivity {
             }
         });
 
+
+        //마이메뉴
+        mymenu = findViewById(R.id.mymenu);
+
+        namecheck(c_name);
+
+        mymenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mymenu_change == false){
+                    mymenu.setImageResource(R.drawable.ic_icon_starfull);
+                    byte[] img_b = intToByte(c_img);
+                    addNewFav(img_b, c_name);
+                    mymenu_change = true;
+                }
+
+                else{
+                    mymenu.setImageResource(R.drawable.ic_icon_star2);
+                    deleteFav(c_name);
+                    mymenu_change = false;
+                }
+            }
+        });
+
+
+
     }
 
     //이미지 저장을 위해 형 변환
@@ -391,6 +422,48 @@ public class select_menu extends AppCompatActivity {
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
+    }
+
+
+    public void addNewFav(byte[] img, String name) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+        /*
+         * 열의 이름을 키로 해서 해당 값을 가리킨다.
+         * 값들을 put 메서드를 사용해 입력한다.
+         * 첫번째 파라미터는 열의 이름으로, Contract 로부터 가져올 수 있다.
+         * 두번째 파라미터는 값이다.
+         */
+
+        cv.put(CartlistContract.MyfavlistEntry.COLUMN_IMG, img);
+        cv.put(CartlistContract.MyfavlistEntry.COLUMN_NAME, name);
+
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb3.insert(CartlistContract.MyfavlistEntry.TABLE_NAME, null, cv);
+    }
+
+    public void deleteFav(String name) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        mDb3 = dbHelper.getWritableDatabase();
+        mDb3.execSQL("DELETE FROM myfavlist WHERE name = '" + name + "'");
+        //mDb.close();
+    }
+
+
+    //찜 목록에 해당 데이터가 있는지 확인
+    private void namecheck(String favname) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT name FROM myfavlist", null);
+        mymenu_change = false;
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(favname)) {
+                mymenu_change = true;
+                mymenu.setImageResource(R.drawable.ic_icon_starfull);
+                break;
+            }
+        }
+
     }
 
 

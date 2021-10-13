@@ -6,10 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import Data.CartlistContract.CartlistEntry;
 import Data.CartlistContract.StorelistEntry;
+import Data.CartlistContract.MyfavlistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart3.db";
+        private static final String DATABASE_NAME = "cart7.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -49,8 +50,20 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
                 CartlistContract.StorelistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                     "); ";
 
+
         // 쿼리 실행
         sqLiteDatabase.execSQL(SQL_CREATE_STORELIST_TABLE);
+
+
+        final String SQL_CREATE_MYFAVLIST_TABLE = "CREATE TABLE " + CartlistContract.MyfavlistEntry.TABLE_NAME + " (" +
+                CartlistContract.MyfavlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CartlistContract.MyfavlistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
+                CartlistContract.MyfavlistEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                CartlistContract.MyfavlistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                "); ";
+
+        // 쿼리 실행
+        sqLiteDatabase.execSQL(SQL_CREATE_MYFAVLIST_TABLE);
 
 
     }
@@ -62,6 +75,9 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + StorelistEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MyfavlistEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }
