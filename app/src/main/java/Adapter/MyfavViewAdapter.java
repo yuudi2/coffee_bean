@@ -2,6 +2,7 @@ package Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.select_menu;
+import com.example.project1.select_menu_cake;
+
+import java.util.Arrays;
 
 import Data.CartlistContract;
 
@@ -20,6 +25,7 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
 
     private Context mContext;
     private Cursor mCursor;
+
 
     public MyfavViewAdapter(Context context, Cursor cursor) {
         this.mContext = context;
@@ -68,12 +74,40 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
         @SuppressLint("Range") int id = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry._ID));
         @SuppressLint("Range") byte[] img = mCursor.getBlob(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_IMG));
         @SuppressLint("Range") String name = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_NAME));
+        @SuppressLint("Range") int price = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_PRICE));
 
 
         int img_i = byte2Int(img);
 
         holder.myfav_img.setImageResource(img_i);
         holder.myfav_name.setText(name);
+
+        String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼","블랙다이몬 카페수아"};
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Arrays.asList(coffee_name).contains(name) == true) {
+                    Intent intent = new Intent(view.getContext(), select_menu.class);
+
+                    intent.putExtra("img", img_i);
+                    intent.putExtra("name", name);
+                    intent.putExtra("price", price);
+
+                    view.getContext().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(view.getContext(), select_menu_cake.class);
+
+                    intent.putExtra("img", img_i);
+                    intent.putExtra("name", name);
+                    intent.putExtra("price", price);
+
+                    view.getContext().startActivity(intent);
+
+                }
+            }
+
+        });
 
     }
 

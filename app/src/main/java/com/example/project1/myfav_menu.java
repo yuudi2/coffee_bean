@@ -22,7 +22,7 @@ public class myfav_menu extends AppCompatActivity {
 
     public static Context context;
 
-    ImageButton shopping_bag;
+    ImageButton shopping_bag, add_favmenu;
     Button menu_regis;
 
     int fav_img;
@@ -44,6 +44,7 @@ public class myfav_menu extends AppCompatActivity {
         setContentView(R.layout.activity_myfav_menu);
 
         shopping_bag = findViewById(R.id.shopping_bag);
+        add_favmenu = findViewById(R.id.add_favmenu);
         menu_regis = findViewById(R.id.menu_regis);
         recyclerView = findViewById(R.id.recyclerView_cart);
 
@@ -111,6 +112,16 @@ public class myfav_menu extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), shopping_cart.class);
+                view.getContext().startActivity(intent);
+
+            }
+        });
+
+        add_favmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), menu_choice.class);
                 view.getContext().startActivity(intent);
 
             }

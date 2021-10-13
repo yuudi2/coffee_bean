@@ -21,6 +21,7 @@ public class fragment_drink extends Fragment {
     private RecyclerView recyclerView = null;
     private CoffeeViewAdapter adapter = null;
 
+
     ArrayList<CoffeeData> coffeeList = new ArrayList<>();
 
     int [] coffee_img = {R.drawable.coffee1, R.drawable.coffee2, R.drawable.coffee3,

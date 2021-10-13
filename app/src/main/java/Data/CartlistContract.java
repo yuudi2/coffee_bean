@@ -40,6 +40,7 @@ public class CartlistContract {
         public static final String _ID = "id";
         public static final String COLUMN_IMG = "img";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 }

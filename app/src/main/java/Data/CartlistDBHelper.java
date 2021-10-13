@@ -10,7 +10,7 @@ import Data.CartlistContract.MyfavlistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart7.db";
+        private static final String DATABASE_NAME = "cart8.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -59,6 +59,7 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
                 CartlistContract.MyfavlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CartlistContract.MyfavlistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
                 CartlistContract.MyfavlistEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                CartlistContract.CartlistEntry.COLUMN_PRICE + " INTEGER NOT NULL, " +
                 CartlistContract.MyfavlistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 "); ";
 

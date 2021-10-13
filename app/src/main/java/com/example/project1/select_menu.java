@@ -373,7 +373,7 @@ public class select_menu extends AppCompatActivity {
                 if(mymenu_change == false){
                     mymenu.setImageResource(R.drawable.ic_icon_starfull);
                     byte[] img_b = intToByte(c_img);
-                    addNewFav(img_b, c_name);
+                    addNewFav(img_b, c_name, c_price);
                     mymenu_change = true;
                 }
 
@@ -425,7 +425,7 @@ public class select_menu extends AppCompatActivity {
     }
 
 
-    public void addNewFav(byte[] img, String name) {
+    public void addNewFav(byte[] img, String name, int pirce) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
         /*
@@ -437,6 +437,7 @@ public class select_menu extends AppCompatActivity {
 
         cv.put(CartlistContract.MyfavlistEntry.COLUMN_IMG, img);
         cv.put(CartlistContract.MyfavlistEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.CartlistEntry.COLUMN_PRICE, pirce);
 
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
