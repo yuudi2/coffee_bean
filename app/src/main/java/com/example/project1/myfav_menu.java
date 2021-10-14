@@ -41,6 +41,7 @@ public class myfav_menu extends AppCompatActivity {
 
         context = this;
 
+
         setContentView(R.layout.activity_myfav_menu);
 
         shopping_bag = findViewById(R.id.shopping_bag);
@@ -69,14 +70,8 @@ public class myfav_menu extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
 
-        //찜 목록에 담은 커피 정보
-//        fav_img = getIntent().getExtras().getInt("img");
-//        fav_name = getIntent().getExtras().getString("name");
-
-
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
 
 
@@ -84,19 +79,7 @@ public class myfav_menu extends AppCompatActivity {
         adapter.swapCursor(getAllGuests());
 
 
-        //장바구니 비었는지 확인
-        if(adapter.getItemCount()!=0){
-            recyclerView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-            emptyView2.setVisibility(View.GONE);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter.swapCursor(getAllGuests());
-        } else{
-            recyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-            emptyView2.setVisibility(View.VISIBLE);
-        }
+        viewvisible();
 
 
         menu_regis.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +135,47 @@ public class myfav_menu extends AppCompatActivity {
         intToByte[2] |= (byte)((a&0xFF00)>>8);
         intToByte[3] |= (byte)(a&0xFF);
         return intToByte;
+
+    }
+
+    public void update(){
+        Cursor cursor = getAllGuests();
+        adapter = new MyfavViewAdapter(this, cursor);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.swapCursor(getAllGuests());
+    }
+
+    public void viewvisible(){
+        //장바구니 비었는지 확인
+        if(adapter.getItemCount()!=0){
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            emptyView2.setVisibility(View.GONE);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter.swapCursor(getAllGuests());
+        } else{
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyView2.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void visible1(){
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            emptyView2.setVisibility(View.GONE);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter.swapCursor(getAllGuests());
+    }
+
+    public void visible2(){
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyView2.setVisibility(View.VISIBLE);
 
     }
 

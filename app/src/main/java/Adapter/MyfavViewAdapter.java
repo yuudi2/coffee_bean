@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
 
     private Context mContext;
     private Cursor mCursor;
-
+    private SQLiteDatabase mDb3;
 
     public MyfavViewAdapter(Context context, Cursor cursor) {
         this.mContext = context;
@@ -62,7 +63,6 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
         View view = inflater.inflate(R.layout.myfav_list, parent, false);
         MyfavViewAdapter.ViewHolder vh = new MyfavViewAdapter.ViewHolder(view);
 
-
         return vh;
     }
 
@@ -76,13 +76,15 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
         @SuppressLint("Range") String name = mCursor.getString(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_NAME));
         @SuppressLint("Range") int price = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.CartlistEntry.COLUMN_PRICE));
 
-
         int img_i = byte2Int(img);
 
         holder.myfav_img.setImageResource(img_i);
         holder.myfav_name.setText(name);
 
+
         String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼","블랙다이몬 카페수아"};
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +113,7 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
 
     }
 
+
     public void swapCursor(Cursor newCursor) {
         // 항상 이전 커서를 닫는다.
         if (mCursor != null)
@@ -122,6 +125,21 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
             this.notifyDataSetChanged();
         }
     }
+
+    private Cursor getAllGuests() {
+        // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
+        // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
+        return mDb3.query(
+                CartlistContract.MyfavlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                CartlistContract.MyfavlistEntry.COLUMN_TIMESTAMP
+        );
+    }
+
 
     public static int byte2Int(byte[] src) {
         int s1 = src[0] & 0xFF;

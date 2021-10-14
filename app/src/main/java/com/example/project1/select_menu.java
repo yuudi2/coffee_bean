@@ -16,9 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import Adapter.MyfavViewAdapter;
 import Data.CartlistContract;
 import Data.CartlistDBHelper;
 import Data.CoffeeData;
@@ -51,7 +53,8 @@ public class select_menu extends AppCompatActivity {
 
     private SQLiteDatabase mDb;
     private SQLiteDatabase mDb3;
-
+    private RecyclerView recyclerView;
+    private MyfavViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -367,6 +370,15 @@ public class select_menu extends AppCompatActivity {
 
         namecheck(c_name);
 
+        //커서에 결과를 저장
+        Cursor cursor = getAllGuests();
+        recyclerView = findViewById(R.id.recyclerView_cart);
+        // 데이터를 표시할 커서를 위한 어댑터 생성
+        adapter = new MyfavViewAdapter(this, cursor);
+        // 리사이클러뷰에 어댑터를 연결
+
+
+
         mymenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -374,12 +386,21 @@ public class select_menu extends AppCompatActivity {
                     mymenu.setImageResource(R.drawable.ic_icon_starfull);
                     byte[] img_b = intToByte(c_img);
                     addNewFav(img_b, c_name, c_price);
+                    ((myfav_menu)myfav_menu.context).update();
+                    if(count() > 0){
+                        ((myfav_menu)myfav_menu.context).visible1();
+                    }
                     mymenu_change = true;
                 }
 
                 else{
                     mymenu.setImageResource(R.drawable.ic_icon_star2);
                     deleteFav(c_name);
+                    adapter.notifyDataSetChanged();
+                    ((myfav_menu)myfav_menu.context).update();
+                    if(count() == 0){
+                        ((myfav_menu)myfav_menu.context).visible2();
+                    }
                     mymenu_change = false;
                 }
             }
@@ -424,6 +445,20 @@ public class select_menu extends AppCompatActivity {
         mDb.insert(CartlistContract.CartlistEntry.TABLE_NAME, null, cv);
     }
 
+    public Cursor getAllGuests() {
+        // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
+        // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
+        return mDb3.query(
+                CartlistContract.MyfavlistEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                CartlistContract.MyfavlistEntry.COLUMN_TIMESTAMP
+        );
+    }
+
 
     public void addNewFav(byte[] img, String name, int pirce) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
@@ -465,6 +500,13 @@ public class select_menu extends AppCompatActivity {
             }
         }
 
+    }
+
+    public int count(){
+        int cnt = 0;
+        Cursor cursor = mDb3.rawQuery("SELECT * FROM myfavlist", null);
+        cnt = cursor.getCount();
+        return cnt;
     }
 
 
