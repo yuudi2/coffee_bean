@@ -1,6 +1,8 @@
 package com.example.project1;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,7 +24,7 @@ public class myfav_menu extends AppCompatActivity {
 
     public static Context context;
 
-    ImageButton shopping_bag, add_favmenu;
+    ImageButton shopping_bag, add_favmenu, delete_myfav;
     Button menu_regis;
 
     int fav_img;
@@ -46,6 +48,7 @@ public class myfav_menu extends AppCompatActivity {
 
         shopping_bag = findViewById(R.id.shopping_bag);
         add_favmenu = findViewById(R.id.add_favmenu);
+        delete_myfav = findViewById(R.id.delete_myfav);
         menu_regis = findViewById(R.id.menu_regis);
         recyclerView = findViewById(R.id.recyclerView_cart);
 
@@ -110,7 +113,40 @@ public class myfav_menu extends AppCompatActivity {
             }
         });
 
+        delete_myfav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(myfav_menu.this);
+                builder.setTitle("상품삭제");
+                builder.setMessage("전체 목록을 삭제하시겠습니까?");
+
+
+                //  setPositiveButton -> "OK"버튼
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteAll(mDb3);
+                        adapter.swapCursor(getAllGuests());
+
+                        visible2();
+                    }
+                });
+
+                //  setNegativeButton -> "Cancel" 버튼  //
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
+
     }
+
 
     public Cursor getAllGuests() {
         // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
@@ -177,6 +213,12 @@ public class myfav_menu extends AppCompatActivity {
             emptyView.setVisibility(View.VISIBLE);
             emptyView2.setVisibility(View.VISIBLE);
 
+    }
+
+
+
+    public void deleteAll(SQLiteDatabase database) {
+        database.execSQL("DELETE FROM myfavlist");
     }
 
 

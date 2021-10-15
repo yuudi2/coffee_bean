@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".select_store"
+            android:exported="true" />
+        <activity
             android:name=".myfav_menu"
             android:exported="true" />
         <activity

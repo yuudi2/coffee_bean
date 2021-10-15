@@ -72,7 +72,7 @@
             android:textSize="15dp" />
 
         <ImageButton
-            android:id="@+id/delete_cart"
+            android:id="@+id/delete_myfav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

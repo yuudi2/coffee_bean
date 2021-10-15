@@ -3,6 +3,7 @@ package com.example.project1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class menu_choice extends AppCompatActivity {
 
     ViewPager viewPager;
     ImageButton shopping_bag;
+    Button select_store;
 
 
     @Override
@@ -25,6 +27,7 @@ public class menu_choice extends AppCompatActivity {
         setContentView(R.layout.activity_menu_choice);
 
         shopping_bag = findViewById(R.id.shopping_bag);
+        select_store = findViewById(R.id.select_store);
 
         //viewpager 어댑터 set
         viewPager = findViewById(R.id.viewpager);
@@ -44,6 +47,16 @@ public class menu_choice extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), shopping_cart.class);
+                view.getContext().startActivity(intent);
+
+            }
+        });
+
+        select_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), select_store.class);
                 view.getContext().startActivity(intent);
 
             }

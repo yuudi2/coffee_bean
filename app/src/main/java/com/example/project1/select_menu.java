@@ -2,6 +2,7 @@ package com.example.project1;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -36,6 +37,7 @@ public class select_menu extends AppCompatActivity {
     Button small, regular, large, mugcup, oneusecup, cream_yes, cream_no, shopping_cart, order_now;
 
     private Boolean mymenu_change;
+    public static Context context;
 
     String size = "";
     String cup = "";
@@ -60,7 +62,7 @@ public class select_menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_menu);
-
+        context = this;
 
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();

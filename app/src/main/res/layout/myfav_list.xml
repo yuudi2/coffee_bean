@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
         android:background="@color/white"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="147dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
@@ -18,18 +18,17 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="239dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
@@ -37,8 +36,8 @@
                     android:id="@+id/myfav_name"
                     android:layout_width="175dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="20dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/nanum_eb"
                     android:text="헤이즐넛아메리카노IB"
                     android:textColor="@color/black"
@@ -46,12 +45,12 @@
 
                 <ImageButton
                     android:id="@+id/delete_favmenu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="104dp"
+                    android:layout_height="105dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/ic_icon_menu2" />
+                    app:srcCompat="@drawable/ic_icon_close" />
 
 
             </LinearLayout>

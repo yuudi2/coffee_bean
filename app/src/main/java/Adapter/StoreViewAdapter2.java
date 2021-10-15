@@ -21,12 +21,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
-import com.example.project1.find_store;
+import com.example.project1.select_store;
 import com.example.project1.store_info;
 
 import Data.CartlistContract;
 
-public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.ViewHolder> {
+public class StoreViewAdapter2 extends RecyclerView.Adapter<StoreViewAdapter2.ViewHolder> {
 
     private Context mContext;
     private Cursor mCursor;
@@ -35,7 +35,7 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
     private LocationManager locationManager;
     private static final int REQUEST_CODE_LOCATION = 2;
 
-    public StoreViewAdapter(Context context, Cursor cursor) {
+    public StoreViewAdapter2(Context context, Cursor cursor) {
         this.mContext = context;
         mCursor = cursor;
     }
@@ -63,12 +63,12 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
 
     @NonNull
     @Override
-    public StoreViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StoreViewAdapter2.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.store_list, parent, false);
-        StoreViewAdapter.ViewHolder vh = new StoreViewAdapter.ViewHolder(view);
+        StoreViewAdapter2.ViewHolder vh = new StoreViewAdapter2.ViewHolder(view);
 
 
         return vh;
@@ -76,7 +76,7 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
 
 
     @Override
-    public void onBindViewHolder(@NonNull StoreViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StoreViewAdapter2.ViewHolder holder, int position) {
         if (!mCursor.moveToPosition(position))
             return;
         @SuppressLint("Range") int id = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.StorelistEntry._ID));
@@ -106,9 +106,7 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
         myLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
 
-        ((find_store)find_store.context2).onLocationChanged(myLocation);
-
-        //((select_store)select_store.context4).onLocationChanged(myLocation);
+        ((select_store)select_store.context4).onLocationChanged(myLocation);
 
         //내 좌표
         double sLat =  Double.valueOf(myLocation.getLatitude());

@@ -1,13 +1,16 @@
 package Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,12 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.myfav_menu;
 import com.example.project1.select_menu;
 import com.example.project1.select_menu_cake;
 
 import java.util.Arrays;
 
 import Data.CartlistContract;
+import Data.CartlistDBHelper;
 
 public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.ViewHolder> {
 
@@ -44,12 +49,14 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView myfav_img;
         TextView myfav_name;
+        ImageButton myfav_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             myfav_img = (ImageView) itemView.findViewById(R.id.myfav_img);
             myfav_name = (TextView) itemView.findViewById(R.id.myfav_name);
+            myfav_delete = (ImageButton) itemView.findViewById(R.id.delete_favmenu);
         }
 
     }
@@ -78,13 +85,51 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
 
         int img_i = byte2Int(img);
 
+
         holder.myfav_img.setImageResource(img_i);
         holder.myfav_name.setText(name);
 
 
         String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼","블랙다이몬 카페수아"};
 
+        //찜 목록 삭제
+        holder.myfav_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("상품삭제");
+                builder.setMessage("해당 상품을 삭제하시겠습니까?");
 
+
+                //  setPositiveButton -> "OK"버튼
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        delete(id);
+                        swapCursor(getAllGuests());
+
+                        //데이터가 없으면 장바구니 비었다는 화면
+                        notifyDataSetChanged();
+
+                        if(getItemCount()==0){
+                            ((myfav_menu)myfav_menu.context).visible2();
+                        }
+                    }
+                });
+
+                //  setNegativeButton -> "Cancel" 버튼  //
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +183,14 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
                 null,
                 CartlistContract.MyfavlistEntry.COLUMN_TIMESTAMP
         );
+    }
+
+
+    public void delete(int id) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(mContext);
+        mDb3 = dbHelper.getWritableDatabase();
+        mDb3.execSQL("DELETE FROM myfavlist WHERE id = '" + id + "'");
+        //mDb.close();
     }
 
 
