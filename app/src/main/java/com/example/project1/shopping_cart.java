@@ -184,6 +184,16 @@ public class shopping_cart extends AppCompatActivity {
                 builder.show();
 
             }
+
+        });
+
+
+        add_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), menu_choice.class);
+                startActivity(intent);
+            }
         });
 
 

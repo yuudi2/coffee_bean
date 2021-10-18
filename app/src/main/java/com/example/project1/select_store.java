@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,8 @@ public class select_store extends AppCompatActivity {
     private RecyclerView recyclerView;
     private StoreViewAdapter2 adapter;
     Cursor cur;
+
+    String activtity = "";
 
     public static Context context4;
 
@@ -84,6 +87,20 @@ public class select_store extends AppCompatActivity {
 //        altitude = location.getAltitude();
 
     }
+
+    public String check_activity(){
+        Intent intent = getIntent();
+
+        //장바구니에 담지않고 바로 장바구니화면으로 intent 했을때 null값 확인
+        if(!TextUtils.isEmpty(intent.getStringExtra("activity"))) {
+
+            activtity = getIntent().getExtras().getString("activity");
+
+
+        }
+        return activtity;
+    }
+
 
 
     public void go_back(View view) {

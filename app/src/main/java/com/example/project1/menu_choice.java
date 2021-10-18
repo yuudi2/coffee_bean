@@ -2,9 +2,11 @@ package com.example.project1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -19,7 +21,17 @@ public class menu_choice extends AppCompatActivity {
     ViewPager viewPager;
     ImageButton shopping_bag;
     Button select_store;
+    TextView store_select_name;
 
+    String s_store = "";
+
+
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//
+//        super.onSaveInstanceState(outState);
+//
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +40,7 @@ public class menu_choice extends AppCompatActivity {
 
         shopping_bag = findViewById(R.id.shopping_bag);
         select_store = findViewById(R.id.select_store);
+        store_select_name = findViewById(R.id.store_select_name);
 
         //viewpager 어댑터 set
         viewPager = findViewById(R.id.viewpager);
@@ -41,12 +54,23 @@ public class menu_choice extends AppCompatActivity {
         tabLayout.getTabAt(1).setText("푸드");
         tabLayout.getTabAt(2).setText("홀케익");
 
+        Intent intent = getIntent();
+
+
+        if(!TextUtils.isEmpty(intent.getStringExtra("name"))) {
+
+            s_store = getIntent().getExtras().getString("name");
+
+            store_select_name.setText(s_store + "으로 주문합니다.");
+        }
+
 
         shopping_bag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), shopping_cart.class);
+
                 view.getContext().startActivity(intent);
 
             }
@@ -61,6 +85,8 @@ public class menu_choice extends AppCompatActivity {
 
             }
         });
+
+        onResume();
 
     }
 

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nanum_eb"
+            android:text="매장선택"
+            android:textColor="#754fa0"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:id="@+id/img_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="172dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/name_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/nanum_eb"
+            android:text="테헤란로비젼타워점"
+            android:textColor="#754fa0"
+            android:textSize="19dp" />
+
+        <TextView
+            android:id="@+id/address_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/nanum_r"
+            android:textColor="#aaaaaa"
+            android:text="서울시 강남구"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/nanum_b"
+            android:text="퍼플오더 가능시간"
+            android:textSize="13dp"
+            android:textColor="#777777" />
+
+        <TextView
+            android:id="@+id/time_dialog"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/nanum_eb"
+            android:text="07:30~"
+            android:textColor="#444444"
+            android:textAlignment="center"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/nanum_eb"
+            android:textSize="14.5dp"
+            android:text="선택한 매장으로 주문하시겠습니까?"
+            android:textColor="#555555" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/no_dialog"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_color3"
+                android:fontFamily="@font/nanum_eb"
+                android:textSize="15dp"
+                android:textColor="#754fa0"
+                android:text="아니오" />
+
+            <Button
+                android:id="@+id/yes_dialog"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_color6"
+                android:fontFamily="@font/nanum_eb"
+                android:text="예"
+                android:textSize="15dp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

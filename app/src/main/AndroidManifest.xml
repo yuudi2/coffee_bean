@@ -39,9 +39,6 @@
         <activity
             android:name=".menu_choice"
             android:exported="true" />
-        <activity
-            android:name=".purple_order1"
-            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.actions"

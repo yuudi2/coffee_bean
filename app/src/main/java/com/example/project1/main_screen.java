@@ -89,7 +89,7 @@ public class main_screen extends AppCompatActivity {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),purple_order1.class);
+                Intent intent = new Intent(getApplicationContext(),menu_choice.class);
                 startActivity(intent);
             }
         });
@@ -97,7 +97,7 @@ public class main_screen extends AppCompatActivity {
         order2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),purple_order1.class);
+                Intent intent = new Intent(getApplicationContext(),menu_choice.class);
                 startActivity(intent);
             }
         });

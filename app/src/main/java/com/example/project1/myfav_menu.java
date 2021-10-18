@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,8 @@ public class myfav_menu extends AppCompatActivity {
 
     ImageButton shopping_bag, add_favmenu, delete_myfav;
     Button menu_regis;
+    Button select_store;
+    TextView store_select_name;
 
     int fav_img;
     String fav_name = "";
@@ -35,6 +39,8 @@ public class myfav_menu extends AppCompatActivity {
     private MyfavViewAdapter adapter;
     RelativeLayout emptyView, emptyView2;
     Cursor cur;
+    String s_store = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +57,20 @@ public class myfav_menu extends AppCompatActivity {
         delete_myfav = findViewById(R.id.delete_myfav);
         menu_regis = findViewById(R.id.menu_regis);
         recyclerView = findViewById(R.id.recyclerView_cart);
+        store_select_name = findViewById(R.id.store_select_name);
 
 
         emptyView = findViewById(R.id.empty_view);
         emptyView2 = findViewById(R.id.empty_view2);
+
+        Intent intent = getIntent();
+        if(!TextUtils.isEmpty(intent.getStringExtra("name"))) {
+
+            s_store = getIntent().getExtras().getString("name");
+
+            store_select_name.setText(s_store + "으로 주문합니다.");
+        }
+
 
 
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
@@ -141,6 +157,21 @@ public class myfav_menu extends AppCompatActivity {
                 });
 
                 builder.show();
+
+            }
+        });
+
+
+        select_store = findViewById(R.id.select_store);
+        select_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), select_store.class);
+
+                intent.putExtra("activity", "fav");
+
+                view.getContext().startActivity(intent);
 
             }
         });

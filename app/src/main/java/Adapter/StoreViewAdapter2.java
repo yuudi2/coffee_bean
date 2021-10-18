@@ -4,6 +4,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,16 +14,19 @@ import android.location.LocationManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project1.R;
+import com.example.project1.menu_choice;
+import com.example.project1.myfav_menu;
 import com.example.project1.select_store;
-import com.example.project1.store_info;
 
 import Data.CartlistContract;
 
@@ -31,6 +35,9 @@ public class StoreViewAdapter2 extends RecyclerView.Adapter<StoreViewAdapter2.Vi
     private Context mContext;
     private Cursor mCursor;
     Location myLocation;
+
+    AlertDialog.Builder builder;
+    AlertDialog alertDialog;
 
     private LocationManager locationManager;
     private static final int REQUEST_CODE_LOCATION = 2;
@@ -130,17 +137,49 @@ public class StoreViewAdapter2 extends RecyclerView.Adapter<StoreViewAdapter2.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), store_info.class);
 
-                intent.putExtra("name", name);
-                intent.putExtra("address", address);
-                intent.putExtra("img", img);
-                intent.putExtra("tel", tel);
-                intent.putExtra("lat", lat);
-                intent.putExtra("lng", lng);
-                intent.putExtra("open", open);
+                final Dialog dialog = new Dialog(mContext);
 
-                v.getContext().startActivity(intent);
+                dialog.setContentView(R.layout.custom_dialog);
+                dialog.show();
+
+                ImageView img_dialog = (ImageView)dialog.findViewById( R.id.img_dialog);
+                img_dialog.setImageResource(img_i);
+                TextView name_dialog = (TextView)dialog.findViewById(R.id.name_dialog);
+                name_dialog.setText(name);
+                TextView address_dialog = (TextView)dialog.findViewById(R.id.address_dialog);
+                address_dialog.setText(address);
+                TextView time_dialog = (TextView)dialog.findViewById(R.id.time_dialog);
+                time_dialog.setText(open);
+
+                Button no_dialog = (Button)dialog.findViewById(R.id.no_dialog);
+                Button yes_dialog = (Button)dialog.findViewById(R.id.yes_dialog);
+
+                no_dialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                yes_dialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(((select_store)select_store.context4).check_activity().equals("fav")){
+                            Intent intent = new Intent(v.getContext(), myfav_menu.class);
+                            intent.putExtra("name", name);
+                            v.getContext().startActivity(intent);
+                        }
+
+                        else {
+                            Intent intent = new Intent(v.getContext(), menu_choice.class);
+                            intent.putExtra("name", name);
+                            v.getContext().startActivity(intent);
+                        }
+                    }
+                });
+
             }
         });
 
