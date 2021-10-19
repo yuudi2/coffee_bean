@@ -89,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        //매장 이름 삭제
+        SharedPreferences pref2 = getSharedPreferences("store", MODE_PRIVATE);
+        SharedPreferences.Editor editor2 = pref2.edit();
+        editor2.clear();
+        editor2.commit();
+
+
 
         //로그인 & 자동로그인
 

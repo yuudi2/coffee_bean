@@ -1,6 +1,7 @@
 package com.example.project1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,13 +27,6 @@ public class menu_choice extends AppCompatActivity {
     String s_store = "";
 
 
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//
-//        super.onSaveInstanceState(outState);
-//
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +50,33 @@ public class menu_choice extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        SharedPreferences pref = getSharedPreferences("store", MODE_PRIVATE);
 
-        if(!TextUtils.isEmpty(intent.getStringExtra("name"))) {
+        if (!TextUtils.isEmpty(intent.getStringExtra("name"))) {
 
             s_store = getIntent().getExtras().getString("name");
 
-            store_select_name.setText(s_store + "으로 주문합니다.");
+            //store_select_name.setText(s_store + "으로 주문합니다.");
+
+
+
+            // SharedPreferences 의 데이터를 저장/편집 하기위해 Editor 변수를 선언한다.
+            SharedPreferences.Editor editor = pref.edit();
+
+            // key값에 value값을 저장한다.
+            editor.putString("key", s_store);
+
+            // 메모리에 있는 데이터를 저장장치에 저장한다.
+            editor.commit();
         }
 
+
+        String result = pref.getString("key", "");
+        if(result.equals("")){
+            store_select_name.setText("매장을 선택해 주세요.");
+        }else {
+            store_select_name.setText(result + "으로 주문합니다.");
+        }
 
         shopping_bag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,15 +98,28 @@ public class menu_choice extends AppCompatActivity {
 
             }
         });
+    }
 
-        onResume();
+//    @Override
+//    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//
+//        super.onSaveInstanceState(outState);
+//        outState.putString("key",s_store);
+//
+//    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), main_screen.class);
+        startActivity(intent);
+        super.onBackPressed();
     }
 
     public void go_back(View view) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
+
 
     public void go_shopping_cart(View view) {
         Intent intent = new Intent(getApplicationContext(), shopping_cart.class);

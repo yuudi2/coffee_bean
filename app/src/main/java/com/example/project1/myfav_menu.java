@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -63,12 +64,27 @@ public class myfav_menu extends AppCompatActivity {
         emptyView = findViewById(R.id.empty_view);
         emptyView2 = findViewById(R.id.empty_view2);
 
+
         Intent intent = getIntent();
+        SharedPreferences pref = getSharedPreferences("store", MODE_PRIVATE);
+
         if(!TextUtils.isEmpty(intent.getStringExtra("name"))) {
 
             s_store = getIntent().getExtras().getString("name");
 
-            store_select_name.setText(s_store + "으로 주문합니다.");
+            SharedPreferences.Editor editor = pref.edit();
+
+            editor.putString("key", s_store);
+
+            editor.commit();
+        }
+
+
+        String result = pref.getString("key", "");
+        if(result.equals("")){
+            store_select_name.setText("매장을 선택해 주세요.");
+        }else {
+            store_select_name.setText(result + "으로 주문합니다.");
         }
 
 
@@ -252,6 +268,12 @@ public class myfav_menu extends AppCompatActivity {
         database.execSQL("DELETE FROM myfavlist");
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), main_screen.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 
     public void go_back(View view) {
         Intent intent = new Intent(getApplicationContext(), menu_choice.class);
