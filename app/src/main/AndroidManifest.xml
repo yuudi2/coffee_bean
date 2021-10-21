@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".register_coupon"
+            android:exported="true" />
+        <activity
+            android:name=".receive_gift"
+            android:exported="true" />
+        <activity
+            android:name=".select_gift"
+            android:exported="true" />
+        <activity
+            android:name=".send_gift"
+            android:exported="true" />
         <activity
             android:name=".select_store"
             android:exported="true" />

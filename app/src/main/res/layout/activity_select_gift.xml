@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".select_gift">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#4f2e72"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="27dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:background="@android:color/transparent"
+            android:onClick="go_back"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_icon_before_01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nanum_eb"
+            android:text=" 결제하기"
+            android:textColor="@color/white"
+            android:textSize="18.2dp" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="203dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/nanum_eb"
+            android:text="보내는 선물"
+            android:textColor="#754fa0"
+            android:textSize="14.3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="111dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_border5"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/getgift_img"
+                android:layout_width="9dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="90dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/getgift_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="아메리카노"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/getgift_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/nanum_eb"
+                    android:text="4800원"
+                    android:textColor="#754fa0"
+                    android:textSize="15.5dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/nanum_eb"
+            android:text="MMS 전송"
+            android:textColor="#754fa0"
+            android:textSize="14.3dp" />
+
+        <LinearLayout
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/send_phonenum"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nanum_r"
+                android:inputType="number"
+                android:hint="휴대폰 번호를 입력하세요"
+                android:textColorHint="#dddddd"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="15dp"
+        android:background="#eeeeee"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="결제금액"
+                    android:textColor="@color/black"
+                    android:textSize="15dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/pay_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/nanum_eb"
+                    android:gravity="center"
+                    android:text="4800원"
+                    android:textColor="#754fa0"
+                    android:textSize="19dp">
+
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/send_mms"
+                android:layout_width="350dp"
+                android:layout_height="58dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_color6"
+                android:fontFamily="@font/nanum_eb"
+                android:text="결제 및 선물하기"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.example.project1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.transition.AutoTransition;
@@ -24,8 +25,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class main_screen extends AppCompatActivity {
 
-    ImageButton arrow, arrow2, menu, order2, mymenu2;
-    Button order, mymenu;
+    ImageButton arrow, arrow2, menu, order2, mymenu2, gift2;
+    Button order, mymenu, gift;
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
@@ -49,6 +50,8 @@ public class main_screen extends AppCompatActivity {
         order2 = findViewById(R.id.order2);
         mymenu = findViewById(R.id.my_menu);
         mymenu2 = findViewById(R.id.my_menu2);
+        gift2 = findViewById(R.id.gift2);
+        gift = findViewById(R.id.gift);
 
 
         arrow.setOnClickListener(new View.OnClickListener() {
@@ -118,12 +121,39 @@ public class main_screen extends AppCompatActivity {
             }
         });
 
+        gift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),send_gift.class);
+                startActivity(intent);
+            }
+        });
+
+        gift2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),send_gift.class);
+                startActivity(intent);
+            }
+        });
+
 
         //회원 이름 불러오기
         String username = getIntent().getStringExtra("user_name");
 
         final TextView user_name = (TextView) findViewById(R.id.user_name);
         user_name.setText(username);
+
+        SharedPreferences pref = getSharedPreferences("username", MODE_PRIVATE);
+
+        // SharedPreferences 의 데이터를 저장/편집 하기위해 Editor 변수를 선언한다.
+        SharedPreferences.Editor editor = pref.edit();
+
+        // key값에 value값을 저장한다.
+        editor.putString("name", username);
+
+        // 메모리에 있는 데이터를 저장장치에 저장한다.
+        editor.commit();
 
 
         //navigation header 회원 이름

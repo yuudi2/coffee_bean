@@ -5,12 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import Data.CartlistContract.CartlistEntry;
-import Data.CartlistContract.StorelistEntry;
 import Data.CartlistContract.MyfavlistEntry;
+import Data.CartlistContract.StorelistEntry;
+import Data.CartlistContract.CouponlistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart12.db";
+        private static final String DATABASE_NAME = "cart36.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -59,12 +60,24 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
                 CartlistContract.MyfavlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CartlistContract.MyfavlistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
                 CartlistContract.MyfavlistEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-                CartlistContract.CartlistEntry.COLUMN_PRICE + " INTEGER NOT NULL, " +
+                CartlistContract.MyfavlistEntry.COLUMN_PRICE + " INTEGER NOT NULL, " +
                 CartlistContract.MyfavlistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 "); ";
 
         // 쿼리 실행
         sqLiteDatabase.execSQL(SQL_CREATE_MYFAVLIST_TABLE);
+
+        final String SQL_CREATE_COUPONLIST_TABLE = "CREATE TABLE " + CartlistContract.CouponlistEntry.TABLE_NAME + " (" +
+                CartlistContract.CouponlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CartlistContract.CouponlistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
+                CartlistContract.CouponlistEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                CartlistContract.CouponlistEntry.COLUMN_PRICE + " INTEGER NOT NULL, " +
+                CartlistContract.CouponlistEntry.COLUMN_COUPONNUM + " INTEGER NOT NULL, " +
+                CartlistContract.CouponlistEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                "); ";
+
+        // 쿼리 실행
+        sqLiteDatabase.execSQL(SQL_CREATE_COUPONLIST_TABLE);
 
 
     }
@@ -79,6 +92,9 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MyfavlistEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CouponlistEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }
