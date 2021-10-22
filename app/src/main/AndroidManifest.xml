@@ -60,7 +60,8 @@
             android:resource="@xml/network_security_config" />
 
         <activity android:name=".join_first" />
-        <activity android:name=".main_screen" />
+        <activity android:name=".main_screen" >
+        </activity>
         <activity
             android:name=".join_second"
             android:exported="true"

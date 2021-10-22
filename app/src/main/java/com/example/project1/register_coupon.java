@@ -1,5 +1,6 @@
 package com.example.project1;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,13 +12,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import Data.CartlistContract;
 import Data.CartlistDBHelper;
 
 public class register_coupon extends AppCompatActivity {
 
     Button regis_coupon;
     EditText coupon_num;
-    private SQLiteDatabase mDb5;
+    private SQLiteDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +31,24 @@ public class register_coupon extends AppCompatActivity {
         coupon_num = findViewById(R.id.coupon_num);
 
 
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        // 데이터를 DB에 채우기 위함
+        mDb = dbHelper.getWritableDatabase();
+
+
         regis_coupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int number =  Integer.parseInt(coupon_num.getText().toString());
                 couponcheck(number);
+
+
+                Intent intent = new Intent(getApplicationContext(), receive_gift.class);
+                startActivity(intent);
             }
         });
-
     }
+
 
 
     //해당 쿠폰이 있는지 확인
@@ -48,7 +59,6 @@ public class register_coupon extends AppCompatActivity {
             if (cursor.getInt(0)==couponnum) {
 
                 coupon_info(couponnum);
-
                 //Toast.makeText(getBaseContext(), "쿠폰있음", Toast.LENGTH_SHORT).show();
                 break;
             }else{
@@ -58,18 +68,40 @@ public class register_coupon extends AppCompatActivity {
 
     }
 
+
+
+    //쿠폰 정보
     private void coupon_info(int couponnum) {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT img,name FROM couponlist WHERE coupon =" + couponnum, null);
         while (c.moveToNext()) {
             int i = byte2Int(c.getBlob(0));
+            byte[] img = c.getBlob(0);
             String n = c.getString(1);
+            addMyCou(img, n, couponnum);
             Toast.makeText(getBaseContext(), "쿠폰있음 이름은 "+ n + " 이미지는 " + i, Toast.LENGTH_SHORT).show();
             break;
         }
     }
 
+    public void addMyCou(byte[] img, String name, int num) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+        /*
+         * 열의 이름을 키로 해서 해당 값을 가리킨다.
+         * 값들을 put 메서드를 사용해 입력한다.
+         * 첫번째 파라미터는 열의 이름으로, Contract 로부터 가져올 수 있다.
+         * 두번째 파라미터는 값이다.
+         */
 
+        cv.put(CartlistContract.MycoulistEntry.COLUMN_IMG, img);
+        cv.put(CartlistContract.MycoulistEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.MycoulistEntry.COLUMN_COUPONNUM, num);
+
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.MycoulistEntry.TABLE_NAME, null, cv);
+    }
 
     public static int byte2Int(byte[] src) {
         int s1 = src[0] & 0xFF;

@@ -82,6 +82,8 @@ public class select_gift extends AppCompatActivity {
                 if(phonenum.length()>0) {
                     sendSMS(phonenum, text);
                     addNewCou(img_g, g_name, g_price, 1234);
+                    addNewCou(img_g, g_name, g_price, 34567);
+                    addNewCou(img_g, g_name, g_price, 7890);
                     Intent intent = new Intent(getApplicationContext(), send_gift.class);
                     startActivity(intent);
                     //addNewCou(img_g, g_name, g_price, ran);

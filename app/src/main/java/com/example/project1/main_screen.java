@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,9 @@ public class main_screen extends AppCompatActivity {
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
+
+    private long backpressedTime = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,22 +143,25 @@ public class main_screen extends AppCompatActivity {
         });
 
 
-        //회원 이름 불러오기
-        String username = getIntent().getStringExtra("user_name");
-
-        final TextView user_name = (TextView) findViewById(R.id.user_name);
-        user_name.setText(username);
-
+        Intent intent = getIntent();
         SharedPreferences pref = getSharedPreferences("username", MODE_PRIVATE);
 
-        // SharedPreferences 의 데이터를 저장/편집 하기위해 Editor 변수를 선언한다.
-        SharedPreferences.Editor editor = pref.edit();
+        //회원 이름 불러오기
+        if(!TextUtils.isEmpty(intent.getStringExtra("user_name"))){
 
-        // key값에 value값을 저장한다.
-        editor.putString("name", username);
+            String username = getIntent().getStringExtra("user_name");
 
-        // 메모리에 있는 데이터를 저장장치에 저장한다.
-        editor.commit();
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("name", username);
+            editor.commit();
+        }
+
+
+
+        String username2 = pref.getString("name", "");
+
+        final TextView user_name = (TextView) findViewById(R.id.user_name);
+        user_name.setText(username2);
 
 
         //navigation header 회원 이름
@@ -162,7 +170,8 @@ public class main_screen extends AppCompatActivity {
         View nav_header_view = navigationView.getHeaderView(0);
 
         TextView nav_header_id_text = (TextView) nav_header_view.findViewById(R.id.user_name2);
-        nav_header_id_text.setText(username + "님.");
+
+        nav_header_id_text.setText(username2 + "님.");
 
 
 
@@ -207,6 +216,22 @@ public class main_screen extends AppCompatActivity {
         navigationView.setItemIconTintList(null);
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis()  > backpressedTime + 2000){
+            backpressedTime = System.currentTimeMillis();
+            Toast.makeText(this,"한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(System.currentTimeMillis() <=  backpressedTime + 2000 ){
+            finish();
+        }
+    }
+
+
 
 
     //로그아웃

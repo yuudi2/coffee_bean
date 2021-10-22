@@ -8,10 +8,11 @@ import Data.CartlistContract.CartlistEntry;
 import Data.CartlistContract.MyfavlistEntry;
 import Data.CartlistContract.StorelistEntry;
 import Data.CartlistContract.CouponlistEntry;
+import Data.CartlistContract.MycoulistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart36.db";
+        private static final String DATABASE_NAME = "cart333.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -67,6 +68,7 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         // 쿼리 실행
         sqLiteDatabase.execSQL(SQL_CREATE_MYFAVLIST_TABLE);
 
+
         final String SQL_CREATE_COUPONLIST_TABLE = "CREATE TABLE " + CartlistContract.CouponlistEntry.TABLE_NAME + " (" +
                 CartlistContract.CouponlistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CartlistContract.CouponlistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
@@ -78,6 +80,18 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
 
         // 쿼리 실행
         sqLiteDatabase.execSQL(SQL_CREATE_COUPONLIST_TABLE);
+
+
+        final String SQL_CREATE_MYCOULIST_TABLE = "CREATE TABLE " + CartlistContract.MycoulistEntry.TABLE_NAME + " (" +
+                CartlistContract.MycoulistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CartlistContract.MycoulistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
+                CartlistContract.MycoulistEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                CartlistContract.MycoulistEntry.COLUMN_COUPONNUM + " INTEGER NOT NULL, " +
+                CartlistContract.MycoulistEntry.COLUMN_TIMESTAMP +" DATETIME DEFAULT (date('now','localtime'))" +
+                "); ";
+
+        // 쿼리 실행
+        sqLiteDatabase.execSQL(SQL_CREATE_MYCOULIST_TABLE);
 
 
     }
@@ -95,6 +109,9 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CouponlistEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MycoulistEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }
