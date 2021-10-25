@@ -12,7 +12,7 @@ import Data.CartlistContract.MycoulistEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart333.db";
+        private static final String DATABASE_NAME = "cart777.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 

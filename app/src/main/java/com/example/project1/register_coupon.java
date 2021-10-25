@@ -55,19 +55,33 @@ public class register_coupon extends AppCompatActivity {
     private void couponcheck(int couponnum) {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT coupon FROM couponlist", null);
+        int count = 0;
+        int use = 0;
         while (cursor.moveToNext()) {
             if (cursor.getInt(0)==couponnum) {
 
-                coupon_info(couponnum);
-                //Toast.makeText(getBaseContext(), "쿠폰있음", Toast.LENGTH_SHORT).show();
+                Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT coupon FROM mycoulist", null);
+                while (c.moveToNext()) {
+                    if (c.getInt(0)==couponnum) {
+                        Toast.makeText(getBaseContext(), "이미 등록 완료된 쿠폰입니다.", Toast.LENGTH_SHORT).show();
+                        use++;
+                        break;
+                    }
+                }
+
+                if(use == 0) {
+                    coupon_info(couponnum);
+                    count++;
+                }
                 break;
-            }else{
-                //Toast.makeText(getBaseContext(), "해당 쿠폰번호가 없습니다.", Toast.LENGTH_SHORT).show();
             }
         }
 
-    }
+        if(count == 0 && use == 0){
+            Toast.makeText(getBaseContext(), "해당 쿠폰번호가 없습니다.", Toast.LENGTH_SHORT).show();
+        }
 
+    }
 
 
     //쿠폰 정보
@@ -83,6 +97,21 @@ public class register_coupon extends AppCompatActivity {
             break;
         }
     }
+
+
+    //쿠폰 이미 등록 여부
+    private void coupon_use(int couponnum) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT coupon FROM mycoulist", null);
+        while (c.moveToNext()) {
+            if (c.getInt(0)==couponnum) {
+                Toast.makeText(getBaseContext(), "이미 등록 완료된 쿠폰입니다.", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+    }
+
+
 
     public void addMyCou(byte[] img, String name, int num) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.

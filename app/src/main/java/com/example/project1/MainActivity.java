@@ -35,7 +35,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
-    //public static RequestQueue queue;
+
+    public static Activity activity;
+
     Button find_id, find_passwd, join, login;
     static EditText ed_id, ed_passwd;
     static CheckBox auto_login;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        activity = MainActivity.this;
 
         ed_id = findViewById(R.id.user_id);
         ed_passwd = findViewById(R.id.user_passwd);
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), join_first.class);
                 startActivity(intent);
+
             }
         });
 

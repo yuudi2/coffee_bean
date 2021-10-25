@@ -42,6 +42,10 @@ public class main_screen extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
 
 
+        //메인화면에서 어플이 종료될 수 있게 로그인 엑티비티 종료
+        MainActivity mactivity = (MainActivity)MainActivity.activity;
+        mactivity.finish();
+
         cardView = findViewById(R.id.base_cardview);
         arrow = findViewById(R.id.arrow_button);
         hiddenView = findViewById(R.id.hidden_view);

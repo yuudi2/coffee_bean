@@ -86,7 +86,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="180dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/ic_icon_gift" />
 
@@ -96,8 +96,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="270dp"
                 android:fontFamily="@font/nanum_eb"
-                android:text="선물내역이 없습니다.\n 쿠폰을 등록해주세요."
-                android:textColor="#4f2e72"
+                android:gravity="center"
+                android:text="선물내역이 없습니다.\n\n쿠폰을 등록해주세요."
+                android:textColor="#754fa0"
                 android:textSize="16dp" />
 
         </RelativeLayout>
