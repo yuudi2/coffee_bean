@@ -167,6 +167,12 @@ public class MainActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(getApplicationContext(), main_screen.class);
 
+                                SharedPreferences pref = getSharedPreferences("userid", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("user_id", user_id);
+                                editor.commit();
+
+
                                 intent.putExtra("user_id", user_id);
                                 intent.putExtra("user_passwd", user_passwd);
                                 intent.putExtra("user_name", user_name);

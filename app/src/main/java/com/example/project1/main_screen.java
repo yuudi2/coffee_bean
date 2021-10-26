@@ -29,6 +29,7 @@ public class main_screen extends AppCompatActivity {
 
     ImageButton arrow, arrow2, menu, order2, mymenu2, gift2;
     Button order, mymenu, gift;
+    TextView info;
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
@@ -62,6 +63,7 @@ public class main_screen extends AppCompatActivity {
         gift2 = findViewById(R.id.gift2);
         gift = findViewById(R.id.gift);
 
+        info = findViewById(R.id.info);
 
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +203,15 @@ public class main_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout(view);
+            }
+        });
+
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),my_info.class);
+                startActivity(intent);
             }
         });
 

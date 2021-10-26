@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".my_info">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#4f2e72"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:onClick="go_back"
+            android:id="@+id/back"
+            android:layout_width="27dp"
+            android:layout_marginStart="12dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_icon_before_01" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nanum_eb"
+            android:text="회원정보"
+            android:textColor="@color/white"
+            android:textSize="17dp"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:background="#4f2e72">
+
+        <TextView
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/user_getname"
+            android:fontFamily="@font/nanum_eb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:text="이유리">
+
+        </TextView>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/user_getid"
+            android:fontFamily="@font/nanum_eb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:text="yuyu">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:background="#dddddd" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/nanum_eb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4f2e72"
+            android:textSize="16dp"
+            android:text="휴대폰 번호">
+
+        </TextView>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:textColor="#333333"
+            android:id="@+id/user_getnum"
+            android:textSize="16dp"
+            android:fontFamily="@font/nanum_eb"
+            android:text="01092503163">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:background="#dddddd" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/nanum_eb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4f2e72"
+            android:textSize="16dp"
+            android:text="비밀번호">
+
+        </TextView>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/user_getpwd"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="35dp"
+            android:gravity="right"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:text="dddd"
+            android:textColor="#333333"
+            android:textSize="16dp">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:background="#dddddd" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/nanum_eb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4f2e72"
+            android:textSize="16dp"
+            android:text="이메일">
+
+        </TextView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_marginTop="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:id="@+id/user_getemail"
+            android:fontFamily="@font/nanum_eb"
+            android:text="jjli98@naver.com">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:background="#dddddd" />
+
+    <Button
+        android:layout_marginTop="70dp"
+        android:id="@+id/change_info"
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="16dp"
+        android:fontFamily="@font/nanum_eb"
+        android:background="#4f2e72"
+        android:text="변경하기"
+        android:textColor="@color/white"/>
+
+</LinearLayout>
