@@ -3,6 +3,8 @@ package com.example.project1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,12 +27,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 
 public class main_screen extends AppCompatActivity {
 
     ImageButton arrow, arrow2, menu, order2, mymenu2, gift2;
+    ImageView charge2, list2;
     Button order, mymenu, gift;
-    TextView info;
+    TextView info, charge, list, money_have;
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
@@ -63,7 +70,12 @@ public class main_screen extends AppCompatActivity {
         gift2 = findViewById(R.id.gift2);
         gift = findViewById(R.id.gift);
 
+        list2 = findViewById(R.id.list2);
+        list = findViewById(R.id.list);
+        charge2 = findViewById(R.id.charge2);
+        charge = findViewById(R.id.charge);
         info = findViewById(R.id.info);
+        money_have = findViewById(R.id.money_have);
 
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +241,45 @@ public class main_screen extends AppCompatActivity {
 
 
         navigationView.setItemIconTintList(null);
+
+
+        //바코드
+        MultiFormatWriter gen = new MultiFormatWriter();
+        String data = "YOUR DATA";
+        try {
+            final int WIDTH = 480;
+            final int HEIGHT = 180;
+            BitMatrix bytemap = gen.encode(data, BarcodeFormat.CODE_128, WIDTH, HEIGHT);
+            Bitmap bitmap = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888);
+            for (int i = 0 ; i < WIDTH ; ++i)
+                for (int j = 0 ; j < HEIGHT ; ++j) {
+                    bitmap.setPixel(i, j, bytemap.get(i,j) ? Color.BLACK : Color.WHITE);
+                }
+
+            ImageView view = (ImageView)findViewById(R.id.barcode);
+            view.setImageBitmap(bitmap);
+            view.invalidate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        charge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),money_charge.class);
+                startActivity(intent);
+            }
+        });
+
+        charge2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),money_charge.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

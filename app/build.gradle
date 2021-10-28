@@ -58,4 +58,7 @@ dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/libDaumMapAndroid.jar')
+
+    implementation 'com.google.zxing:core:2.0'
+
 }
