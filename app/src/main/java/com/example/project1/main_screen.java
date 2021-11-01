@@ -3,6 +3,7 @@ package com.example.project1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -31,6 +32,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 
+import Data.CartlistDBHelper;
+
 public class main_screen extends AppCompatActivity {
 
     ImageButton arrow, arrow2, menu, order2, mymenu2, gift2;
@@ -42,8 +45,6 @@ public class main_screen extends AppCompatActivity {
     RelativeLayout layout1;
 
     private long backpressedTime = 0;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class main_screen extends AppCompatActivity {
         //메인화면에서 어플이 종료될 수 있게 로그인 엑티비티 종료
         MainActivity mactivity = (MainActivity)MainActivity.activity;
         mactivity.finish();
+
 
         cardView = findViewById(R.id.base_cardview);
         arrow = findViewById(R.id.arrow_button);
@@ -182,6 +184,13 @@ public class main_screen extends AppCompatActivity {
         user_name.setText(username2);
 
 
+        //String id = getIntent().getStringExtra("user_id");
+        SharedPreferences pref2 = getSharedPreferences("userid", MODE_PRIVATE);
+        String id = pref2.getString("user_id", "");
+
+        get_point(id);
+
+
         //navigation header 회원 이름
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
 
@@ -298,6 +307,16 @@ public class main_screen extends AppCompatActivity {
     }
 
 
+    //포인트 가져오기
+    public void get_point(String id){
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT point FROM mypoint WHERE user ='" +id + "'", null);
+        while (c.moveToNext()) {
+            int point = c.getInt(0);
+            money_have.setText(point + "원");
+            break;
+        }
+    }
 
 
     //로그아웃

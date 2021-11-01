@@ -1,11 +1,14 @@
 package com.example.project1;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -34,6 +37,9 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import Data.CartlistContract;
+import Data.CartlistDBHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     public static Activity activity;
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     String user_id = "";
     String user_passwd = "";
     static SharedPreferences.Editor editor;
+
+    private SQLiteDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         join = (Button) findViewById(R.id.join);
         login = (Button) findViewById(R.id.login);
         Button btn = findViewById(R.id.join);
+
+
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        mDb = dbHelper.getWritableDatabase();
 
 
         //join 버튼 글씨 크기 조정
@@ -179,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("user_phonenum", user_phonenum);
                                 intent.putExtra("user_email", user_email);
 
+                                have_point(user_id);
+
                                 startActivity(intent);
 
                             } else {
@@ -233,6 +247,10 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("user_phonenum", user_phonenum);
                         intent.putExtra("user_email", user_email);
 
+
+                        have_point(user_id);
+
+
                         startActivity(intent);
 
                     } else {
@@ -260,6 +278,36 @@ public class MainActivity extends AppCompatActivity {
         ed_passwd.setText("");
     }
 
+
+    //포인트 생성 유무
+    public void have_point(String id){
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT user FROM mypoint", null);
+        boolean have = false;
+        while (c.moveToNext()) {
+            if((c.getString(0)).equals(id)){
+                have = true;
+                break;
+            }
+        }
+
+        if(have == false){
+            addMypoint(id, 0);
+            Log.d("태그","들어감");
+        }
+    }
+
+    public void addMypoint(String id, int point) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+
+        cv.put(CartlistContract.PointEntry.COLUMN_USERID, id);
+        cv.put(CartlistContract.PointEntry.COLUMN_POINT, point);
+
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.PointEntry.TABLE_NAME, null, cv);
+    }
 
 
     //카카오 api hashkey

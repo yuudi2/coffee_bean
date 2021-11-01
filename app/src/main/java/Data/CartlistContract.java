@@ -64,4 +64,13 @@ public class CartlistContract {
         public static final String COLUMN_COUPONNUM = "coupon";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
+
+    //포인트 db
+    public static final class PointEntry implements BaseColumns {
+        public static final String TABLE_NAME = "mypoint";
+        public static final String _ID = "id";
+        public static final String COLUMN_USERID = "user";
+        public static final String COLUMN_POINT = "point";
+        public static final String COLUMN_TIMESTAMP = "timestamp";
+    }
 }

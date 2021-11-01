@@ -1,11 +1,14 @@
 package com.example.project1;
 
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +32,9 @@ public class select_gift extends AppCompatActivity {
     String g_name = "";
     int g_price;
     int g_img;
+
+    int point =0;
+    int change_point =0;
 
     private SQLiteDatabase mDb5;
 
@@ -68,6 +74,12 @@ public class select_gift extends AppCompatActivity {
 
         byte[] img_g = intToByte(g_img);
 
+        SharedPreferences pref = getSharedPreferences("userid", MODE_PRIVATE);
+        String id = pref.getString("user_id", "");
+        //Toast.makeText(getBaseContext(), id, Toast.LENGTH_SHORT).show();
+
+
+
 
         send_mms.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +92,62 @@ public class select_gift extends AppCompatActivity {
 
 
                 if(phonenum.length()>0) {
-                    sendSMS(phonenum, text);
-                    addNewCou(img_g, g_name, g_price, 1234);
-                    addNewCou(img_g, g_name, g_price, 34567);
-                    addNewCou(img_g, g_name, g_price, 7890);
-                    Intent intent = new Intent(getApplicationContext(), send_gift.class);
-                    startActivity(intent);
-                    //addNewCou(img_g, g_name, g_price, ran);
+
+                    final Dialog dialog = new Dialog(select_gift.this);
+
+                    dialog.setContentView(R.layout.custom_pay);
+                    dialog.show();
+
+
+                    ImageView img = (ImageView)dialog.findViewById( R.id.gift_img);
+                    img.setImageResource(g_img);
+                    TextView name = (TextView)dialog.findViewById(R.id.gift_name);
+                    name.setText(g_name);
+                    TextView price = (TextView)dialog.findViewById(R.id.gift_price);
+                    price.setText(String.valueOf(g_price) + "원");
+                    TextView have_point = (TextView)dialog.findViewById(R.id.have_point);
+
+
+                    Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT point FROM mypoint WHERE user ='" +id + "'", null);
+                    while (c.moveToNext()) {
+                        point = c.getInt(0);
+                        have_point.setText(String.valueOf(point) + "원");
+                        break;
+                    }
+
+                    TextView get_price = (TextView)dialog.findViewById(R.id.get_price);
+                    get_price.setText(String.valueOf(g_price) + "원");
+                    TextView remain_price = (TextView)dialog.findViewById(R.id.remain_price);
+                    remain_price.setText(String.valueOf(point - g_price) + "원");
+
+                    change_point = point - g_price;
+
+
+
+                    Button no_dialog = (Button)dialog.findViewById(R.id.no_dialog);
+                    Button yes_dialog = (Button)dialog.findViewById(R.id.yes_dialog);
+
+                    no_dialog.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    yes_dialog.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            sendSMS(phonenum, text);
+                            addNewCou(img_g, g_name, g_price, ran);
+                            Log.d("태그","쿠폰번호는 " + ran);
+                            update(id, change_point);
+                            Intent intent = new Intent(getApplicationContext(), send_gift.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
+
                 else {
                     Toast.makeText(getBaseContext(), "전화번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -126,6 +186,14 @@ public class select_gift extends AppCompatActivity {
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb5.insert(CartlistContract.CouponlistEntry.TABLE_NAME, null, cv);
+    }
+
+    public void update(String id, int point) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        mDb5 = dbHelper.getWritableDatabase();
+        mDb5.execSQL("UPDATE mypoint SET point = " + point + " WHERE user = '" + id + "'");
+        mDb5.close();
+
     }
 
 

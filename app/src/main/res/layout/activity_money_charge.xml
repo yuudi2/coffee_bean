@@ -64,7 +64,7 @@
             android:textSize="17.5dp"
             android:fontFamily="@font/nanum_eb"
             android:layout_height="wrap_content"
-            android:text="10000원" />
+            android:text="원" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,10 +87,11 @@
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:id="@+id/radioGroup">
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/cheon"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:textSize="16dp"
@@ -99,7 +100,7 @@
                 android:text="1000원" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/o_cheon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -108,7 +109,7 @@
                 android:text="5000원" />
 
             <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/man"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -117,7 +118,7 @@
                 android:text="10000원" />
 
             <RadioButton
-                android:id="@+id/radioButton5"
+                android:id="@+id/e_man"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -126,7 +127,7 @@
                 android:text="20000원" />
 
             <RadioButton
-                android:id="@+id/radioButton6"
+                android:id="@+id/o_man"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -173,7 +174,7 @@
                     android:fontFamily="@font/nanum_eb"
                     android:gravity="center"
                     android:layout_marginLeft="20dp"
-                    android:text="15000원"
+                    android:text="원"
                     android:textColor="#754fa0"
                     android:textSize="19dp">
 
