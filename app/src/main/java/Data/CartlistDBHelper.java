@@ -10,10 +10,11 @@ import Data.CartlistContract.MycoulistEntry;
 import Data.CartlistContract.MyfavlistEntry;
 import Data.CartlistContract.StorelistEntry;
 import Data.CartlistContract.PointEntry;
+import Data.CartlistContract.PointuseEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart4444.db";
+        private static final String DATABASE_NAME = "cart2222.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -105,6 +106,19 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         // 쿼리 실행
         sqLiteDatabase.execSQL(SQL_CREATE_MYPOINT_TABLE);
 
+
+        final String SQL_CREATE_POINTUSE_TABLE = "CREATE TABLE " + CartlistContract.PointuseEntry.TABLE_NAME + " (" +
+                CartlistContract.PointuseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CartlistContract.PointuseEntry.COLUMN_NAME + " TEXT NOT NULL, " +
+                CartlistContract.PointuseEntry.COLUMN_POINT + " INTEGER NOT NULL, " +
+                CartlistContract.PointuseEntry.COLUMN_POINTUSE + " INTEGER NOT NULL, " +
+                CartlistContract.PointuseEntry.COLUMN_TYPE + " TEXT NOT NULL, " +
+                CartlistContract.PointuseEntry.COLUMN_TIMESTAMP +" DATETIME DEFAULT (datetime('now','localtime'))" +
+                "); ";
+
+        // 쿼리 실행
+        sqLiteDatabase.execSQL(SQL_CREATE_POINTUSE_TABLE);
+
     }
 
 
@@ -126,6 +140,9 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PointEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PointuseEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
     }

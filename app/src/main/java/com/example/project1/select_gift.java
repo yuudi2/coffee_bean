@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class select_gift extends AppCompatActivity {
     TextView getgift_name, getgift_price, pay_price;
     EditText phone_num;
     Button send_mms;
+
 
     String g_name = "";
     int g_price;
@@ -58,6 +60,7 @@ public class select_gift extends AppCompatActivity {
 
         phone_num = findViewById(R.id.send_phonenum);
         send_mms = findViewById(R.id.send_mms);
+
 
         //인증번호 난수
         Random rannum = new Random();
@@ -106,6 +109,8 @@ public class select_gift extends AppCompatActivity {
                     TextView price = (TextView)dialog.findViewById(R.id.gift_price);
                     price.setText(String.valueOf(g_price) + "원");
                     TextView have_point = (TextView)dialog.findViewById(R.id.have_point);
+                    RelativeLayout no_point = (RelativeLayout)dialog.findViewById(R.id.no_point);
+                    RelativeLayout yes_point = (RelativeLayout)dialog.findViewById(R.id.yes_point);
 
 
                     Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT point FROM mypoint WHERE user ='" +id + "'", null);
@@ -123,6 +128,15 @@ public class select_gift extends AppCompatActivity {
                     change_point = point - g_price;
 
 
+                    if(change_point>=0){
+                        no_point.setVisibility(View.GONE);
+                        yes_point.setVisibility(View.VISIBLE);
+                    }else{
+                        no_point.setVisibility(View.VISIBLE);
+                        yes_point.setVisibility(View.GONE);
+                        remain_price.setText("잔액부족");
+                    }
+
 
                     Button no_dialog = (Button)dialog.findViewById(R.id.no_dialog);
                     Button yes_dialog = (Button)dialog.findViewById(R.id.yes_dialog);
@@ -138,11 +152,38 @@ public class select_gift extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-                            sendSMS(phonenum, text);
-                            addNewCou(img_g, g_name, g_price, ran);
-                            Log.d("태그","쿠폰번호는 " + ran);
-                            update(id, change_point);
-                            Intent intent = new Intent(getApplicationContext(), send_gift.class);
+                            if(change_point<0){
+
+
+                            } else{
+                                sendSMS(phonenum, text);
+                                addNewCou(img_g, g_name, g_price, ran);
+                                Log.d("태그","쿠폰번호는 " + ran);
+                                update(id, change_point);
+                                addpointuse(g_name, change_point, g_price, "선물하기");
+                                Intent intent = new Intent(getApplicationContext(), send_gift.class);
+                                startActivity(intent);
+                            }
+
+
+                        }
+                    });
+
+                    Button no_move = (Button)dialog.findViewById(R.id.no_move);
+                    Button yes_move = (Button)dialog.findViewById(R.id.yes_move);
+
+                    no_move.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), main_screen.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                    yes_move.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getApplicationContext(), money_charge.class);
                             startActivity(intent);
                         }
                     });
@@ -188,12 +229,26 @@ public class select_gift extends AppCompatActivity {
         mDb5.insert(CartlistContract.CouponlistEntry.TABLE_NAME, null, cv);
     }
 
+
     public void update(String id, int point) {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb5 = dbHelper.getWritableDatabase();
         mDb5.execSQL("UPDATE mypoint SET point = " + point + " WHERE user = '" + id + "'");
-        mDb5.close();
 
+    }
+
+
+    public void addpointuse(String name, int point, int usepoint, String type) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+
+        cv.put(CartlistContract.PointuseEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.PointuseEntry.COLUMN_POINT, point);
+        cv.put(CartlistContract.PointuseEntry.COLUMN_POINTUSE, usepoint);
+        cv.put(CartlistContract.PointuseEntry.COLUMN_TYPE, type);
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb5.insert(CartlistContract.PointuseEntry.TABLE_NAME, null, cv);
     }
 
 

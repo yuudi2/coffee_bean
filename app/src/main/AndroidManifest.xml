@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".point_use"
+            android:exported="true" />
+        <activity
             android:name=".money_charge"
             android:exported="true" />
         <activity

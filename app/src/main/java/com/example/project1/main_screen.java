@@ -52,8 +52,8 @@ public class main_screen extends AppCompatActivity {
 
 
         //메인화면에서 어플이 종료될 수 있게 로그인 엑티비티 종료
-        MainActivity mactivity = (MainActivity)MainActivity.activity;
-        mactivity.finish();
+//        MainActivity mactivity = (MainActivity)MainActivity.activity;
+//        mactivity.finish();
 
 
         cardView = findViewById(R.id.base_cardview);
@@ -286,6 +286,22 @@ public class main_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),money_charge.class);
+                startActivity(intent);
+            }
+        });
+
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),point_use.class);
+                startActivity(intent);
+            }
+        });
+
+        list2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),point_use.class);
                 startActivity(intent);
             }
         });

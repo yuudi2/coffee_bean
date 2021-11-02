@@ -1,6 +1,7 @@
 package com.example.project1;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import Data.CartlistContract;
 import Data.CartlistDBHelper;
 
 public class money_charge extends AppCompatActivity {
@@ -88,6 +90,7 @@ public class money_charge extends AppCompatActivity {
             public void onClick(View view) {
                 RadioButton radioButton = (RadioButton)findViewById(radioGroup.getCheckedRadioButtonId());
                 String charge = radioButton.getText().toString();
+                int charge_point = change_point-point;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(money_charge.this);
                 builder.setTitle("포인트 충전");
@@ -101,7 +104,7 @@ public class money_charge extends AppCompatActivity {
 
                         //포인트 변경
                         update(id, change_point);
-
+                        addpointuse("포인트 충전", change_point, charge_point, "충전");
                         Intent intent = new Intent(getApplicationContext(), main_screen.class);
                         startActivity(intent);
                     }
@@ -126,9 +129,23 @@ public class money_charge extends AppCompatActivity {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
         mDb.execSQL("UPDATE mypoint SET point = " + point + " WHERE user = '" + id + "'");
-        mDb.close();
 
     }
+
+
+    public void addpointuse(String name, int point, int usepoint, String type) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+
+        cv.put(CartlistContract.PointuseEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.PointuseEntry.COLUMN_POINT, point);
+        cv.put(CartlistContract.PointuseEntry.COLUMN_POINTUSE, usepoint);
+        cv.put(CartlistContract.PointuseEntry.COLUMN_TYPE, type);
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.PointuseEntry.TABLE_NAME, null, cv);
+    }
+
 
     @Override
     public void onBackPressed() {
