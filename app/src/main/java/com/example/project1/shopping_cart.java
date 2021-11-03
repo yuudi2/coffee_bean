@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -204,6 +206,24 @@ public class shopping_cart extends AppCompatActivity {
         String sum = String.valueOf(cur.getInt(0));
         final_order_price.setText(sum + " 원");
 
+
+        final_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences pref = getSharedPreferences("store", MODE_PRIVATE);
+                String name = pref.getString("key", "");
+
+                if(name.equals("")){
+                    Toast.makeText(getApplicationContext(), "매장을 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), select_store.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), menu_order.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
 

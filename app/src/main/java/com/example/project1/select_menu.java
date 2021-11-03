@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -362,7 +363,26 @@ public class select_menu extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), change_price + count + "," + size + "," + cup + "," + cream, Toast.LENGTH_SHORT).show();
 
+                SharedPreferences pref = getSharedPreferences("store", MODE_PRIVATE);
+                String name = pref.getString("key", "");
 
+                if (name.equals("")) {
+                    Toast.makeText(getApplicationContext(), "매장을 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), select_store.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), menu_order_now.class);
+
+                    intent.putExtra("type", "커피");
+                    intent.putExtra("name", coffee_name.getText());
+                    intent.putExtra("size", size);
+                    intent.putExtra("cup", cup);
+                    intent.putExtra("cream", cream);
+                    intent.putExtra("count", total_count);
+                    intent.putExtra("total_price", count * change_price);
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -380,34 +400,30 @@ public class select_menu extends AppCompatActivity {
         // 리사이클러뷰에 어댑터를 연결
 
 
-
         mymenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mymenu_change == false){
+                if (mymenu_change == false) {
                     mymenu.setImageResource(R.drawable.ic_icon_starfull);
                     byte[] img_b = intToByte(c_img);
                     addNewFav(img_b, c_name, c_price);
-                    ((myfav_menu)myfav_menu.context).update();
-                    if(count() > 0){
-                        ((myfav_menu)myfav_menu.context).visible1();
+                    ((myfav_menu) myfav_menu.context).update();
+                    if (count() > 0) {
+                        ((myfav_menu) myfav_menu.context).visible1();
                     }
                     mymenu_change = true;
-                }
-
-                else{
+                } else {
                     mymenu.setImageResource(R.drawable.ic_icon_star2);
                     deleteFav(c_name);
                     adapter.notifyDataSetChanged();
-                    ((myfav_menu)myfav_menu.context).update();
-                    if(count() == 0){
-                        ((myfav_menu)myfav_menu.context).visible2();
+                    ((myfav_menu) myfav_menu.context).update();
+                    if (count() == 0) {
+                        ((myfav_menu) myfav_menu.context).visible2();
                     }
                     mymenu_change = false;
                 }
             }
         });
-
 
 
     }
@@ -504,7 +520,7 @@ public class select_menu extends AppCompatActivity {
 
     }
 
-    public int count(){
+    public int count() {
         int cnt = 0;
         Cursor cursor = mDb3.rawQuery("SELECT * FROM myfavlist", null);
         cnt = cursor.getCount();

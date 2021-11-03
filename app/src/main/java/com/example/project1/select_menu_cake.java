@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -187,6 +188,32 @@ public class select_menu_cake extends AppCompatActivity {
                         ((myfav_menu)myfav_menu.context).visible2();
                     }
                     mymenu_change =false;
+                }
+            }
+        });
+
+        //주문하기 버튼
+        order_now = findViewById(R.id.order_now);
+
+        order_now.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences pref = getSharedPreferences("store", MODE_PRIVATE);
+                String name = pref.getString("key", "");
+
+                if(name.equals("")){
+                    Toast.makeText(getApplicationContext(), "매장을 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), select_store.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), menu_order_now.class);
+
+                    intent.putExtra("type", "케익");
+                    intent.putExtra("name", cake_name.getText());
+                    intent.putExtra("count", total_count);
+                    intent.putExtra("total_price", count * change_price);
+
+                    startActivity(intent);
                 }
             }
         });

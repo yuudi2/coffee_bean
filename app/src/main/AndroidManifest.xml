@@ -19,6 +19,12 @@
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".menu_order_now"
+            android:exported="true" />
+        <activity
+            android:name=".menu_order"
+            android:exported="true" />
+        <activity
             android:name=".point_use"
             android:exported="true" />
         <activity

@@ -59,14 +59,8 @@ public class menu_choice extends AppCompatActivity {
             //store_select_name.setText(s_store + "으로 주문합니다.");
 
 
-
-            // SharedPreferences 의 데이터를 저장/편집 하기위해 Editor 변수를 선언한다.
             SharedPreferences.Editor editor = pref.edit();
-
-            // key값에 value값을 저장한다.
             editor.putString("key", s_store);
-
-            // 메모리에 있는 데이터를 저장장치에 저장한다.
             editor.commit();
         }
 
