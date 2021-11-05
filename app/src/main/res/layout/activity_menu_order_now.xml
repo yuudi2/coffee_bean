@@ -249,7 +249,7 @@
             android:layout_weight="1"></View>
 
         <Button
-            android:id="@+id/agree"
+            android:id="@+id/order_agree"
             android:layout_width="345dp"
             android:layout_height="58dp"
             android:layout_gravity="center"
