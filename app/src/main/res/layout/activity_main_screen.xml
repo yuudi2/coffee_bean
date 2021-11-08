@@ -348,6 +348,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nanum_b"
+                        android:visibility="gone"
                         android:text="로그아웃"
                         android:textColor="@color/white"
                         android:textSize="15dp"
@@ -364,6 +365,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nanum_b"
                         android:text="내 정보"
+                        android:visibility="gone"
                         android:textColor="@color/white"
                         android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
@@ -516,8 +518,12 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#5B3684"
         app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/menu" />
+        app:itemTextAppearance="@font/nanum_b"
+        app:itemIconTint="@android:color/white"
+        app:menu="@menu/menu"
+        app:theme="@style/NavigationViewStyle" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

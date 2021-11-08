@@ -47,6 +47,12 @@
         <item name="android:fontFamily">@font/nanum_eb</item>
     </style>
 
+    <style name="NavigationViewStyle">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item> <!-- menu item text size-->
+
+    </style>
+
 
 
 </resources>

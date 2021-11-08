@@ -2,6 +2,7 @@ package com.example.project1;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -60,6 +62,7 @@ public class main_screen extends AppCompatActivity {
     double longitude = 0;
 
     private long backpressedTime = 0;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,7 +219,48 @@ public class main_screen extends AppCompatActivity {
 
         nav_header_id_text.setText(username2 + "님.");
 
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+                String title = menuItem.getTitle().toString();
+
+                if(id == R.id.nav_0){
+                    Intent intent = new Intent(getApplicationContext(),money_charge.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_1){
+                    Intent intent = new Intent(getApplicationContext(),point_use.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_2){
+                    Intent intent = new Intent(getApplicationContext(),menu_choice.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_3){
+                    Intent intent = new Intent(getApplicationContext(),send_gift.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_4){
+                    Intent intent = new Intent(getApplicationContext(),receive_gift.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_info){
+                    Intent intent = new Intent(getApplicationContext(),my_info.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_logout){
+                    logout();
+                }
+
+                return true;
+            }
+        });
 
         //매장찾기 버튼
         ImageButton nav_header_find_store = (ImageButton) nav_header_view.findViewById(R.id.find_store);
@@ -225,7 +269,6 @@ public class main_screen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),find_store.class);
                 startActivity(intent);
-                DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
@@ -239,7 +282,7 @@ public class main_screen extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout(view);
+                //logout(view);
             }
         });
 
@@ -253,8 +296,6 @@ public class main_screen extends AppCompatActivity {
         });
 
 
-
-       final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
         findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -482,7 +523,7 @@ public class main_screen extends AppCompatActivity {
 
 
     //로그아웃
-    public void logout(View v) {
+    public void logout() {
         new AlertDialog.Builder(this)
                 .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
                 .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
