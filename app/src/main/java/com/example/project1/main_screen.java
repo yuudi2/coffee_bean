@@ -49,7 +49,7 @@ public class main_screen extends AppCompatActivity {
     ImageButton arrow, arrow2, menu, order2, mymenu2, gift2;
     ImageView charge2, list2;
     Button order, mymenu, gift;
-    TextView info, charge, list, money_have;
+    TextView info, charge, list, money_have, point_count;
     CardView cardView, cardView2;
     LinearLayout hiddenView, hiddenView2;
     RelativeLayout layout1;
@@ -180,6 +180,21 @@ public class main_screen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        SharedPreferences pref3 = getSharedPreferences("pointcount", MODE_PRIVATE);
+        boolean first = pref3.getBoolean("isFirst", false);
+        if(first==false){
+            SharedPreferences.Editor editor2 = pref3.edit();
+            editor2.putInt("count", 0);
+            editor2.putBoolean("isFirst",true);
+            editor2.commit();
+        }
+
+
+        point_count = findViewById(R.id.point_count);
+
+        int pointcount = pref3.getInt("count", 0);
+        point_count.setText(String.valueOf(pointcount));
 
 
         Intent intent = getIntent();

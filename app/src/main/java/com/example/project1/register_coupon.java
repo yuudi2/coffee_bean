@@ -116,12 +116,7 @@ public class register_coupon extends AppCompatActivity {
     public void addMyCou(byte[] img, String name, int num) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
-        /*
-         * 열의 이름을 키로 해서 해당 값을 가리킨다.
-         * 값들을 put 메서드를 사용해 입력한다.
-         * 첫번째 파라미터는 열의 이름으로, Contract 로부터 가져올 수 있다.
-         * 두번째 파라미터는 값이다.
-         */
+
 
         cv.put(CartlistContract.MycoulistEntry.COLUMN_IMG, img);
         cv.put(CartlistContract.MycoulistEntry.COLUMN_NAME, name);

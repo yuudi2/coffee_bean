@@ -109,6 +109,8 @@ public class CoffeeViewAdapter extends RecyclerView.Adapter<CoffeeViewAdapter.Vi
                 intent.putExtra("name", coffeelist.get(position).getName());
                 intent.putExtra("price", coffeelist.get(position).getprice());
 
+                intent.putExtra("code", 1);
+
                 v.getContext().startActivity(intent);
 
                 if(position != RecyclerView.NO_POSITION){

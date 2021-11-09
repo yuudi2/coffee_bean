@@ -75,7 +75,12 @@ public class GiftViewAdapter extends RecyclerView.Adapter<GiftViewAdapter.ViewHo
         int img_i = byte2Int(img);
 
         holder.img_item.setImageResource(img_i);
-        holder.tv_name.setText(name + "(S)");
+
+        if(name.equals("무료 교환권")){
+            holder.tv_name.setText(name);
+        }else{
+            holder.tv_name.setText(name + "(S)");
+        }
         holder.tv_time.setText("등록일 : " + time);
     }
 

@@ -50,6 +50,8 @@ public class select_menu extends AppCompatActivity {
 
     int change_price;
 
+    int code;
+
     PreferenceManager pref;
 
     ArrayList<CoffeeData> itemlist = new ArrayList<CoffeeData>();
@@ -88,6 +90,8 @@ public class select_menu extends AppCompatActivity {
         //주문금액
         order_price = findViewById(R.id.order_price);
         order_price.setText(String.valueOf(c_price) + "원");
+
+        code = getIntent().getExtras().getInt("code");
 
 
         //수량 선택
@@ -407,24 +411,27 @@ public class select_menu extends AppCompatActivity {
                     mymenu.setImageResource(R.drawable.ic_icon_starfull);
                     byte[] img_b = intToByte(c_img);
                     addNewFav(img_b, c_name, c_price);
-                    ((myfav_menu) myfav_menu.context).update();
-                    if (count() > 0) {
-                        ((myfav_menu) myfav_menu.context).visible1();
+                    if(code != 1) {
+                        ((myfav_menu) myfav_menu.con).update();
+                        if (count() > 0) {
+                            ((myfav_menu) myfav_menu.con).visible1();
+                        }
                     }
                     mymenu_change = true;
                 } else {
                     mymenu.setImageResource(R.drawable.ic_icon_star2);
                     deleteFav(c_name);
                     adapter.notifyDataSetChanged();
-                    ((myfav_menu) myfav_menu.context).update();
-                    if (count() == 0) {
-                        ((myfav_menu) myfav_menu.context).visible2();
+                    if(code != 1) {
+                        ((myfav_menu) myfav_menu.con).update();
+                        if (count() == 0) {
+                            ((myfav_menu) myfav_menu.con).visible2();
+                        }
                     }
                     mymenu_change = false;
                 }
             }
         });
-
 
     }
 

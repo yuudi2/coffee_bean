@@ -194,11 +194,25 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
+                        android:id="@+id/point_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="36dp"
                         android:fontFamily="@font/nanum_b"
-                        android:text="0 / 12"
+                        android:text="0"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fixed_layout2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.694"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="36dp"
+                        android:fontFamily="@font/nanum_b"
+                        android:text=" / 12"
                         android:textColor="@color/white"
                         android:textSize="18dp"
                         app:layout_constraintBottom_toBottomOf="@+id/fixed_layout2"
@@ -522,6 +536,7 @@
         app:headerLayout="@layout/navigation_header"
         app:itemTextAppearance="@font/nanum_b"
         app:itemIconTint="@android:color/white"
+        app:itemHorizontalPadding="35dp"
         app:menu="@menu/menu"
         app:theme="@style/NavigationViewStyle" />
 

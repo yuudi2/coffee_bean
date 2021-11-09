@@ -112,7 +112,7 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
                         notifyDataSetChanged();
 
                         if(getItemCount()==0){
-                            ((myfav_menu)myfav_menu.context).visible2();
+                            ((myfav_menu)myfav_menu.con).visible2();
                         }
                     }
                 });
@@ -140,6 +140,7 @@ public class MyfavViewAdapter extends RecyclerView.Adapter<MyfavViewAdapter.View
                     intent.putExtra("img", img_i);
                     intent.putExtra("name", name);
                     intent.putExtra("price", price);
+
 
                     view.getContext().startActivity(intent);
                 } else {

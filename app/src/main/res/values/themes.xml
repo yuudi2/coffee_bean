@@ -49,7 +49,8 @@
 
     <style name="NavigationViewStyle">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">18sp</item> <!-- menu item text size-->
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorSecondary">@color/white</item><!-- menu item text size-->
 
     </style>
 

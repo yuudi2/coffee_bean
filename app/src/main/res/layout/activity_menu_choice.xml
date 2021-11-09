@@ -97,28 +97,28 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:tabSelectedTextColor="#4f2e72"
-        app:tabIndicatorColor="#4f2e72">
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/tabs2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/white"-->
+<!--        app:tabSelectedTextColor="#4f2e72"-->
+<!--        app:tabIndicatorColor="#4f2e72">-->
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="음료"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="푸드"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="홀케익"/>
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="음료"/>-->
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="푸드"/>-->
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="홀케익"/>-->
 
-    </com.google.android.material.tabs.TabLayout>
+<!--    </com.google.android.material.tabs.TabLayout>-->
     
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

@@ -41,6 +41,8 @@ public class select_menu_cake extends AppCompatActivity {
 
     int change_price;
 
+    int code;
+
     private SQLiteDatabase mDb;
     private SQLiteDatabase mDb3;
 
@@ -68,6 +70,8 @@ public class select_menu_cake extends AppCompatActivity {
         cake_price.setText(String.valueOf(ca_price)+"원");
 
         change_price = ca_price;
+
+        code = getIntent().getExtras().getInt("code");
 
 
         //주문금액
@@ -173,9 +177,11 @@ public class select_menu_cake extends AppCompatActivity {
                     mymenu.setImageResource(R.drawable.ic_icon_starfull);
                     byte[] img_b = intToByte(ca_img);
                     addNewFav(img_b, ca_name, ca_price);
-                    ((myfav_menu)myfav_menu.context).update();
-                    if(count() > 0){
-                        ((myfav_menu)myfav_menu.context).visible1();
+                    if(code != 1) {
+                        ((myfav_menu) myfav_menu.con).update();
+                        if (count() > 0) {
+                            ((myfav_menu) myfav_menu.con).visible1();
+                        }
                     }
                     mymenu_change = true;
                 }
@@ -183,9 +189,11 @@ public class select_menu_cake extends AppCompatActivity {
                 else{
                     mymenu.setImageResource(R.drawable.ic_icon_star2);
                     deleteFav(ca_name);
-                    ((myfav_menu)myfav_menu.context).update();
-                    if(count() == 0){
-                        ((myfav_menu)myfav_menu.context).visible2();
+                    if(code != 1) {
+                        ((myfav_menu) myfav_menu.con).update();
+                        if (count() == 0) {
+                            ((myfav_menu) myfav_menu.con).visible2();
+                        }
                     }
                     mymenu_change =false;
                 }

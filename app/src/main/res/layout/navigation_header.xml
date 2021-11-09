@@ -28,14 +28,6 @@
                 android:textColor="#FFC0CB"
                 android:textSize="18dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nanum_eacb"
-                android:text="로그아웃"
-                android:layout_marginLeft="90dp"
-                android:textColor="@color/white"
-                android:textSize="15dp" />
 
         </LinearLayout>
 

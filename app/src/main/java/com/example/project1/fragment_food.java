@@ -6,58 +6,50 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_food#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import Adapter.FoodViewAdapter;
+import Data.FoodData;
+
+
 public class fragment_food extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView = null;
+    private FoodViewAdapter adapter = null;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ArrayList<FoodData> foodlist = new ArrayList<>();
 
-    public fragment_food() {
-        // Required empty public constructor
-    }
+    int[] food_img = {R.drawable.food1, R.drawable.food2, R.drawable.food3,
+            R.drawable.food4, R.drawable.food5, R.drawable.food6, R.drawable.food7, R.drawable.food8, R.drawable.food9};
+    String[] food_name = {"트러플 치즈 샐러드", "그릭치킨 샌드위치", "쿡살라미 샌드위치", "플레인 베이글", "블루베리 베이글",
+            "치즈 베이글", "크림치즈 머핀", "트리플 초코 머핀" , "버터스카치 머핀"};
+    int[] food_price = {6300, 5200, 5900, 3500, 3500, 3500, 3800, 3800, 3800};
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_food.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment_food newInstance(String param1, String param2) {
-        fragment_food fragment = new fragment_food();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_food, container, false);
+
+        foodlist.clear();
+
+        //recyclerview 어댑터 set
+        recyclerView = v.findViewById(R.id.recyclerView);
+        adapter = new FoodViewAdapter(foodlist);
+        recyclerView.setAdapter(adapter);
+
+        for (int i = 0; i < 9; i++) {
+            foodlist.add(new FoodData(food_img[i], food_name[i], food_price[i]));
+        }
+
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        return v;
     }
 }

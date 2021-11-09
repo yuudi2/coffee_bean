@@ -25,9 +25,13 @@ public class fragment_drink extends Fragment {
     ArrayList<CoffeeData> coffeeList = new ArrayList<>();
 
     int [] coffee_img = {R.drawable.coffee1, R.drawable.coffee2, R.drawable.coffee3,
-            R.drawable.coffee4, R.drawable.coffee5, R.drawable.coffee6};
-    String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼","블랙다이몬 카페수아"};
-    int [] coffee_price = {6000,6900,6800,5800,6300,7000};
+            R.drawable.coffee4, R.drawable.coffee5, R.drawable.coffee6, R.drawable.coffee7, R.drawable.coffee8, R.drawable.coffee9,
+            R.drawable.coffee10, R.drawable.coffee11, R.drawable.coffee12, R.drawable.coffee13, R.drawable.coffee14, R.drawable.coffee15,
+            R.drawable.coffee16};
+    String [] coffee_name = {"헤이즐넛아메리카노IB","단팥IB","인절미IB","블랙다이몬 아이스커피","블랙다이몬 카페라떼","블랙다이몬 카페수아",
+            "아메리카노","카페라떼","바닐라라떼","모카라떼","헤이즐넛라떼","캐러멜 마끼아또",
+            "레몬 캐모마일티","얼 그레이","후레쉬 망고IB","베리베리IB"};
+    int [] coffee_price = {6000,6900,6800,5800,6300,7000,4800,5300,5800,5800,6300,6300,5000,5000,6500,6800};
 
 
 
@@ -46,7 +50,7 @@ public class fragment_drink extends Fragment {
         adapter = new CoffeeViewAdapter(coffeeList);
         recyclerView.setAdapter(adapter);
 
-        for (int i=0;i<6;i++){
+        for (int i=0;i<16;i++){
             coffeeList.add (new CoffeeData(coffee_img[i], coffee_name[i], coffee_price[i]));
         }
 

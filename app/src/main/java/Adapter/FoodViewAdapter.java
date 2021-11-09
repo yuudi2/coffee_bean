@@ -1,6 +1,5 @@
 package Adapter;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -18,12 +17,12 @@ import com.example.project1.select_menu_cake;
 
 import java.util.ArrayList;
 
-import Data.CakeData;
+import Data.FoodData;
 
-public class CakeViewAdapter extends RecyclerView.Adapter<CakeViewAdapter.ViewHolder>{
+public class FoodViewAdapter extends RecyclerView.Adapter<FoodViewAdapter.ViewHolder>{
     public interface ItemClickListener { void onItemClick(int position);}
-    ItemClickListener itemClickListener;
-    public void  setItemClickListener(ItemClickListener itemClickListener){ this.itemClickListener = itemClickListener; }
+    FoodViewAdapter.ItemClickListener itemClickListener;
+    public void  setItemClickListener(FoodViewAdapter.ItemClickListener itemClickListener){ this.itemClickListener = itemClickListener; }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img_item;
@@ -42,32 +41,32 @@ public class CakeViewAdapter extends RecyclerView.Adapter<CakeViewAdapter.ViewHo
     }
 
 
-    private ArrayList<CakeData> cakelist;
+    private ArrayList<FoodData> foodlist;
 
-    public CakeViewAdapter(ArrayList<CakeData> cakelist) {
-        this.cakelist = cakelist;
+    public FoodViewAdapter(ArrayList<FoodData> foodlist) {
+        this.foodlist = foodlist;
     }
 
 
-    public void setmList2(ArrayList<CakeData> cakelist) {
-        this.cakelist = cakelist;
+    public void setmList2(ArrayList<FoodData> foodlist) {
+        this.foodlist = foodlist;
     }
 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.item_list, parent, false);
-        CakeViewAdapter.ViewHolder vh = new CakeViewAdapter.ViewHolder(view);
+        FoodViewAdapter.ViewHolder vh = new FoodViewAdapter.ViewHolder(view);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CakeViewAdapter.ViewHolder holder, int position) {
-        CakeData item = cakelist.get(position);
+    public void onBindViewHolder(@NonNull FoodViewAdapter.ViewHolder holder, int position) {
+        FoodData item = foodlist.get(position);
 
 
         holder.img_item.setImageResource(item.getImg());
@@ -83,11 +82,11 @@ public class CakeViewAdapter extends RecyclerView.Adapter<CakeViewAdapter.ViewHo
                 Intent intent = new Intent(v.getContext(), select_menu_cake.class);
 
 
-                intent.putExtra("img", cakelist.get(position).getImg());
-                intent.putExtra("name", cakelist.get(position).getName());
-                intent.putExtra("price", cakelist.get(position).getprice());
+                intent.putExtra("img", foodlist.get(position).getImg());
+                intent.putExtra("name", foodlist.get(position).getName());
+                intent.putExtra("price", foodlist.get(position).getprice());
 
-                intent.putExtra("code", 1);
+                intent.putExtra("code",1);
 
                 v.getContext().startActivity(intent);
 
@@ -121,7 +120,7 @@ public class CakeViewAdapter extends RecyclerView.Adapter<CakeViewAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return cakelist.size();
+        return foodlist.size();
     }
 
 }
