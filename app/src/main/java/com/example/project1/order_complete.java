@@ -26,5 +26,13 @@ public class order_complete extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        order_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), order_details.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -105,6 +105,9 @@ public class menu_order_now extends AppCompatActivity {
         SharedPreferences pref2 = getSharedPreferences("userid", MODE_PRIVATE);
         String id = pref2.getString("user_id", "");
 
+        SharedPreferences pref3 = getSharedPreferences("details", MODE_PRIVATE);
+        SharedPreferences.Editor editor3 = pref3.edit();
+
 
         int img = R.drawable.coupon_img;
         byte[] img_g = intToByte(img);
@@ -133,6 +136,10 @@ public class menu_order_now extends AppCompatActivity {
                 } else{
                     update(id, change_point);
                     addpointuse(name, change_point, total_price, "구매");
+
+                    editor3.putString("name", name);
+                    editor3.putInt("price", total_price);
+                    editor3.commit();
 
                     pointcount = pointcount + 1;
                     SharedPreferences.Editor editor2 = pref3.edit();

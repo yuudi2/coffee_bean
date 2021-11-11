@@ -188,6 +188,17 @@ public class main_screen extends AppCompatActivity {
             editor2.putInt("count", 0);
             editor2.putBoolean("isFirst",true);
             editor2.commit();
+
+        }
+
+        SharedPreferences pref4 = getSharedPreferences("ordernums", MODE_PRIVATE);
+        boolean first1 = pref4.getBoolean("isFirst", false);
+        if(first1==false){
+            SharedPreferences.Editor editor3 = pref4.edit();
+            editor3.putInt("nums", 100);
+            editor3.putBoolean("isFirst",true);
+            editor3.commit();
+
         }
 
 
@@ -255,6 +266,10 @@ public class main_screen extends AppCompatActivity {
                 }
                 else if(id == R.id.nav_2){
                     Intent intent = new Intent(getApplicationContext(),menu_choice.class);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_5){
+                    Intent intent = new Intent(getApplicationContext(),order_details.class);
                     startActivity(intent);
                 }
                 else if(id == R.id.nav_3){

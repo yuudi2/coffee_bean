@@ -30,10 +30,10 @@ public class menu_order extends AppCompatActivity {
     Cursor cur;
     Button order_agree;
 
-    TextView getstore_name,getstore_address, pay_order_price;
+    TextView getstore_name, getstore_address, pay_order_price;
 
-    int change_point =0;
-    int point =0;
+    int change_point = 0;
+    int point = 0;
 
     String f_name = "";
     int count = 0;
@@ -67,7 +67,7 @@ public class menu_order extends AppCompatActivity {
 
         getstore_name.setText(name);
 
-        Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT address FROM storelist WHERE name ='" +name + "'", null);
+        Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT address FROM storelist WHERE name ='" + name + "'", null);
         while (c.moveToNext()) {
             String address = c.getString(0);
             getstore_address.setText(address);
@@ -77,7 +77,7 @@ public class menu_order extends AppCompatActivity {
         Cursor cc = dbHelper.getReadableDatabase().rawQuery("SELECT name FROM cartlist", null);
         while (cc.moveToNext()) {
             f_name = cc.getString(0);
-            count = cc.getCount()-1;
+            count = cc.getCount() - 1;
             break;
         }
 
@@ -105,7 +105,7 @@ public class menu_order extends AppCompatActivity {
         order_agree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT point FROM mypoint WHERE user ='" +id + "'", null);
+                Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT point FROM mypoint WHERE user ='" + id + "'", null);
                 while (c.moveToNext()) {
                     point = c.getInt(0);
                     break;
@@ -116,26 +116,34 @@ public class menu_order extends AppCompatActivity {
                 SharedPreferences pref3 = getSharedPreferences("pointcount", MODE_PRIVATE);
                 int pointcount = pref3.getInt("count", 0);
 
+                SharedPreferences pref = getSharedPreferences("details", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
 
-                if(change_point<0){
+
+                if (change_point < 0) {
                     Toast.makeText(getBaseContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
 
 
-                } else{
+                } else {
                     update(id, change_point);
-                    addpointuse(f_name +"외 " + count+"개", change_point, total_price, "구매");
+                    addpointuse(f_name + "외 " + count + "개", change_point, total_price, "구매");
+                    delete_cart();
+
+                    editor.putString("name", f_name + "외 " + count + "개");
+                    editor.putInt("price", total_price);
+                    editor.commit();
 
                     pointcount = pointcount + 1;
                     SharedPreferences.Editor editor2 = pref3.edit();
 
-                    if(pointcount == 12){
+                    if (pointcount == 12) {
                         editor2.putInt("count", 0);
                         editor2.commit();
                         addMyCou(img_g, "무료 교환권", ran);
                         Toast.makeText(getBaseContext(), "무료 쿠폰이 지급되었습니다.", Toast.LENGTH_SHORT).show();
 
 
-                    }else{
+                    } else {
                         editor2.putInt("count", pointcount);
                         editor2.commit();
                     }
@@ -166,6 +174,13 @@ public class menu_order extends AppCompatActivity {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
         mDb.execSQL("UPDATE mypoint SET point = " + point + " WHERE user = '" + id + "'");
+
+    }
+
+    public void delete_cart() {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        mDb = dbHelper.getWritableDatabase();
+        mDb.execSQL("DELETE FROM cartlist");
 
     }
 
