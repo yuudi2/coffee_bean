@@ -119,6 +119,9 @@ public class menu_order extends AppCompatActivity {
                 SharedPreferences pref = getSharedPreferences("details", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
 
+                SharedPreferences pref5 = getSharedPreferences("notification", MODE_PRIVATE);
+                SharedPreferences.Editor editor3 = pref5.edit();
+
 
                 if (change_point < 0) {
                     Toast.makeText(getBaseContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
@@ -126,7 +129,7 @@ public class menu_order extends AppCompatActivity {
 
                 } else {
                     update(id, change_point);
-                    addpointuse(f_name + "외 " + count + "개", change_point, total_price, "구매");
+                    addpointuse(id,f_name + "외 " + count + "개", change_point, total_price, "구매");
                     delete_cart();
 
                     editor.putString("name", f_name + "외 " + count + "개");
@@ -140,7 +143,10 @@ public class menu_order extends AppCompatActivity {
                         editor2.putInt("count", 0);
                         editor2.commit();
                         addMyCou(img_g, "무료 교환권", ran);
+                        addnotify(id, "스탬프", "무료 쿠폰이 지급되었습니다.");
                         Toast.makeText(getBaseContext(), "무료 쿠폰이 지급되었습니다.", Toast.LENGTH_SHORT).show();
+                        editor3.putString("notification", "on");
+                        editor3.commit();
 
 
                     } else {
@@ -213,10 +219,11 @@ public class menu_order extends AppCompatActivity {
         mDb.insert(CartlistContract.MycoulistEntry.TABLE_NAME, null, cv);
     }
 
-    public void addpointuse(String name, int point, int usepoint, String type) {
+    public void addpointuse(String id, String name, int point, int usepoint, String type) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
 
+        cv.put(CartlistContract.PointuseEntry.COLUMN_USERID, id);
         cv.put(CartlistContract.PointuseEntry.COLUMN_NAME, name);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINT, point);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINTUSE, usepoint);
@@ -224,6 +231,18 @@ public class menu_order extends AppCompatActivity {
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb.insert(CartlistContract.PointuseEntry.TABLE_NAME, null, cv);
+    }
+
+    public void addnotify(String id, String name, String detail) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+
+        cv.put(CartlistContract.NotifyEntry.COLUMN_USERID, id);
+        cv.put(CartlistContract.NotifyEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.NotifyEntry.COLUMN_DETAIL, detail);
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.NotifyEntry.TABLE_NAME, null, cv);
     }
 
     public void go_back(View view) {

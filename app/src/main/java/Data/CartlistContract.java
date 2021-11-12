@@ -78,10 +78,21 @@ public class CartlistContract {
     public static final class PointuseEntry implements BaseColumns {
         public static final String TABLE_NAME = "pointuse";
         public static final String _ID = "id";
+        public static final String COLUMN_USERID = "user";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_POINT = "point"; //잔액
         public static final String COLUMN_POINTUSE = "usepoint"; //결제금액
         public static final String COLUMN_TYPE = "type";  //선물하기 or 구매 or 충전
+        public static final String COLUMN_TIMESTAMP = "timestamp";
+    }
+
+    //알람 db
+    public static final class NotifyEntry implements BaseColumns {
+        public static final String TABLE_NAME = "notifylist";
+        public static final String _ID = "id";
+        public static final String COLUMN_USERID = "user";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_DETAIL = "detail";
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 }

@@ -108,13 +108,16 @@ public class menu_order_now extends AppCompatActivity {
         SharedPreferences pref3 = getSharedPreferences("details", MODE_PRIVATE);
         SharedPreferences.Editor editor3 = pref3.edit();
 
+        SharedPreferences pref5 = getSharedPreferences("notification", MODE_PRIVATE);
+        SharedPreferences.Editor editor4 = pref5.edit();
+
 
         int img = R.drawable.coupon_img;
         byte[] img_g = intToByte(img);
 
         Random rannum = new Random();
         int ran = rannum.nextInt(10000000);
-
+        Intent intent2 = new Intent(this, notification.class);
         order_agree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +138,7 @@ public class menu_order_now extends AppCompatActivity {
 
                 } else{
                     update(id, change_point);
-                    addpointuse(name, change_point, total_price, "구매");
+                    addpointuse(id ,name, change_point, total_price, "구매");
 
                     editor3.putString("name", name);
                     editor3.putInt("price", total_price);
@@ -148,8 +151,10 @@ public class menu_order_now extends AppCompatActivity {
                         editor2.putInt("count", 0);
                         editor2.commit();
                         addMyCou(img_g, "무료 교환권", ran);
+                        addnotify(id, "스탬프", "무료 쿠폰이 지급되었습니다.");
                         Toast.makeText(getBaseContext(), "무료 쿠폰이 지급되었습니다.", Toast.LENGTH_SHORT).show();
-
+                        editor4.putString("notification", "on");
+                        editor4.commit();
 
                     }else{
                         editor2.putInt("count", pointcount);
@@ -165,6 +170,7 @@ public class menu_order_now extends AppCompatActivity {
 
     }
 
+
     public void update(String id, int point) {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
@@ -172,10 +178,11 @@ public class menu_order_now extends AppCompatActivity {
 
     }
 
-    public void addpointuse(String name, int point, int usepoint, String type) {
+    public void addpointuse(String id, String name, int point, int usepoint, String type) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
 
+        cv.put(CartlistContract.PointuseEntry.COLUMN_USERID, id);
         cv.put(CartlistContract.PointuseEntry.COLUMN_NAME, name);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINT, point);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINTUSE, usepoint);
@@ -213,6 +220,18 @@ public class menu_order_now extends AppCompatActivity {
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb.insert(CartlistContract.MycoulistEntry.TABLE_NAME, null, cv);
+    }
+
+    public void addnotify(String id, String name, String detail) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+
+        cv.put(CartlistContract.NotifyEntry.COLUMN_USERID, id);
+        cv.put(CartlistContract.NotifyEntry.COLUMN_NAME, name);
+        cv.put(CartlistContract.NotifyEntry.COLUMN_DETAIL, detail);
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.NotifyEntry.TABLE_NAME, null, cv);
     }
 
     public void go_back(View view) {

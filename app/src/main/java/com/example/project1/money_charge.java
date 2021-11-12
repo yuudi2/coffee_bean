@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -104,7 +105,8 @@ public class money_charge extends AppCompatActivity {
 
                         //포인트 변경
                         update(id, change_point);
-                        addpointuse("포인트 충전", change_point, charge_point, "충전");
+                        addpointuse(id, "포인트 충전", change_point, charge_point, "충전");
+                        Log.d("태그", id+"는");
                         Intent intent = new Intent(getApplicationContext(), main_screen.class);
                         startActivity(intent);
                     }
@@ -133,10 +135,11 @@ public class money_charge extends AppCompatActivity {
     }
 
 
-    public void addpointuse(String name, int point, int usepoint, String type) {
+    public void addpointuse(String user, String name, int point, int usepoint, String type) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
 
+        cv.put(CartlistContract.PointuseEntry.COLUMN_USERID, user);
         cv.put(CartlistContract.PointuseEntry.COLUMN_NAME, name);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINT, point);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINTUSE, usepoint);

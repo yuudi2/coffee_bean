@@ -46,7 +46,7 @@ import Data.CartlistDBHelper;
 
 public class main_screen extends AppCompatActivity {
 
-    ImageButton arrow, arrow2, menu, order2, mymenu2, gift2;
+    ImageButton arrow, arrow2, menu, order2, mymenu2, gift2, notification;
     ImageView charge2, list2;
     Button order, mymenu, gift;
     TextView info, charge, list, money_have, point_count;
@@ -62,7 +62,9 @@ public class main_screen extends AppCompatActivity {
     double longitude = 0;
 
     private long backpressedTime = 0;
-    private Context context = this;
+    //private Context context = this;
+
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class main_screen extends AppCompatActivity {
 //        MainActivity mactivity = (MainActivity)MainActivity.activity;
 //        mactivity.finish();
 
+        context = this;
 
         cardView = findViewById(R.id.base_cardview);
         arrow = findViewById(R.id.arrow_button);
@@ -97,6 +100,7 @@ public class main_screen extends AppCompatActivity {
         charge = findViewById(R.id.charge);
         info = findViewById(R.id.info);
         money_have = findViewById(R.id.money_have);
+        notification = findViewById(R.id.notification);
 
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +202,25 @@ public class main_screen extends AppCompatActivity {
             editor3.putInt("nums", 100);
             editor3.putBoolean("isFirst",true);
             editor3.commit();
+
+        }
+
+        SharedPreferences pref5 = getSharedPreferences("notification", MODE_PRIVATE);
+        boolean first2 = pref5.getBoolean("isFirst", false);
+        if(first2==false){
+            SharedPreferences.Editor editor4 = pref5.edit();
+            editor4.putString("notification", "off");
+            editor4.putBoolean("isFirst",true);
+            editor4.commit();
+
+        }
+
+        String noti = pref5.getString("notification", "");
+        if(noti.equals("off")){
+            notification.setImageResource(R.drawable.notification);
+
+        }else{
+            notification.setImageResource(R.drawable.notification2);
 
         }
 
@@ -394,14 +417,24 @@ public class main_screen extends AppCompatActivity {
         });
 
 
+
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),notification.class);
+                startActivity(intent);
+            }
+        });
+
+
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
 
-        SharedPreferences sharedPreferences=getSharedPreferences("isFirst", MODE_PRIVATE);
-        boolean isFirst = sharedPreferences.getBoolean("isFirst", false);
+        SharedPreferences sharedPreferences=getSharedPreferences("isFirst1", MODE_PRIVATE);
+        boolean isFirst = sharedPreferences.getBoolean("isFirst1", false);
         if(!isFirst){ //최초 실행시 true 저장
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isFirst", true);
+            editor.putBoolean("isFirst1", true);
             editor.commit();
 
             byte[] store_img1 = intToByte(R.drawable.store1);
@@ -550,6 +583,7 @@ public class main_screen extends AppCompatActivity {
             break;
         }
     }
+
 
 
     //로그아웃

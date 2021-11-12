@@ -68,6 +68,7 @@ public class PointViewAdapter extends RecyclerView.Adapter<PointViewAdapter.View
         if (!mCursor.moveToPosition(position))
             return;
         @SuppressLint("Range") int id = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.PointuseEntry._ID));
+        @SuppressLint("Range") String user = mCursor.getString(mCursor.getColumnIndex(CartlistContract.PointuseEntry.COLUMN_USERID));
         @SuppressLint("Range") String name = mCursor.getString(mCursor.getColumnIndex(CartlistContract.PointuseEntry.COLUMN_NAME));
         @SuppressLint("Range") int point = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.PointuseEntry.COLUMN_POINT));
         @SuppressLint("Range") int usepoint = mCursor.getInt(mCursor.getColumnIndex(CartlistContract.PointuseEntry.COLUMN_POINTUSE));

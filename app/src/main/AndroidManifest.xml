@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".notification"
+            android:exported="true" />
+        <activity
             android:name=".order_details"
             android:exported="true" />
         <activity

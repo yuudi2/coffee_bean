@@ -160,7 +160,7 @@ public class select_gift extends AppCompatActivity {
                                 addNewCou(img_g, g_name, g_price, ran);
                                 Log.d("태그","쿠폰번호는 " + ran);
                                 update(id, change_point);
-                                addpointuse(g_name, change_point, g_price, "선물하기");
+                                addpointuse(id, g_name, change_point, g_price, "선물하기");
                                 Intent intent = new Intent(getApplicationContext(), send_gift.class);
                                 startActivity(intent);
                             }
@@ -238,10 +238,11 @@ public class select_gift extends AppCompatActivity {
     }
 
 
-    public void addpointuse(String name, int point, int usepoint, String type) {
+    public void addpointuse(String id, String name, int point, int usepoint, String type) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
 
+        cv.put(CartlistContract.PointuseEntry.COLUMN_USERID, id);
         cv.put(CartlistContract.PointuseEntry.COLUMN_NAME, name);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINT, point);
         cv.put(CartlistContract.PointuseEntry.COLUMN_POINTUSE, usepoint);
