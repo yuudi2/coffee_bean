@@ -15,7 +15,7 @@ import Data.CartlistContract.NotifyEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart0000.db";
+        private static final String DATABASE_NAME = "cart0002.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -86,6 +86,7 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
 
 
         final String SQL_CREATE_MYCOULIST_TABLE = "CREATE TABLE " + CartlistContract.MycoulistEntry.TABLE_NAME + " (" +
+                CartlistContract.MycoulistEntry.COLUMN_USERID + " TEXT NOT NULL, " +
                 CartlistContract.MycoulistEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CartlistContract.MycoulistEntry.COLUMN_IMG +" BLOB NOT NULL, " +
                 CartlistContract.MycoulistEntry.COLUMN_NAME + " TEXT NOT NULL, " +

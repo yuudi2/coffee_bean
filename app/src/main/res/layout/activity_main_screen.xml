@@ -36,6 +36,15 @@
                 android:text="CoffeeBean"
                 android:textColor="@color/white"
                 android:textSize="18.2dp" />
+
+            <ImageButton
+                android:id="@+id/notification"
+                android:layout_marginLeft="360dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/notification" />
         </FrameLayout>
     </RelativeLayout>
 

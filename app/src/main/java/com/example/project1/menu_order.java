@@ -1,10 +1,17 @@
 package com.example.project1;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +34,11 @@ public class menu_order extends AppCompatActivity {
     private SQLiteDatabase mDb;
     private RecyclerView recyclerView;
     private OrderViewAdapter adapter;
+
+    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
+    private NotificationManager mNotificationManager;
+
+    private static final int NOTIFICATION_ID = 0;
 
     Cursor cur;
     Button order_agree;
@@ -142,8 +155,9 @@ public class menu_order extends AppCompatActivity {
                     if (pointcount == 12) {
                         editor2.putInt("count", 0);
                         editor2.commit();
-                        addMyCou(img_g, "무료 교환권", ran);
+                        addMyCou(img_g, id,"무료 교환권", ran);
                         addnotify(id, "스탬프", "무료 쿠폰이 지급되었습니다.");
+                        sendNotification();
                         Toast.makeText(getBaseContext(), "무료 쿠폰이 지급되었습니다.", Toast.LENGTH_SHORT).show();
                         editor3.putString("notification", "on");
                         editor3.commit();
@@ -160,6 +174,8 @@ public class menu_order extends AppCompatActivity {
 
             }
         });
+
+        createNotificationChannel();
     }
 
     public Cursor getAllGuests() {
@@ -200,7 +216,7 @@ public class menu_order extends AppCompatActivity {
 
     }
 
-    public void addMyCou(byte[] img, String name, int num) {
+    public void addMyCou(byte[] img, String id, String name, int num) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
         /*
@@ -210,7 +226,9 @@ public class menu_order extends AppCompatActivity {
          * 두번째 파라미터는 값이다.
          */
 
+
         cv.put(CartlistContract.MycoulistEntry.COLUMN_IMG, img);
+        cv.put(CartlistContract.MycoulistEntry.COLUMN_USERID, id);
         cv.put(CartlistContract.MycoulistEntry.COLUMN_NAME, name);
         cv.put(CartlistContract.MycoulistEntry.COLUMN_COUPONNUM, num);
 
@@ -243,6 +261,47 @@ public class menu_order extends AppCompatActivity {
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb.insert(CartlistContract.NotifyEntry.TABLE_NAME, null, cv);
+    }
+
+    public void createNotificationChannel(){
+        mNotificationManager = (NotificationManager)
+                this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID
+                    , "Test Notification", mNotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setDescription("Notification from Mascot");
+
+            mNotificationManager.createNotificationChannel(notificationChannel);
+
+        }
+    }
+
+    private NotificationCompat.Builder getNotificationBuilder(){
+
+        Intent mintent = new Intent(this, notification.class);
+
+        PendingIntent mPendingIntent =  PendingIntent.getActivities(this,NOTIFICATION_ID,
+                new Intent[]{mintent}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_icon_cafe)
+                .setContentTitle("무료 쿠폰 지급")
+                .setContentText("스탬프를 다 모으셨군요! 무료 쿠폰이 지급되었습니다.")
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setContentIntent(mPendingIntent)
+                .setAutoCancel(true);
+
+        return mBuilder;
+    }
+
+    public void sendNotification(){
+        NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
+        mNotificationManager.notify(NOTIFICATION_ID,notifyBuilder.build());
     }
 
     public void go_back(View view) {

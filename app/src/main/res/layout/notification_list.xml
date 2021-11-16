@@ -27,7 +27,7 @@
                 android:fontFamily="@font/nanum_eb"
                 android:text="[스탬프]"
                 android:textColor="#754fa0"
-                android:textSize="17dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/noti_detail"
@@ -38,7 +38,7 @@
                 android:fontFamily="@font/nanum_eb"
                 android:text="무료 쿠폰이 도착하였습니다 !"
                 android:textColor="#754fa0"
-                android:textSize="17dp" />
+                android:textSize="16dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,7 +60,7 @@
                 android:text="2021-01-01"
                 android:layout_marginRight="20dp"
                 android:textColor="#aaaaaa"
-                android:textSize="14dp" />
+                android:textSize="13.5dp" />
         </LinearLayout>
     </LinearLayout>
     <TextView

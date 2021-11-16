@@ -1,6 +1,7 @@
 package com.example.project1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -89,10 +90,13 @@ public class receive_gift extends AppCompatActivity {
     public Cursor getAllGuests() {
         // 두번째 파라미터 (Projection array)는 여러 열들 중에서 출력하고 싶은 것만 선택해서 출력할 수 있게 한다.
         // 모든 열을 출력하고 싶을 때는 null 을 입력한다.
+        SharedPreferences pref = getSharedPreferences("userid", MODE_PRIVATE);
+        String id = pref.getString("user_id", "");
+
         return mDb.query(
                 CartlistContract.MycoulistEntry.TABLE_NAME,
                 null,
-                null,
+                CartlistContract.MycoulistEntry.COLUMN_USERID +" = '" + id + "'",
                 null,
                 null,
                 null,

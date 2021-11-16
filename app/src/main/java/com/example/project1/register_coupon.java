@@ -2,6 +2,7 @@ package com.example.project1;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -86,13 +87,16 @@ public class register_coupon extends AppCompatActivity {
 
     //쿠폰 정보
     private void coupon_info(int couponnum) {
+        SharedPreferences pref2 = getSharedPreferences("userid", MODE_PRIVATE);
+        String id = pref2.getString("user_id", "");
+
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT img,name FROM couponlist WHERE coupon =" + couponnum, null);
         while (c.moveToNext()) {
             int i = byte2Int(c.getBlob(0));
             byte[] img = c.getBlob(0);
             String n = c.getString(1);
-            addMyCou(img, n, couponnum);
+            addMyCou(img, id, n, couponnum);
             Toast.makeText(getBaseContext(), "쿠폰있음 이름은 "+ n + " 이미지는 " + i, Toast.LENGTH_SHORT).show();
             break;
         }
@@ -113,12 +117,13 @@ public class register_coupon extends AppCompatActivity {
 
 
 
-    public void addMyCou(byte[] img, String name, int num) {
+    public void addMyCou(byte[] img, String id, String name, int num) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
 
 
         cv.put(CartlistContract.MycoulistEntry.COLUMN_IMG, img);
+        cv.put(CartlistContract.MycoulistEntry.COLUMN_USERID, id);
         cv.put(CartlistContract.MycoulistEntry.COLUMN_NAME, name);
         cv.put(CartlistContract.MycoulistEntry.COLUMN_COUPONNUM, num);
 

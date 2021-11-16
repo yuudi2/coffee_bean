@@ -250,6 +250,7 @@ public class main_screen extends AppCompatActivity {
 
         final TextView user_name = (TextView) findViewById(R.id.user_name);
         user_name.setText(username2);
+        user_name.setPaintFlags(user_name.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 
         //String id = getIntent().getStringExtra("user_id");
@@ -430,11 +431,11 @@ public class main_screen extends AppCompatActivity {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
 
-        SharedPreferences sharedPreferences=getSharedPreferences("isFirst1", MODE_PRIVATE);
-        boolean isFirst = sharedPreferences.getBoolean("isFirst1", false);
+        SharedPreferences sharedPreferences=getSharedPreferences("isFirst5", MODE_PRIVATE);
+        boolean isFirst = sharedPreferences.getBoolean("isFirst5", false);
         if(!isFirst){ //최초 실행시 true 저장
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isFirst1", true);
+            editor.putBoolean("isFirst5", true);
             editor.commit();
 
             byte[] store_img1 = intToByte(R.drawable.store1);
@@ -460,12 +461,12 @@ public class main_screen extends AppCompatActivity {
             double sLng =  Double.valueOf(myLocation.getLongitude());
 
             //목표 좌표
-            Double [] Lat_i = {37.504702,37.503773,37.506195,37.507063,37.510281,37.502902};
-            Double [] Lng_i = {127.053144,127.048916,127.052403,127.058776,127.042971,127.045034};
-            Double[] distancelist = new Double[6];
+            Double [] Lat_i = {37.504702,37.503773,37.506195,37.507063,37.510281,37.502902,37.500318,37.511946,37.486696,37.495634,37.497615,37.516577,37.483663,37.509353};
+            Double [] Lng_i = {127.053144,127.048916,127.052403,127.058776,127.042971,127.045034,127.011825,127.020432,127.010534,127.013538,127.102532,127.101224,127.122250,127.125789};
+            Double[] distancelist = new Double[14];
 
 
-            for (int i=0;i<6;i++) {
+            for (int i=0;i<14;i++) {
                 double eLat = Lat_i[i];
                 double eLng = Lng_i[i];
 
@@ -480,6 +481,14 @@ public class main_screen extends AppCompatActivity {
             addStore( "삼성루첸타워점","02-994-8879","서울 강남구 대치동 943-2 루첸타워 1층 로비" , "월-금 07:00~20:00 | 주말,공휴일 휴점" , 37.507063,   127.058776, store_img1, distancelist[3] );
             addStore( "선정릉역점","02-2058-3028","서울시 강남구 봉은사로 331 SH빌딩점 B1-1층" , "월-금 07:00~22:00 | 주말,공휴일 09:00~22:00" , 37.510281,   127.042971, store_img2, distancelist[4] );
             addStore( "테헤란로비젼타워점","02-558-7101","서울시 강남구 테헤란로 312 707-2번지1층" , "월-금 07:00~22:00 | 주말,공휴일 11:00~19:00" , 37.502902,   127.045034, store_img3, distancelist[5] );
+            addStore( "서초중앙로점","02-537-2992","서울시 서초구 서초중앙로 209, 해성빌딩 1층" , "평일 07:00~22:00 | 주말 08:00~22:00" , 37.500318,   127.011825, store_img1, distancelist[6] );
+            addStore( "논현역6번출구앞점","02-755-3301","서울시 서초구 강남대로 563 페이토플라자 1층" , "월-금 07:00~21:00 | 주말,공휴일 08:00~21:00" , 37.511946,   127.020432, store_img2, distancelist[7] );
+            addStore( "서초동점","02-3665-9507","서울시 서초구 반포대로70" , "평일 07:00~21:00 | 토일/공휴일 08:00~21:00" , 37.486696,   127.010534, store_img3, distancelist[8] );
+            addStore( "교대법원점","02- 3664-7716","서울시 서초구 서초중앙로 156, 1층" , "월-금 07:00~21:00 | 주말/공휴일 10:00~21:00" , 37.495634,   127.013538, store_img1, distancelist[9] );
+            addStore( "송파헬리오시티점","02-777-3363","서울시 송파구 송파대로 345 B1층" , "월-금 07:00~21:00 | 토,일 07:00~21:00" , 37.497615,   127.102532, store_img2, distancelist[10] );
+            addStore( "잠실향군타워점","02-412-8812","서울시 송파구 올림픽로35길 123 1층" , "월-금 07:00~22:30 | 토,일/공휴일 08:00~22:00" , 37.516577,   127.101224, store_img3, distancelist[11] );
+            addStore( "문정동환인제약빌딩점","02-449-9569","서울시 송파구 법원로6길 11 환인빌딩 1층" , "월-금 07:00~21:00 | 토,일 09:00~21:00" , 37.483663,   127.122250, store_img1, distancelist[12] );
+            addStore( "방이역4번출구점","02-420-0386","서울시 송파구 방이동 206-11" , "매일 08:00-22:00" , 37.509353,   127.125789, store_img2, distancelist[13] );
 
         }
 
