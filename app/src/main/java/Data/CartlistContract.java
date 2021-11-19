@@ -87,6 +87,15 @@ public class CartlistContract {
         public static final String COLUMN_TIMESTAMP = "timestamp";
     }
 
+    //오더 횟수 db
+    public static final class CountEntry implements BaseColumns {
+        public static final String TABLE_NAME = "mycount";
+        public static final String _ID = "id";
+        public static final String COLUMN_USERID = "user";
+        public static final String COLUMN_COUNT = "count";
+        public static final String COLUMN_TIMESTAMP = "timestamp";
+    }
+
     //알람 db
     public static final class NotifyEntry implements BaseColumns {
         public static final String TABLE_NAME = "notifylist";

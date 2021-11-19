@@ -12,10 +12,11 @@ import Data.CartlistContract.StorelistEntry;
 import Data.CartlistContract.PointEntry;
 import Data.CartlistContract.PointuseEntry;
 import Data.CartlistContract.NotifyEntry;
+import Data.CartlistContract.CountEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart0002.db";
+        private static final String DATABASE_NAME = "cart0004.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
@@ -123,6 +124,17 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQL_CREATE_POINTUSE_TABLE);
 
 
+        final String SQL_CREATE_MYCOUNT_TABLE = "CREATE TABLE " + CartlistContract.CountEntry.TABLE_NAME + " (" +
+                CartlistContract.CountEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                CartlistContract.CountEntry.COLUMN_USERID + " TEXT NOT NULL, " +
+                CartlistContract.CountEntry.COLUMN_COUNT + " INTEGER NOT NULL, " +
+                CartlistContract.CountEntry.COLUMN_TIMESTAMP +" TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                "); ";
+
+        // 쿼리 실행
+        sqLiteDatabase.execSQL(SQL_CREATE_MYCOUNT_TABLE);
+
+
         final String SQL_CREATE_NOTIFICATION_TABLE = "CREATE TABLE " + CartlistContract.NotifyEntry.TABLE_NAME + " (" +
                 CartlistContract.NotifyEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 CartlistContract.NotifyEntry.COLUMN_USERID + " TEXT NOT NULL, " +
@@ -158,6 +170,9 @@ public class CartlistDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PointuseEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CountEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
 
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + NotifyEntry.TABLE_NAME);

@@ -49,6 +49,7 @@ public class menu_order_now extends AppCompatActivity {
 
     int change_point =0;
     int point =0;
+    int o_count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,11 +141,14 @@ public class menu_order_now extends AppCompatActivity {
                     break;
                 }
 
+                Cursor cc = dbHelper.getReadableDatabase().rawQuery("SELECT count FROM mycount WHERE user ='" + id + "'", null);
+                while (c.moveToNext()) {
+                    o_count = cc.getInt(0);
+                    break;
+                }
+
                 change_point = point - total_price;
 
-
-                SharedPreferences pref3 = getSharedPreferences("pointcount", MODE_PRIVATE);
-                int pointcount = pref3.getInt("count", 0);
 
                 if(change_point<0){
                     Toast.makeText(getBaseContext(), "잔액이 부족합니다.", Toast.LENGTH_SHORT).show();
@@ -157,12 +161,11 @@ public class menu_order_now extends AppCompatActivity {
                     editor3.putInt("price", total_price);
                     editor3.commit();
 
-                    pointcount = pointcount + 1;
-                    SharedPreferences.Editor editor2 = pref3.edit();
+                    o_count = o_count + 1;
 
-                    if(pointcount == 12){
-                        editor2.putInt("count", 0);
-                        editor2.commit();
+                    if(o_count == 12){
+                        o_count = 0;
+                        updatecount(id, o_count);
                         addMyCou(img_g, id,"무료 교환권", ran);
                         addnotify(id, "스탬프", "무료 쿠폰이 지급되었습니다.");
                         sendNotification();
@@ -171,12 +174,12 @@ public class menu_order_now extends AppCompatActivity {
                         editor4.commit();
 
                     }else{
-                        editor2.putInt("count", pointcount);
-                        editor2.commit();
+                        updatecount(id, o_count);
                     }
 
                     Intent intent = new Intent(getApplicationContext(), order_complete.class);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -190,6 +193,14 @@ public class menu_order_now extends AppCompatActivity {
         CartlistDBHelper dbHelper = new CartlistDBHelper(this);
         mDb = dbHelper.getWritableDatabase();
         mDb.execSQL("UPDATE mypoint SET point = " + point + " WHERE user = '" + id + "'");
+
+    }
+
+    //카운트 업데이트
+    public void updatecount(String id, int count) {
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        mDb = dbHelper.getWritableDatabase();
+        mDb.execSQL("UPDATE mycount SET count = " + count + " WHERE user = '" + id + "'");
 
     }
 

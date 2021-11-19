@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("user_email", user_email);
 
                                 have_point(user_id);
+                                have_count(user_id);
 
                                 startActivity(intent);
 
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         have_point(user_id);
-
+                        have_count(user_id);
 
                         startActivity(intent);
 
@@ -297,6 +298,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //오더 카운트 생성 유무
+    public void have_count(String id){
+        CartlistDBHelper dbHelper = new CartlistDBHelper(this);
+        Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT user FROM mycount", null);
+        boolean have = false;
+        while (c.moveToNext()) {
+            if((c.getString(0)).equals(id)){
+                have = true;
+                break;
+            }
+        }
+
+        if(have == false){
+            addMycount(id, 0);
+            Log.d("태그","들어감");
+        }
+    }
+
     public void addMypoint(String id, int point) {
         // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
         ContentValues cv = new ContentValues();
@@ -307,6 +326,18 @@ public class MainActivity extends AppCompatActivity {
 
         // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
         mDb.insert(CartlistContract.PointEntry.TABLE_NAME, null, cv);
+    }
+
+    public void addMycount(String id, int count) {
+        // DB에 데이터를 추가를 하기 위해선 ContentValue 객체를 사용해야 한다.
+        ContentValues cv = new ContentValues();
+
+        cv.put(CartlistContract.CountEntry.COLUMN_USERID, id);
+        cv.put(CartlistContract.CountEntry.COLUMN_COUNT, count);
+
+
+        // cv에 저장된 값을 사용하여 새로운 행을 추가한다.
+        mDb.insert(CartlistContract.CountEntry.TABLE_NAME, null, cv);
     }
 
 
