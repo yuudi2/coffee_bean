@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -126,8 +127,9 @@ public class menu_order extends AppCompatActivity {
                 }
 
                 Cursor cc = dbHelper.getReadableDatabase().rawQuery("SELECT count FROM mycount WHERE user ='" + id + "'", null);
-                while (c.moveToNext()) {
+                while (cc.moveToNext()) {
                     order_count = cc.getInt(0);
+                    Log.d("order_count",order_count + "");
                     break;
                 }
 
@@ -169,6 +171,7 @@ public class menu_order extends AppCompatActivity {
 
 
                     } else {
+                        Log.d("order_count2",order_count + "");
                         updatecount(id, order_count);
                     }
 

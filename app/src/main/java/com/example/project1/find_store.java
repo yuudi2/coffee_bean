@@ -83,11 +83,10 @@ public class find_store extends AppCompatActivity {
 
     //현재 좌표 구하기
     public void onLocationChanged(Location location){
-//        String provider = location.getProvider();
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-//        altitude = location.getAltitude();
-
+        if(location!= null){
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {

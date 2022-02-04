@@ -185,15 +185,7 @@ public class main_screen extends AppCompatActivity {
             }
         });
 
-//        SharedPreferences pref3 = getSharedPreferences("pointcount", MODE_PRIVATE);
-//        boolean first = pref3.getBoolean("isFirst", false);
-//        if(first==false){
-//            SharedPreferences.Editor editor2 = pref3.edit();
-//            editor2.putInt("count", 0);
-//            editor2.putBoolean("isFirst",true);
-//            editor2.commit();
-//
-//        }
+
 
         SharedPreferences pref4 = getSharedPreferences("ordernums", MODE_PRIVATE);
         boolean first1 = pref4.getBoolean("isFirst", false);
@@ -436,12 +428,21 @@ public class main_screen extends AppCompatActivity {
         }
 
         myLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
         onLocationChanged(myLocation);
 
 
         //내 좌표
-        double sLat = Double.valueOf(myLocation.getLatitude());
-        double sLng = Double.valueOf(myLocation.getLongitude());
+
+        if(myLocation!= null){
+            latitude = myLocation.getLatitude();
+            longitude = myLocation.getLongitude();
+        }
+
+        double sLat = Double.valueOf(latitude);
+        double sLng = Double.valueOf(longitude);
+
+
 
         //목표 좌표
         Double[] Lat_i = {37.504702, 37.503773, 37.506195, 37.507063, 37.510281, 37.502902, 37.500318, 37.511946, 37.486696, 37.495634, 37.497615, 37.516577, 37.483663, 37.509353};
@@ -537,11 +538,10 @@ public class main_screen extends AppCompatActivity {
 
     //현재 좌표 구하기
     public void onLocationChanged(Location location) {
-//        String provider = location.getProvider();
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-//        altitude = location.getAltitude();
-
+        if(location!= null){
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
     }
 
     public void onStatusChanged(String provider, int status, Bundle extras) {

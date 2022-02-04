@@ -31,6 +31,8 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
     private Context mContext;
     private Cursor mCursor;
     Location myLocation;
+    double latitude = 0;
+    double longitude = 0;
 
     private LocationManager locationManager;
     private static final int REQUEST_CODE_LOCATION = 2;
@@ -111,8 +113,13 @@ public class StoreViewAdapter extends RecyclerView.Adapter<StoreViewAdapter.View
         //((select_store)select_store.context4).onLocationChanged(myLocation);
 
         //내 좌표
-        double sLat =  Double.valueOf(myLocation.getLatitude());
-        double sLng =  Double.valueOf(myLocation.getLongitude());
+        if(myLocation!= null){
+            latitude = myLocation.getLatitude();
+            longitude = myLocation.getLongitude();
+        }
+
+        double sLat = Double.valueOf(latitude);
+        double sLng = Double.valueOf(longitude);
 
         //목표 좌표
         double eLat = Double.valueOf(lat);

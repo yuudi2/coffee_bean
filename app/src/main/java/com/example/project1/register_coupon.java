@@ -97,7 +97,7 @@ public class register_coupon extends AppCompatActivity {
             byte[] img = c.getBlob(0);
             String n = c.getString(1);
             addMyCou(img, id, n, couponnum);
-            Toast.makeText(getBaseContext(), "쿠폰있음 이름은 "+ n + " 이미지는 " + i, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "쿠폰 이름은 "+ n + " 이미지는 " + i, Toast.LENGTH_SHORT).show();
             break;
         }
     }

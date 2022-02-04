@@ -142,7 +142,7 @@ public class menu_order_now extends AppCompatActivity {
                 }
 
                 Cursor cc = dbHelper.getReadableDatabase().rawQuery("SELECT count FROM mycount WHERE user ='" + id + "'", null);
-                while (c.moveToNext()) {
+                while (cc.moveToNext()) {
                     o_count = cc.getInt(0);
                     break;
                 }

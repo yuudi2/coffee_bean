@@ -16,7 +16,7 @@ import Data.CartlistContract.CountEntry;
 
 public class CartlistDBHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "cart0004.db";
+        private static final String DATABASE_NAME = "cart0006.db";
         private static final int DATABASE_VERSION = 1;
         private	static final String TABLE_CONTACTS = "contacts";
 
